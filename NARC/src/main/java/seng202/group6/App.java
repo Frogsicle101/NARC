@@ -2,7 +2,7 @@ package seng202.group6;
 
 /**
  * Hello world!
- * test push
+ *
  */
 public class App 
 {
