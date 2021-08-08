@@ -42,4 +42,6 @@ public class AppTest
      *
      */
     public void test() { assertEquals(1,1);}
+
+    public void test2() { assertEquals(1,1);}
 }
