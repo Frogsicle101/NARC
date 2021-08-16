@@ -12,7 +12,7 @@ public class Date {
         this.day = Integer.parseInt(date.substring(3, 5));
         this.year = Integer.parseInt(date.substring(6, 10));
         this.hour = Integer.parseInt(date.substring(11, 13));
-        if (date.substring(19, 21) == "P") {
+        if (date.substring(19, 21) == "PM") { //Doesn't fucking work
             this.hour += 12;
         }
 
