@@ -1,4 +1,4 @@
-package seng202.group6.Controllers;
+package seng202.group6.Models;
 
 public class Date {
     private int month;
