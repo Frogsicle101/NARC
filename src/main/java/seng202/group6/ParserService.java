@@ -14,32 +14,34 @@ public class ParserService {
 
         File file = new File(filename);
         Scanner fileReader = new Scanner(file);
+        fileReader.nextLine(); //Skip header line
         while (fileReader.hasNextLine()) {
             String data = fileReader.nextLine();
             String[] fields =  data.split(",");
 
-            Crime toBeAdded = new Crime (
-                    fields[0], //Case Num
-                    fields[1], //Date
-                    fields[4], //Primary Description
-                    fields[5], //Secondary Description
-                    fields[7], //Arrest
-                    fields[8], //Domestic
-                    Integer.parseInt(fields[9]), //Beat
-                    Integer.parseInt(fields[10]), //Ward
-                    fields[6], //Location Description
-                    fields[14], //Latitude
-                    fields[15] //Longitude
-            );
+            Crime toBeAdded = buildCrimeFromFields(fields);
 
             crimeList.add(toBeAdded);
 
 
-
-
-
-
         }
         return crimeList;
+    }
+
+    private static Crime buildCrimeFromFields(String[] fields) {
+        Crime crime = new Crime (
+                fields[0], //Case Num
+                fields[1], //Date
+                fields[4], //Primary Description
+                fields[5], //Secondary Description
+                fields[7], //Arrest
+                fields[8], //Domestic
+                Integer.parseInt(fields[9]), //Beat
+                Integer.parseInt(fields[10]), //Ward
+                fields[6], //Location Description
+                fields[14], //Latitude
+                fields[15] //Longitude
+        );
+        return crime;
     }
 }
