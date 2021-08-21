@@ -1,4 +1,4 @@
-package seng202.group6.Controllers;
+package seng202.group6.Models;
 
 public class Date {
     private int month;
@@ -12,7 +12,7 @@ public class Date {
         this.day = Integer.parseInt(date.substring(3, 5));
         this.year = Integer.parseInt(date.substring(6, 10));
         this.hour = Integer.parseInt(date.substring(11, 13));
-        if (date.substring(19, 21) == "P") {
+        if (date.endsWith("PM")){
             this.hour += 12;
         }
 
