@@ -38,4 +38,48 @@ public class Crime {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getPrimaryDescription() {
+        return primaryDescription;
+    }
+
+    public String getSecondaryDescription() {
+        return secondaryDescription;
+    }
+
+    public boolean isArrest() {
+        return arrest;
+    }
+
+    public boolean isDomestic() {
+        return domestic;
+    }
+
+    public int getBeat() {
+        return beat;
+    }
+
+    public int getWard() {
+        return ward;
+    }
+
+    public String getLocationDescription() {
+        return locationDescription;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
 }
