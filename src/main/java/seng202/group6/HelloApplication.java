@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(root, 1050, 640));
         primaryStage.show();
     }
