@@ -1,4 +1,4 @@
-package seng202.group6;
+package seng202.group6.Controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class homeGUIApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(root, 1050, 640));
         primaryStage.show();
