@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ParserService {
-    public static ArrayList<Crime> csvToArrayList(String filename) throws FileNotFoundException {
+    public static ArrayList<Crime> csvToArrayList(File file) throws FileNotFoundException {
 
         ArrayList<Crime> crimeList = new ArrayList<Crime>();
 
-        File file = new File(filename);
         Scanner fileReader = new Scanner(file);
         fileReader.nextLine(); //Skip header line
         while (fileReader.hasNextLine()) {
