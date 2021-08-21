@@ -2,8 +2,9 @@ package seng202.group6.Models;
 
 
 public class Crime {
+    //TODO add block and all other missed classes
     private String caseNumber;
-    private Date date; //TODO update to Date
+    private Date date;
     private String primaryDescription;
     private String secondaryDescription;
     private boolean arrest;
@@ -11,7 +12,7 @@ public class Crime {
     private int beat;
     private int ward;
     private String locationDescription;
-    private String latitude;
+    private String latitude; //TODO Make location class
     private String longitude;
 
     public Crime(String caseNumber, String date, String primaryDescription, String secondaryDescription, String arrest, String domestic, int beat, int ward, String locationDescription, String latitude, String longitude) {
