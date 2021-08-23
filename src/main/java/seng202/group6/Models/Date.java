@@ -1,11 +1,7 @@
 package seng202.group6.Models;
 
-public class Date {
-    private int month;
-    private int day;
-    private int year;
-    private int hour;
-    private int minute;
+public class Date extends Time{
+
 
     public Date(String date) {
         this.month = Integer.parseInt(date.substring(0, 2));
@@ -17,27 +13,10 @@ public class Date {
         }
 
         this.minute = Integer.parseInt(date.substring(14, 16));
+        this.second = Integer.parseInt(date.substring(17, 19));
     }
 
-    public int getMonth() {
-        return this.month;
-    }
 
-    public int getDay() {
-        return this.day;
-    }
-
-    public int getYear() {
-        return this.year;
-    }
-
-    public int getHour() {
-        return this.hour;
-    }
-
-    public int getMinute() {
-        return this.minute;
-    }
 
     public static void main(String[] args) {
         String thing = "11/23/2020 03:05:00 PM";
@@ -47,6 +26,7 @@ public class Date {
         System.out.println(date.getYear());
         System.out.println(date.getHour());
         System.out.println(date.getMinute());
+        System.out.println(date.getSecond());
     }
 }
 
