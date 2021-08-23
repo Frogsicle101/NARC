@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ParserService {
+    /**
+     * Gets the data from the given file and converts it into an arraylist.
+     * @param file A file object in CSV form, containing a list of crimes
+     * @return An arraylist of Crime objects
+     * @throws FileNotFoundException
+     */
     public static ArrayList<Crime> csvToArrayList(File file) throws FileNotFoundException {
 
         ArrayList<Crime> crimeList = new ArrayList<Crime>();
@@ -27,6 +33,11 @@ public class ParserService {
         return crimeList;
     }
 
+    /**
+     * Creates a new crime object based on the data in fields
+     * @param fields A String[] with the data from the CSV
+     * @return The crime
+     */
     private static Crime buildCrimeFromFields(String[] fields) {
         Crime crime = new Crime (
                 fields[0], //Case Num
