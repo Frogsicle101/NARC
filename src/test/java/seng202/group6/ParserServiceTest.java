@@ -40,12 +40,15 @@ class ParserServiceTest {
         Crime expected = new Crime(
                 "JE266628",
                 "06/15/2021 09:30:00 AM",
+                "080XX S DREXEL AVE",
+                "0820",
                 "THEFT",
                 "$500 AND UNDER",
                 "N",
                 "N",
                 631,
                 8,
+                "061183633",
                 "STREET",
                 "41.880660786",
                 "-87.731186405"

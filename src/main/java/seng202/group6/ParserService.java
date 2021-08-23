@@ -42,15 +42,18 @@ public class ParserService {
         Crime crime = new Crime (
                 fields[0], //Case Num
                 fields[1], //Date
+                fields[2], //Block
+                fields[3], //IUCR
                 fields[4], //Primary Description
                 fields[5], //Secondary Description
                 fields[7], //Arrest
                 fields[8], //Domestic
                 Integer.parseInt(fields[9]), //Beat
                 Integer.parseInt(fields[10]), //Ward
-                fields[6], //Location Description
+                fields[11], //FBI
+                fields[6],  //Location Description
                 fields[14], //Latitude
-                fields[15] //Longitude
+                fields[15]  //Longitude
         );
         return crime;
     }
