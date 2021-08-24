@@ -1,10 +1,11 @@
-package seng202.group6;
+package seng202.group6.ServiceTests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seng202.group6.Models.Crime;
+import seng202.group6.Services.ParserService;
 
 import java.io.File;
 import java.io.FileNotFoundException;

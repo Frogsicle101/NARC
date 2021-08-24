@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
-import seng202.group6.ParserService;
+import seng202.group6.Services.ParserService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
