@@ -97,8 +97,8 @@ public class Crime {
          * Uses vector's I have forgotten level 3 math.
          * @return Returns a float in KILOMETERS!!!
          */
-        Double x = (new Double(this.longitude) - new Double(otherCrime.longitude)) * 111; //Don't ask me what is going on I don't know either
-        Double y = (new Double(this.latitude) - new Double(otherCrime.latitude)) * 111;  //But it works. The *111 is to convert to KM's
+        Double x = (Double.parseDouble(this.longitude) - Double.parseDouble(otherCrime.longitude)) * 111; //Don't ask me what is going on I don't know either
+        Double y = (Double.parseDouble(this.latitude) - Double.parseDouble(otherCrime.latitude)) * 111;  //But it works. The *111 is to convert to KM's
         return Math.hypot(x, y); //Again return value is in km
     }
 
