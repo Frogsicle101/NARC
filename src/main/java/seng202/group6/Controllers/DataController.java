@@ -1,8 +1,10 @@
 package seng202.group6.Controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,7 +17,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class DataController extends MasterController {
+public class DataController extends MasterController implements Initializable {
 
     @FXML
     private Button homeButton;
@@ -44,19 +46,17 @@ public class DataController extends MasterController {
     @FXML
     private TableColumn<Crime, Date> dateColumn;
 
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("Case Number"));
-        primaryDescColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("Primary Description"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("Location"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("Date"));
+        tableView.setVisible(true);
 
-        tableView.setItems(getCrimes());
+        caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("caseNumber"));
+        primaryDescColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("primaryDescription"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("date"));
 
-    }
-
-    public ObservableList<Crime> getCrimes() {
-        return getCrimeData();
+        tableView.setItems(MasterController.crimeData);
     }
 
     public void clickHome(ActionEvent event) throws IOException {
@@ -70,6 +70,7 @@ public class DataController extends MasterController {
     public void clickImport(ActionEvent event) throws IOException {
         changeToImportScreen(event);
     }
+
 
 
 }

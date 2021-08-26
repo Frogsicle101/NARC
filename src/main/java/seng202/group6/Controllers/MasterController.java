@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class MasterController {
 
-    private ObservableList<Crime> crimeData;
+    protected static ObservableList<Crime> crimeData;
 
     public void changeScreen(String screen, ActionEvent event) throws IOException {
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
@@ -38,15 +39,6 @@ public class MasterController {
     public void changeToImportScreen(ActionEvent event) throws IOException {
         changeScreen("importScreen.fxml", event);
     }
-
-    public void setCrimeData(ObservableList<Crime> data) {
-        crimeData = data;
-    }
-
-    public ObservableList<Crime> getCrimeData() {
-        return crimeData;
-    }
-
 
 
 
