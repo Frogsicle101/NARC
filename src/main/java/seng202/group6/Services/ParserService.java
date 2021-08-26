@@ -21,12 +21,16 @@ public class ParserService {
         Scanner fileReader = new Scanner(file);
         fileReader.nextLine(); //Skip header line
         while (fileReader.hasNextLine()) {
-            String data = fileReader.nextLine();
-            String[] fields =  data.split(",");
+            try {
+                String data = fileReader.nextLine();
+                String[] fields = data.split(",");
 
-            Crime toBeAdded = buildCrimeFromFields(fields);
+                Crime toBeAdded = buildCrimeFromFields(fields);
 
-            crimeList.add(toBeAdded);
+                crimeList.add(toBeAdded);
+            } catch (IndexOutOfBoundsException e) {
+                //File doesn't have all the data, ignore for now
+            }
 
 
         }
