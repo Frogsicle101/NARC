@@ -56,6 +56,12 @@ public class Crime {
         return date;
     }
 
+    public String getFBI() { return FBI; }
+
+    public String getBlock() { return block; }
+
+    public String getIUCR() { return IUCR; }
+
     public String getPrimaryDescription() {
         return primaryDescription;
     }
