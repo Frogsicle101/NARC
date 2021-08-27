@@ -20,12 +20,12 @@
                   <Font size="35.0" />
                </font>
             </Button>
-            <TableView fx:id="tableView" layoutX="326.0" layoutY="168.0" prefHeight="409.0" prefWidth="674.0" visible="false">
+            <TableView fx:id="tableView" layoutX="258.0" layoutY="138.0" prefHeight="448.0" prefWidth="758.0">
               <columns>
-                <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="172.0" text="Case Number" />
-                <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="167.0" text="Primary Description" />
-                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="176.0" text="Location" />
-                  <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="158.0" text="Date" />
+                <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="183.0" text="Case Number" />
+                <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="218.0" text="Primary Description" />
+                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="186.0" text="Location" />
+                  <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="170.0" text="Date" />
               </columns>
             </TableView>
             <Button fx:id="homeButton" layoutY="138.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="132.0" prefWidth="247.0" text="Home">
@@ -38,6 +38,7 @@
                   <Font size="35.0" />
                </font>
             </Button>
+            <Button fx:id="viewCrime" layoutX="580.0" layoutY="614.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" />
          </children>
       </AnchorPane>
    </children>

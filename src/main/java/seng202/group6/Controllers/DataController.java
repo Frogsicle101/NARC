@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Date;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -50,13 +51,17 @@ public class DataController extends MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         tableView.setVisible(true);
-
         caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("caseNumber"));
         primaryDescColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("primaryDescription"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("date"));
 
         tableView.setItems(MasterController.crimeData);
+    }
+
+    public void selectCrime(ActionEvent event) throws IOException {
+        Crime crime = tableView.getSelectionModel().getSelectedItem();
+        launchViewScreen(event, crime);
     }
 
     public void clickHome(ActionEvent event) throws IOException {
