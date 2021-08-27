@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import com.opencsv.exceptions.CsvValidationException;
 import seng202.group6.Controllers.DataController;
 
 import javafx.collections.FXCollections;
@@ -52,7 +53,7 @@ public class ImportController extends MasterController {
         changeToDataScreen(event);
     }
 
-    public void clickImportFile(ActionEvent event) throws FileNotFoundException {
+    public void clickImportFile(ActionEvent event) throws IOException, CsvValidationException {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
@@ -63,7 +64,7 @@ public class ImportController extends MasterController {
         if (crimeFile == null) {
             validUpload = false;
         } else {
-            ArrayList<Crime> crimeArray = ParserService.csvToArrayList(crimeFile);
+            ArrayList<Crime> crimeArray = ParserService.csvToArrayList(crimeFile); //TODO: deal with thrown exceptions
             MasterController.crimeData = FXCollections.observableArrayList(crimeArray);
 
             // need to make method to check if file is csv format and if they actually selected a file
