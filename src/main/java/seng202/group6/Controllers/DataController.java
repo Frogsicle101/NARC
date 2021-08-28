@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Date;
 
@@ -47,6 +48,9 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private TableColumn<Crime, Date> dateColumn;
 
+    @FXML
+    private Text notSelectedText;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -61,7 +65,13 @@ public class DataController extends MasterController implements Initializable {
 
     public void selectCrime(ActionEvent event) throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
-        launchViewScreen(event, crime);
+        if (crime != null) {
+            notSelectedText.setVisible(false);
+            launchViewScreen(event, crime);
+        } else {
+            notSelectedText.setVisible(true);
+        }
+
     }
 
     public void clickHome(ActionEvent event) throws IOException {
