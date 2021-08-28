@@ -50,14 +50,15 @@ public class MasterController {
     }
 
     public void launchViewScreen(ActionEvent event, Crime crime) throws IOException {
-        
+
+        crimeToView = crime;
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrime.fxml"));
-        Scene newScene = new Scene(newScreen, 600, 350);
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
+        Scene newScene = new Scene(newScreen, 500, 500);
         viewStage.setScene(newScene);
         viewStage.show();
-        crimeToView = crime;
+
     }
 
 

@@ -56,6 +56,7 @@ public class ViewController extends MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         Crime viewedCrime = MasterController.crimeToView;
+        System.out.println(viewedCrime);
         caseNumber.setText(viewedCrime.getCaseNumber());
         // date.setText(viewedCrime.getDate());
         block.setText(viewedCrime.getBlock());
