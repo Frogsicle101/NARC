@@ -48,6 +48,10 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private TableColumn<Crime, Date> dateColumn;
 
+
+    @FXML
+    private Button viewCrime;
+
     @FXML
     private Text notSelectedText;
 
@@ -60,7 +64,7 @@ public class DataController extends MasterController implements Initializable {
         locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("date"));
 
-        tableView.setItems(MasterController.crimeData);
+        tableView.setItems(FXCollections.observableArrayList(MasterController.crimeData));
     }
 
     public void selectCrime(ActionEvent event) throws IOException {

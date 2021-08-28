@@ -64,8 +64,7 @@ public class ImportController extends MasterController {
         if (crimeFile == null) {
             validUpload = false;
         } else {
-            ArrayList<Crime> crimeArray = ParserService.csvToArrayList(crimeFile); //TODO: deal with thrown exceptions
-            MasterController.crimeData = FXCollections.observableArrayList(crimeArray);
+            MasterController.crimeData = ParserService.csvToArrayList(crimeFile); //TODO: deal with thrown exceptions
 
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser

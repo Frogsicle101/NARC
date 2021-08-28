@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MasterController {
 
-    protected static ObservableList<Crime> crimeData;
+    protected static ArrayList<Crime> crimeData;
     protected static Crime crimeToView;
 
     private Parent homeScreen;
@@ -55,7 +55,7 @@ public class MasterController {
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
-        Scene newScene = new Scene(newScreen, 600, 500);
+        Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();
 
