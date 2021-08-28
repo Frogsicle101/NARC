@@ -1,5 +1,8 @@
 package seng202.group6.Services;
 
+import javax.imageio.ImageIO;
+import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,6 +10,8 @@ import java.io.OutputStream;
 import java.net.URL;
 
 public class MapService {
+    private final String api = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
+
     public static void saveImage(String imageUrl, String destinationFile) throws IOException {
         URL url = new URL(imageUrl);
         InputStream is = url.openStream();
@@ -21,6 +26,11 @@ public class MapService {
 
         is.close();
         os.close();
+    }
+
+    public static Image getImage(String address) throws IOException {
+        Image image = new Image(address);
+        return image;
     }
 
 }

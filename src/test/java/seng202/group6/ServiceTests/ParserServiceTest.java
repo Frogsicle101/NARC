@@ -1,5 +1,6 @@
 package seng202.group6.ServiceTests;
 
+import com.opencsv.exceptions.CsvValidationException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class ParserServiceTest {
     }
 
     @Test
-    public void csvToArrayList() throws FileNotFoundException {
+    public void csvToArrayList() throws IOException, CsvValidationException {
         ArrayList<Crime> generatedCrimes = ParserService.csvToArrayList(new File("test.csv"));
         Crime expected = new Crime(
                 "JE266628",

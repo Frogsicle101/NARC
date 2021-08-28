@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +15,18 @@ import java.util.ArrayList;
 
 public class MasterController {
 
-    private ObservableList<Crime> crimeData;
+    protected static ObservableList<Crime> crimeData;
+    protected static Crime crimeToView;
+
+    private Parent homeScreen;
+    private Parent mapScreen;
+    private Parent dataScreen;
+    private Parent importScreen;
 
     public void changeScreen(String screen, ActionEvent event) throws IOException {
+
+
+
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene newScene = new Scene(newScreen, 1050, 640);
@@ -39,15 +49,17 @@ public class MasterController {
         changeScreen("importScreen.fxml", event);
     }
 
-    public void setCrimeData(ObservableList<Crime> data) {
-        crimeData = data;
+    public void launchViewScreen(ActionEvent event, Crime crime) throws IOException {
+
+        crimeToView = crime;
+        Stage viewStage = new Stage();
+        viewStage.setTitle("View Crime Info");
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
+        Scene newScene = new Scene(newScreen, 500, 500);
+        viewStage.setScene(newScene);
+        viewStage.show();
+
     }
-
-    public ObservableList<Crime> getCrimeData() {
-        return crimeData;
-    }
-
-
 
 
 }
