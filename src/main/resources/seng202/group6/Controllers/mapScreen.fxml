@@ -31,10 +31,11 @@
                   <Font size="35.0" />
                </font>
             </Button>
-            <ImageView fx:id="mapImage" fitHeight="300.0" fitWidth="600.0" layoutX="422.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="viewMapButton" layoutX="871.0" layoutY="227.0" mnemonicParsing="false" onAction="#clickViewMap" text="View Map" />
-            <TextField fx:id="addressField" layoutX="561.0" layoutY="227.0" promptText="Address" />
-            <Text layoutX="625.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Adress" />
+            <ImageView fx:id="mapImage" fitHeight="350.0" fitWidth="700.0" layoutX="332.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="viewMapButton" layoutX="905.0" layoutY="163.0" mnemonicParsing="false" onAction="#clickViewMap" text="View Map" />
+            <TextField fx:id="addressField" layoutX="402.0" layoutY="163.0" prefHeight="25.0" prefWidth="486.0" promptText="Address" />
+            <Text layoutX="608.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Adress" />
+            <Text fx:id="noAddressText" layoutX="402.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter an Address" visible="false" wrappingWidth="140.078125" />
          </children>
       </AnchorPane>
    </children>
