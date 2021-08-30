@@ -13,6 +13,11 @@ import java.io.IOException;
 
 import static seng202.group6.Services.MapService.*;
 
+/**
+ * Controller class for map screen in the user interface, associated with homeScreen.fxml.
+ * Is a child class of MasterController
+ */
+
 public class MapController extends MasterController {
 
     @FXML
@@ -39,13 +44,34 @@ public class MapController extends MasterController {
     @FXML
     private Text noAddressText;
 
+    /**
+     * Method to call change to home screen method in MasterController when the home button
+     * is clicked
+     * @param event Button click event when home button is clicked
+     * @throws IOException
+     */
+
     public void clickHome(ActionEvent event) throws IOException {
         changeToHomeScreen(event);
     }
 
+    /**
+     * Method to call change to data screen method in MasterController when the data button
+     * is clicked
+     * @param event Button click event when data button is clicked
+     * @throws IOException
+     */
+
     public void clickData(ActionEvent event) throws IOException {
         changeToDataScreen(event);
     }
+
+    /**
+     * Method to call change to data screen method in MasterController when the data button
+     * is clicked
+     * @param event Button click event when data button is clicked
+     * @throws IOException
+     */
 
     public void clickImport(ActionEvent event) throws IOException {
         changeToImportScreen(event);

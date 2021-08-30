@@ -8,6 +8,11 @@ import seng202.group6.Models.Crime;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for viewing detailed view of specific crime, associated with
+ * viewCrimeScreen.fxml. Is a child class of MasterController
+ */
+
 public class ViewController extends MasterController implements Initializable {
 
     @FXML
@@ -51,6 +56,12 @@ public class ViewController extends MasterController implements Initializable {
 
     @FXML
     private Text longitude;
+
+    /**
+     * Method to initialize view scene, sets all the specific text fields to
+     * their correlating values in the specific crime given. Specific crime is
+     * taken from crimeToView in MasterController class.
+     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
