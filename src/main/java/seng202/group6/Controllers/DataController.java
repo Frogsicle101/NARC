@@ -1,7 +1,6 @@
 package seng202.group6.Controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,11 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Date;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -72,7 +68,7 @@ public class DataController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (MasterController.crimeData.size() > 0) {
+        if (MasterController.crimeData != null) {
 
             noDataText.setVisible(false);
             tableView.setVisible(true);
@@ -92,7 +88,6 @@ public class DataController extends MasterController implements Initializable {
 
     }
 
-
     /**
      * Method to view detailed description of a specific crime, checks if a crime is selected
      * from the data table and returns error message if not. Calls function from MasterController
@@ -108,7 +103,6 @@ public class DataController extends MasterController implements Initializable {
         } else {
             notSelectedText.setVisible(true);
         }
-
     }
 
     /**
