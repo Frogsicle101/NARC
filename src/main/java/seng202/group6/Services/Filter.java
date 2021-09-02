@@ -1,11 +1,62 @@
-package seng202.group6.Controllers;
+package seng202.group6.Services;
 
 import seng202.group6.Models.Crime;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Filter {
+
+
+    public static ArrayList<Crime> applyFilter(ArrayList<Crime> crimes,
+                                               LocalDate start,
+                                               LocalDate end,
+                                               Set<String> types,
+                                               Set<String> locations,
+                                               boolean arrest,
+                                               boolean domestic,
+                                               String beats,
+                                               String wards) {
+
+
+        if (!types.isEmpty()) {
+            crimes = filterByCrimeType(crimes, types);
+        }
+
+        if (!locations.isEmpty()) {
+            crimes = filterByLocation(crimes, locations);
+        }
+
+
+        crimes = filterByArrest(crimes, arrest);
+
+        crimes = filterByDomestic(crimes, domestic);
+
+
+        if (!beats.equals("")) {
+            Set<Integer> beatSet = new HashSet<Integer>();
+            for (String beat : beats.split(",")) {
+                beatSet.add(Integer.parseInt(beat));
+            }
+            crimes = filterByBeat(crimes, beatSet);
+        }
+
+
+        if (!wards.equals("")) {
+            Set<Integer> wardSet = new HashSet<Integer>();
+            for (String ward : wards.split(",")) {
+                wardSet.add(Integer.parseInt(ward));
+            }
+            crimes = filterByWard(crimes, wardSet);
+
+        }
+
+
+        return crimes;
+    }
+
     /**
      * Filters by primary description of crime
      * @param crimes The input to be filtered
@@ -100,4 +151,10 @@ public class Filter {
         }
         return output;
     }
+
 }
+
+
+
+
+

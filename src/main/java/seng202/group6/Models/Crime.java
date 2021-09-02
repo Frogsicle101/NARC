@@ -28,17 +28,10 @@ public class Crime {
 
         this.primaryDescription = primaryDescription;
         this.secondaryDescription = secondaryDescription;
-        if (arrest == "Y") {
-            this.arrest = true;
-        } else {
-            this.arrest = false;
-        }
 
-        if (domestic == "Y") {
-            this.domestic = true;
-        } else {
-            this.domestic = false;
-        }
+        this.arrest = arrest.equals("Y");
+        this.domestic = domestic.equals("Y");
+
 
         this.beat = beat;
         this.ward = ward;

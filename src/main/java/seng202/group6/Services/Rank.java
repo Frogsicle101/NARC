@@ -1,4 +1,4 @@
-package seng202.group6.Controllers;
+package seng202.group6.Services;
 
 import seng202.group6.Models.Crime;
 
