@@ -187,8 +187,9 @@ public class DataController extends MasterController implements Initializable {
 
     public void clickApply() {
 
-        LocalDate start = startDate.getValue();
-        LocalDate end = endDate.getValue();
+        Filter filter = new Filter();
+        filter.setStart(startDate.getValue());
+        filter.setEnd(endDate.getValue());
 
         Set<String> selectedTypes = new HashSet<>();
         for (MenuItem item: crimeTypeDropdown.getItems()) {
@@ -197,6 +198,7 @@ public class DataController extends MasterController implements Initializable {
                 selectedTypes.add(box.getText());
             }
         }
+        filter.setTypes(selectedTypes);
 
         Set<String> selectedLocations = new HashSet<>();
         for (MenuItem item: locationDropdown.getItems()) {
@@ -205,16 +207,17 @@ public class DataController extends MasterController implements Initializable {
                 selectedLocations.add(box.getText());
             }
         }
+        filter.setLocations(selectedLocations);
 
 
-        boolean arrest = isArrest.isSelected();
-        boolean domestic = isDomestic.isSelected();
+        filter.setArrest(isArrest.isSelected());
+        filter.setDomestic(isDomestic.isSelected());
 
-        String beats = beatSearch.getText();
-        String wards = wardSearch.getText();
+        filter.setBeats(beatSearch.getText());
+        filter.setWards(wardSearch.getText());
 
 
-        ArrayList<Crime> crimes = Filter.applyFilter(MasterController.crimeData, start, end, selectedTypes, selectedLocations, arrest, domestic, beats, wards);
+        ArrayList<Crime> crimes = filter.applyFilter(MasterController.crimeData);
 
         tableView.setItems(FXCollections.observableArrayList(crimes));
 
