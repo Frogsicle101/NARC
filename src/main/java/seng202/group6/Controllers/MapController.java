@@ -52,7 +52,7 @@ public class MapController extends MasterController {
      */
 
     public void clickHome(ActionEvent event) throws IOException {
-        changeToHomeScreen(event);
+        changeToHomeScreen();
     }
 
     /**
@@ -63,7 +63,7 @@ public class MapController extends MasterController {
      */
 
     public void clickData(ActionEvent event) throws IOException {
-        changeToDataScreen(event);
+        changeToDataScreen();
     }
 
     /**
@@ -74,7 +74,7 @@ public class MapController extends MasterController {
      */
 
     public void clickImport(ActionEvent event) throws IOException {
-        changeToImportScreen(event);
+        changeToImportScreen();
     }
 
     public void clickViewMap(ActionEvent event) {

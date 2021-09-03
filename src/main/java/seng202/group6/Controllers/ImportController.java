@@ -48,34 +48,31 @@ public class ImportController extends MasterController {
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @param event Button click event when home button is clicked
      * @throws IOException
      */
     
-    public void clickHome(ActionEvent event) throws IOException {
-        changeToHomeScreen(event);
+    public void clickHome() throws IOException {
+        changeToHomeScreen();
     }
 
     /**
      * Method to call change to map screen method in MasterController when the map button
      * is clicked
-     * @param event Button click event when map button is clicked
      * @throws IOException
      */
     
-    public void clickMap(ActionEvent event) throws IOException {
-        changeToMapScreen(event);
+    public void clickMap() throws IOException {
+        changeToMapScreen();
     }
 
     /**
      * Method to call change to data screen method in MasterController when the data button
      * is clicked
-     * @param event Button click event when data button is clicked
      * @throws IOException
      */
 
-    public void clickData(ActionEvent event) throws IOException {
-        changeToDataScreen(event);
+    public void clickData() throws IOException {
+        changeToDataScreen();
     }
 
     /**
@@ -93,14 +90,13 @@ public class ImportController extends MasterController {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         boolean validUpload;
-        File crimeFile = fileChooser.showOpenDialog(currentStage);
+        File crimeFile = fileChooser.showOpenDialog(MasterController.stage);
         if (crimeFile == null) {
             validUpload = false;
         } else {
-            MasterController.crimeData = ParserService.csvToArrayList(crimeFile); //TODO: deal with thrown exceptions
+            MasterController.crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
 
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser

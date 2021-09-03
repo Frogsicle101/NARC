@@ -28,7 +28,7 @@
                   <Font size="35.0" />
                </font>
             </Button>
-            <TableView fx:id="tableView" layoutX="258.0" layoutY="138.0" prefHeight="453.0" prefWidth="488.0" visible="false">
+            <TableView fx:id="tableView" layoutX="258.0" layoutY="138.0" prefHeight="453.0" prefWidth="488.0">
               <columns>
                 <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="95.0" text="Case Number" />
                 <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="154.0" text="Primary Description" />
@@ -46,8 +46,8 @@
                   <Font size="35.0" />
                </font>
             </Button>
-            <Button fx:id="viewCrime" layoutX="538.0" layoutY="600.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" visible="false" />
-            <Text fx:id="notSelectedText" layoutX="501.0" layoutY="648.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a crime to view" visible="false" />
+            <Button fx:id="viewCrime" layoutX="651.0" layoutY="600.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" />
+            <Text fx:id="notSelectedText" layoutX="624.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a crime to view" />
             <Text fx:id="noDataText" layoutX="373.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No data has been imported yet, please import data using the import screen or add individual crime manually" />
             <VBox fx:id="filterBox" layoutX="806.0" layoutY="184.0" prefHeight="409.0" prefWidth="199.0">
                <children>
@@ -116,6 +116,9 @@
                   </Button>
                </children>
             </VBox>
+            <Button fx:id="addButton" layoutX="258.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickAdd" text="Add Crime" />
+            <Button fx:id="editButton" layoutX="387.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickEdit" text="Edit Crime" />
+            <Button fx:id="deleteButton" layoutX="521.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickDelete" text="Delete Crime" />
          </children>
       </AnchorPane>
    </children>

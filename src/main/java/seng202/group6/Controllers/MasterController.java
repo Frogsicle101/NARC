@@ -18,13 +18,16 @@ import java.util.ArrayList;
 
 public class MasterController {
 
-    protected static ArrayList<Crime> crimeData;
+    protected static ArrayList<Crime> crimeData = new ArrayList<>();
     protected static Crime crimeToView;
+    protected static Stage stage;
 
     private Parent homeScreen;
     private Parent mapScreen;
     private Parent dataScreen;
     private Parent importScreen;
+
+
 
     /**
      * Method to change between scenes in the current window
@@ -33,12 +36,11 @@ public class MasterController {
      * @throws IOException
      */
 
-    public void changeScreen(String screen, ActionEvent event) throws IOException {
+    public void changeScreen(String screen) throws IOException {
 
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
-        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene newScene = new Scene(newScreen, 1050, 640);
-        currentStage.setScene(newScene);
+        stage.setScene(newScene);
     }
 
     /**
@@ -48,8 +50,8 @@ public class MasterController {
      * @throws IOException
      */
 
-    public void changeToHomeScreen(ActionEvent event) throws IOException {
-        changeScreen("homeScreen.fxml", event);
+    public void changeToHomeScreen() throws IOException {
+        changeScreen("homeScreen.fxml");
     }
 
     /**
@@ -59,8 +61,8 @@ public class MasterController {
      * @throws IOException
      */
 
-    public void changeToMapScreen(ActionEvent event) throws IOException {
-        changeScreen("mapScreen.fxml", event);
+    public void changeToMapScreen() throws IOException {
+        changeScreen("mapScreen.fxml");
     }
 
     /**
@@ -70,8 +72,8 @@ public class MasterController {
      * @throws IOException
      */
 
-    public void changeToDataScreen(ActionEvent event) throws IOException {
-        changeScreen("dataScreen.fxml", event);
+    public void changeToDataScreen() throws IOException {
+        changeScreen("dataScreen.fxml");
     }
 
     /**
@@ -81,25 +83,35 @@ public class MasterController {
      * @throws IOException
      */
 
-    public void changeToImportScreen(ActionEvent event) throws IOException {
-        changeScreen("importScreen.fxml", event);
+    public void changeToImportScreen() throws IOException {
+        changeScreen("importScreen.fxml");
     }
 
     /**
      * Method to launch new window for viewing specific crime in order to show detailed
      * attributes, takes a specific crime as a parameter
-     * @param event Button clicked event which allows method to find current stage
      * @param crime Specific crime selected by user to view detailed description
-     * @throws IOException
      */
 
-    public void launchViewScreen(ActionEvent event, Crime crime) throws IOException {
+    public void launchViewScreen(Crime crime) throws IOException {
 
         crimeToView = crime;
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
         Scene newScene = new Scene(newScreen, 700, 500);
+        viewStage.setScene(newScene);
+        viewStage.show();
+
+    }
+
+    public void launchEditScreen(Crime crime) throws IOException {
+
+        crimeToView = crime;
+        Stage viewStage = new Stage();
+        viewStage.setTitle("Edit Crime Info");
+        Parent newScreen = FXMLLoader.load(getClass().getResource("editCrimeScreen.fxml"));
+        Scene newScene = new Scene(newScreen, 500, 550);
         viewStage.setScene(newScene);
         viewStage.show();
 

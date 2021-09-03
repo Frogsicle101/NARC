@@ -17,6 +17,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
+        MasterController.stage = primaryStage;
         Parent homeScreen = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(homeScreen, 1050, 640));

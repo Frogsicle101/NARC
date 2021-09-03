@@ -5,10 +5,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Date;
 import seng202.group6.Services.Filter;
@@ -45,7 +47,7 @@ public class DataController extends MasterController implements Initializable {
     private Button importButton;
 
     @FXML
-    private TableView<Crime> tableView;
+    protected TableView<Crime> tableView;
 
     @FXML
     private TableColumn<Crime, String> caseNumColumn;
@@ -98,6 +100,16 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private Button applyButton;
 
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private Button deleteButton;
+
+
     /**
     * Method to initialize data scene, checks if there has been data imported first,
      * if there has it will show a data with all crimes in a table, and give an optional button
@@ -145,7 +157,7 @@ public class DataController extends MasterController implements Initializable {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
         if (crime != null) {
             notSelectedText.setVisible(false);
-            launchViewScreen(event, crime);
+            launchViewScreen(crime);
         } else {
             notSelectedText.setVisible(true);
         }
@@ -154,34 +166,31 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @param event Button click event when home button is clicked
      * @throws IOException
      */
 
-    public void clickHome(ActionEvent event) throws IOException {
-        changeToHomeScreen(event);
+    public void clickHome() throws IOException {
+        changeToHomeScreen();
     }
 
     /**
      * Method to call change to map screen method in MasterController when the map button
      * is clicked
-     * @param event Button click event when map button is clicked
      * @throws IOException
      */
 
-    public void clickMap(ActionEvent event) throws IOException {
-        changeToMapScreen(event);
+    public void clickMap() throws IOException {
+        changeToMapScreen();
     }
 
     /**
      * Method to call change to import screen method in MasterController when the import button
      * is clicked
-     * @param event Button click event when import button is clicked
      * @throws IOException
      */
 
-    public void clickImport(ActionEvent event) throws IOException {
-        changeToImportScreen(event);
+    public void clickImport() throws IOException {
+        changeToImportScreen();
     }
 
 
@@ -223,6 +232,32 @@ public class DataController extends MasterController implements Initializable {
 
 
     }
+
+
+    public void clickAdd() throws IOException {
+        Crime crime = new Crime();
+        EditController.isNewCrime = true;
+        launchEditScreen(crime);
+    }
+
+    public void clickEdit(ActionEvent event) throws IOException{
+        Crime crime = tableView.getSelectionModel().getSelectedItem();
+        if (crime != null) {
+            notSelectedText.setVisible(false);
+            EditController.isNewCrime = false;
+            launchEditScreen(crime);
+        } else {
+            notSelectedText.setVisible(true);
+        }
+    }
+
+    public void clickDelete() throws IOException {
+        int index = tableView.getSelectionModel().getFocusedIndex();
+        MasterController.crimeData.remove(index);
+        changeToDataScreen();
+
+    }
+
 
     private void buildFilterSets() {
         for (Crime crime :MasterController.crimeData) {

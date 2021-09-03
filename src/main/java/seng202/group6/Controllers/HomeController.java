@@ -31,8 +31,8 @@ public class HomeController extends MasterController {
      * @throws IOException
      */
 
-    public void clickMap(ActionEvent event) throws IOException {
-        changeToMapScreen(event);
+    public void clickMap() throws IOException {
+        changeToMapScreen();
     }
 
     /**
@@ -42,12 +42,12 @@ public class HomeController extends MasterController {
      * @throws IOException
      */
 
-    public void clickData(ActionEvent event) throws IOException {
-        changeToDataScreen(event);
+    public void clickData() throws IOException {
+        changeToDataScreen();
     }
 
-    public void clickImport(ActionEvent event) throws IOException {
-        changeToImportScreen(event);
+    public void clickImport() throws IOException {
+        changeToImportScreen();
     }
 
 }

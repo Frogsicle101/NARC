@@ -20,6 +20,11 @@ public class Crime {
     private String latitude;
     private String longitude;
 
+    /**
+     * Empty constructor for making a blank crime object
+     */
+    public Crime() {}
+
     public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription, String secondaryDescription, String arrest, String domestic, int beat, int ward, String FBI, String locationDescription, String latitude, String longitude) {
         this.caseNumber = caseNumber;
         this.date = new Date(date);
@@ -89,6 +94,62 @@ public class Crime {
 
     public String getLongitude() {
         return longitude;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
+    }
+
+    public void setIUCR(String IUCR) {
+        this.IUCR = IUCR;
+    }
+
+    public void setPrimaryDescription(String primaryDescription) {
+        this.primaryDescription = primaryDescription;
+    }
+
+    public void setSecondaryDescription(String secondaryDescription) {
+        this.secondaryDescription = secondaryDescription;
+    }
+
+    public void setLocationDescription(String locationDescription) {
+        this.locationDescription = locationDescription;
+    }
+
+    public void setArrest(boolean arrest) {
+        this.arrest = arrest;
+    }
+
+    public void setDomestic(boolean domestic) {
+        this.domestic = domestic;
+    }
+
+    public void setBeat(int beat) {
+        this.beat = beat;
+    }
+
+    public void setWard(int ward) {
+        this.ward = ward;
+    }
+
+    public void setFBI(String FBI) {
+        this.FBI = FBI;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public Double getDistanceBetween(Crime otherCrime){
