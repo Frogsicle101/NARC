@@ -8,10 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import seng202.group6.Models.Crime;
+import seng202.group6.Services.MapService;
 
 import java.io.IOException;
-
-import static seng202.group6.Services.MapService.*;
+import java.util.ArrayList;
 
 /**
  * Controller class for map screen in the user interface, associated with homeScreen.fxml.
@@ -79,13 +80,11 @@ public class MapController extends MasterController {
 
     public void clickViewMap(ActionEvent event) {
         String address = addressField.getText();
-        System.out.println(address.isEmpty());
+        //System.out.println(address.isEmpty());
         if (!address.isEmpty()) {
             noAddressText.setVisible(false);
-            LatLng coord = null;
             try {
-                //coord = geoCodeAddress(address);
-                Image image = getStaticMap(address);
+                Image image = MapService.getStaticMap(address, super.crimeData);
                 mapImage.setImage(image);
             } catch (Exception e) {
                 System.out.println("Error: " + e);

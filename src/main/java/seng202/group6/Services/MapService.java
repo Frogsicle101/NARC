@@ -10,40 +10,26 @@ import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import javafx.embed.swing.SwingFXUtils;
+import java.util.ArrayList;
 
+import javafx.embed.swing.SwingFXUtils;
+import seng202.group6.Models.Crime;
 
 
 public class MapService {
     private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
 
-    public static LatLng geoCodeAddress(String address) throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(apiKey)
-                .build();
+    public static GeocodingResult[] geoCodeAddress(GeoApiContext context, String address) throws IOException, InterruptedException, ApiException {
+
         GeocodingResult[] results =  GeocodingApi.geocode(context,
                 address).await();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-        System.out.println(gson.toJson(results[0].geometry.location));
-
-// Invoke .shutdown() after your application is done making requests
-        context.shutdown();
-        return results[0].geometry.location;
+        //System.out.println(gson.toJson(results[0].geometry.location));
+        return results;
     }
 
-    public static int highestLevelZoom(String address) throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(apiKey)
-                .build();
-        GeocodingResult[] results =  GeocodingApi.geocode(context,
-                address).await();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        System.out.println(gson.toJson(results[0].addressComponents));
-
-// Invoke .shutdown() after your application is done making requests
-        context.shutdown();
+    public static int highestLevelZoom(GeocodingResult[] results) throws IOException, InterruptedException, ApiException {
 
         AddressComponent[] addressComponents = results[0].addressComponents;
         AddressComponentType[] addressComponentTypes = addressComponents[0].types;
@@ -88,29 +74,29 @@ public class MapService {
         return zoomLevel;
     }
 
-/*
-    public static Image getImage(LatLng centre) throws IOException, InterruptedException, ApiException {
+
+    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException, InterruptedException, ApiException {
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey(apiKey)
                 .build();
-        Size size = new Size(600, 300);
 
-        ImageResult request = StaticMapsApi.newRequest(context, size).center(centre).zoom(10).await();
-        Image image = arrayToImage(request.imageData);
-        return image;
-    }*/
+        GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
+        LatLng centreLatLng = geocodingResult[0].geometry.location;
 
-    public static Image getStaticMap(String centre) throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(apiKey)
-                .build();
         Size size = new Size(700, 350);
-        int zoom = highestLevelZoom(centre);
-        ImageResult request = StaticMapsApi.newRequest(context, size).center(centre).zoom(zoom).maptype(StaticMapsRequest.StaticMapType.roadmap).await();
-        Image image = arrayToImage(request.imageData);
+        StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
+        request.center(centreLatLng).zoom(highestLevelZoom(geocodingResult)).maptype(StaticMapsRequest.StaticMapType.roadmap);
+        //addMapMarkers(request, crimeData);
+
+        ImageResult result = request.await();
+        Image image = arrayToImage(result.imageData);
         context.shutdown();
         return image;
     }
+
+    /*public static void addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData) {
+
+    }*/
 
     public static Image arrayToImage(byte[] byte_array) {
         Image image = null;
@@ -125,6 +111,17 @@ public class MapService {
 
         return image;
     }
+
+    /*public static void main(String[] args) {
+        ArrayList<Crime> crimeData = null;
+        String address = "Chicago";
+        try {
+            Image image = MapService.getStaticMap(address, crimeData);
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }*/
 
 
 }
