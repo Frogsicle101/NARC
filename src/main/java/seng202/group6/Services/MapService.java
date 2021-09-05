@@ -32,8 +32,8 @@ public class MapService {
 
     public static int highestLevelZoom(GeocodingResult[] results) throws IOException, InterruptedException, ApiException {
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(results[0]));
+        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        //System.out.println(gson.toJson(results[0]));
 
         AddressComponent[] addressComponents = results[0].addressComponents;
         AddressComponentType[] addressComponentTypes = addressComponents[0].types;
@@ -112,15 +112,15 @@ public class MapService {
                 LatLng crimeLocation = new LatLng(crimeLat, crimeLng);
                 Double distanceToCentre = getDistanceFromCentre(crimeData.get(i), centreLocation);
                 if ((distanceToCentre < 6) && (numMarkers < 500)) {
-                    System.out.println("Lat: " + crimeLat + " Long: " + crimeLng + " Distance: " + distanceToCentre);
+                    //System.out.println("Lat: " + crimeLat + " Long: " + crimeLng + " Distance: " + distanceToCentre);
                     markers.addLocation(crimeLocation);
                     numMarkers++;
                 }
             } catch (java.lang.NumberFormatException e) {
-                System.out.println("empty crime: " + crimeData.get(i).getCaseNumber());
+                //System.out.println("empty crime: " + crimeData.get(i).getCaseNumber());
             }
         }
-        System.out.println("number of markers: " +numMarkers);
+        //System.out.println("number of markers: " +numMarkers);
         return markers;
     }
 
