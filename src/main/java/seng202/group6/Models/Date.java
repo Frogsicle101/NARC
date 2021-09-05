@@ -1,7 +1,7 @@
 package seng202.group6.Models;
 
 import java.util.Calendar;
-
+@Deprecated
 public class Date extends Time{
 
     private Calendar calendar = new Calendar() {
@@ -49,7 +49,8 @@ public class Date extends Time{
 
 
     public Date(String date) {
-        //Need to test
+        //Potentially should throw error if string in not right format, i.e. if 61 seconds in a minute or negative numbers
+        //TODO write exception/errors for this method
         this.month = Integer.parseInt(date.substring(0, 2));
         this.day = Integer.parseInt(date.substring(3, 5));
         this.year = Integer.parseInt(date.substring(6, 10));
@@ -63,9 +64,14 @@ public class Date extends Time{
         this.calendar.set(this.year, this.month, this.day, this.hour, this.minute, this.second);
     }
 
-    public Time compare(Calendar calendar){
-        //Need to test
-        int milliseconds = this.calendar.compareTo(calendar);
+    public Time compare(Date date){
+        //older calendar (earlier one) needs to be passed as the argument
+        int milliseconds = 0;
+        if (this.calendar.compareTo(date.calendar) > 0) {
+            milliseconds = this.calendar.compareTo(date.calendar);
+        } else {
+            milliseconds = date.calendar.compareTo(this.calendar);
+        }
         return this.convertToTime(milliseconds);
     }
 

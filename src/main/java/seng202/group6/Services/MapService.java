@@ -113,8 +113,8 @@ public class MapService {
         int numMarkers = 0;
         for (int i =0; i < crimeData.size(); i++) {
             try {
-                Double crimeLat = Double.parseDouble(crimeData.get(i).getLatitude());
-                Double crimeLng = Double.parseDouble(crimeData.get(i).getLongitude());
+                Double crimeLat = crimeData.get(i).getLatitude();
+                Double crimeLng = crimeData.get(i).getLongitude();
                 LatLng crimeLocation = new LatLng(crimeLat, crimeLng);
                 Double distanceToCentre = getDistanceFromCentre(crimeData.get(i), centreLocation);
                 if ((distanceToCentre < 6) && (numMarkers < 500)) {
@@ -159,8 +159,8 @@ public class MapService {
     }
 
     public static Double getDistanceFromCentre(Crime otherCrime, LatLng centre){
-        Double x = (centre.lng - Double.parseDouble(otherCrime.getLongitude())) * 111; //Don't ask me what is going on I don't know either
-        Double y = (centre.lat - Double.parseDouble(otherCrime.getLatitude())) * 111;  //But it works. The *111 is to convert to KM's
+        Double x = (centre.lng - otherCrime.getLongitude()) * 111; //Don't ask me what is going on I don't know either
+        Double y = (centre.lat - otherCrime.getLatitude()) * 111;  //But it works. The *111 is to convert to KM's
         return Math.hypot(x, y); //Again return value is in km
     }
 }

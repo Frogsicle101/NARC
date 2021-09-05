@@ -87,8 +87,8 @@ public class EditController extends MasterController implements Initializable {
             beat.setText(Integer.toString(viewedCrime.getBeat()));
             ward.setText(Integer.toString(viewedCrime.getWard()));
             fbiCD.setText(viewedCrime.getFBI());
-            latitude.setText(viewedCrime.getLatitude());
-            longitude.setText(viewedCrime.getLongitude());
+            latitude.setText(Double.toString(viewedCrime.getLatitude()));
+            longitude.setText(Double.toString(viewedCrime.getLongitude()));
         }
 
 
@@ -121,8 +121,8 @@ public class EditController extends MasterController implements Initializable {
         MasterController.crimeToView.setFBI(fbiCD.getText());
         MasterController.crimeToView.setBeat(beatNum);
         MasterController.crimeToView.setWard(wardNum);
-        MasterController.crimeToView.setLatitude(latitude.getText());
-        MasterController.crimeToView.setLongitude(longitude.getText());
+        MasterController.crimeToView.setLatitude(Double.parseDouble(latitude.getText()));
+        MasterController.crimeToView.setLongitude(Double.parseDouble(longitude.getText()));
 
         if (isNewCrime) {
             MasterController.crimeData.add(MasterController.crimeToView);

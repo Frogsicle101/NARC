@@ -1,7 +1,7 @@
 package seng202.group6.Models;
 
 import java.util.Calendar;
-
+@Deprecated
 public class Time {
 
     protected int month;
@@ -64,7 +64,7 @@ public class Time {
 
 
     protected Time convertToTime(int miliseconds){
-        //Need to test
+        //Seems to loop infintely very cool
         Time time = new Time();
         //Converting miliseconds into years
         while (miliseconds >= 3.15*(10^10)){
@@ -105,4 +105,38 @@ public class Time {
         return time;
 
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Time)) {
+            return false;
+        }
+        if (this.second != ((Time) obj).getSecond()) {
+            return false;
+        }
+        if (this.minute != ((Time) obj).getMinute()) {
+            return false;
+        }
+        if (this.hour != ((Time) obj).getHour()) {
+            return false;
+        }
+        if (this.day != ((Time) obj).getDay()) {
+            return false;
+        }
+        if (this.week != ((Time) obj).getWeek()) {
+            return false;
+        }
+        if (this.month != ((Time) obj).getMonth()) {
+            return false;
+        }
+        if (this.year != ((Time) obj).year) {
+            return false;
+        }
+        return true;
+    }
+
 }

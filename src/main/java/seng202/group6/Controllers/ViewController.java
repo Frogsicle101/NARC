@@ -80,8 +80,8 @@ public class ViewController extends MasterController implements Initializable {
         beat.setText(Integer.toString(viewedCrime.getBeat()));
         ward.setText(Integer.toString(viewedCrime.getWard()));
         fbiCD.setText(viewedCrime.getFBI());
-        latitude.setText(viewedCrime.getLatitude());
-        longitude.setText(viewedCrime.getLongitude());
+        latitude.setText(Double.toString(viewedCrime.getLatitude()));
+        longitude.setText(Double.toString(viewedCrime.getLongitude()));
 
     }
 
