@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class MasterController {
 
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
+    protected static ArrayList<Crime> filteredCrimeData = new ArrayList<>();
     protected static Crime crimeToView;
     protected static Stage stage;
 

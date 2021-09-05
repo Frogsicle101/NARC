@@ -92,12 +92,12 @@ public class ImportController extends MasterController {
         fileChooser.setTitle("Open crime data file");
 
         boolean validUpload;
-        File crimeFile = fileChooser.showOpenDialog(MasterController.stage);
+        File crimeFile = fileChooser.showOpenDialog(stage);
         if (crimeFile == null) {
             validUpload = false;
         } else {
-            MasterController.crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
-
+            crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
+            filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser
             validUpload = true;

@@ -1,5 +1,6 @@
 package seng202.group6.Services;
 
+import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Set;
 //Todo make sure crime frequency is ranked correctly
 //Todo test
 
-public class Rank {
+public class Rank{
     /**
      * Ranks data by passed in String parameter crime type
      * @param crimes The input to count types

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -49,7 +50,7 @@
             <Button fx:id="viewCrime" layoutX="651.0" layoutY="600.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" />
             <Text fx:id="notSelectedText" layoutX="624.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a crime to view" />
             <Text fx:id="noDataText" layoutX="373.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No data has been imported yet, please import data using the import screen or add individual crime manually" />
-            <VBox fx:id="filterBox" layoutX="806.0" layoutY="184.0" prefHeight="409.0" prefWidth="199.0">
+            <VBox fx:id="filterBox" layoutX="775.0" layoutY="157.0" prefHeight="437.0" prefWidth="199.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter By:" wrappingWidth="143.759765625">
                      <font>
@@ -61,59 +62,68 @@
                   </Text>
                   <Label prefHeight="17.0" prefWidth="174.0" text="Start Date:">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
                   <DatePicker fx:id="startDate">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </DatePicker>
                   <Label prefHeight="17.0" prefWidth="174.0" text="End Date:">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
                   <DatePicker fx:id="endDate">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </DatePicker>
                   <MenuButton fx:id="crimeTypeDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Crime Type">
                      <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </MenuButton>
                   <MenuButton fx:id="locationDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Location Description">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </MenuButton>
                   <TextField fx:id="beatSearch" promptText="Beat (comma separated)">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="wardSearch" promptText="Ward (comma separated)">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </TextField>
                   <CheckBox fx:id="isArrest" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Arrest">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </CheckBox>
                   <CheckBox fx:id="isDomestic" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Domestic">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </CheckBox>
-                  <Button fx:id="applyButton" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="209.0" text="Apply">
+                  <Button fx:id="applyButton" layoutX="30.0" layoutY="310.0" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="89.0" text="Apply Filter">
                      <VBox.margin>
-                        <Insets bottom="10.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                   </Button>
+                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" text="Rank by">
+                    <items>
+                      <MenuItem fx:id="mostArea" mnemonicParsing="false" onAction="#clickMostArea" text="Most Dangerous Area" />
+                      <MenuItem fx:id="leastArea" mnemonicParsing="false" onAction="#clickLeastArea" text="Least Dangerous Area" />
+                        <MenuItem fx:id="mostCrime" mnemonicParsing="false" onAction="#clickMostCrime" text="Most Common Crime" />
+                        <MenuItem fx:id="leastCrime" mnemonicParsing="false" onAction="#clickLeastCrime" text="Least Common Crime" />
+                    </items>
+                  </MenuButton>
+                  <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="139.0" text="Reset Filter and Rank" />
                </children>
             </VBox>
             <Button fx:id="addButton" layoutX="258.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickAdd" text="Add Crime" />

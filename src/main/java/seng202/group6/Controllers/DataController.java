@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Date;
 import seng202.group6.Services.Filter;
+import seng202.group6.Services.Rank;
 
 import java.io.IOException;
 import java.net.URL;
@@ -109,6 +110,18 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private Button deleteButton;
 
+    @FXML
+    private MenuItem mostArea;
+
+    @FXML
+    private MenuItem leastArea;
+
+    @FXML
+    private MenuItem mostCrime;
+
+    @FXML
+    private MenuItem LeastCrime;
+
 
     /**
     * Method to initialize data scene, checks if there has been data imported first,
@@ -120,7 +133,7 @@ public class DataController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        if (MasterController.crimeData != null) {
+        if (crimeData != null) {
 
             buildFilterSets();
             buildDropdowns();
@@ -135,7 +148,7 @@ public class DataController extends MasterController implements Initializable {
             locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("date"));
 
-            tableView.setItems(FXCollections.observableArrayList(MasterController.crimeData));
+            tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
         } else {
 
             noDataText.setVisible(true);
@@ -226,9 +239,9 @@ public class DataController extends MasterController implements Initializable {
         filter.setWards(wardSearch.getText());
 
 
-        ArrayList<Crime> crimes = filter.applyFilter(MasterController.crimeData);
+        filteredCrimeData = filter.applyFilter(crimeData);
 
-        tableView.setItems(FXCollections.observableArrayList(crimes));
+        tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
 
 
     }
@@ -253,14 +266,13 @@ public class DataController extends MasterController implements Initializable {
 
     public void clickDelete() throws IOException {
         int index = tableView.getSelectionModel().getFocusedIndex();
-        MasterController.crimeData.remove(index);
+        crimeData.remove(index);
         changeToDataScreen();
 
     }
 
-
     private void buildFilterSets() {
-        for (Crime crime :MasterController.crimeData) {
+        for (Crime crime :crimeData) {
             types.add(crime.getPrimaryDescription());
             locations.add(crime.getLocationDescription());
         }
@@ -289,6 +301,25 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+    public void clickReset() {
+        filteredCrimeData = crimeData;
+        tableView.setItems(FXCollections.observableArrayList(crimeData));
+    }
 
+    public void clickMostArea() {
+
+    }
+
+    public void clickLeastArea() {
+
+    }
+
+    public void clickMostCrime() {
+
+    }
+
+    public void clickLeastCrime() {
+
+    }
 
 }
