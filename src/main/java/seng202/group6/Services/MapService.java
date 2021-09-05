@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
+import com.google.maps.StaticMapsRequest.Markers;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
@@ -31,20 +32,26 @@ public class MapService {
 
     public static int highestLevelZoom(GeocodingResult[] results) throws IOException, InterruptedException, ApiException {
 
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        System.out.println(gson.toJson(results[0]));
+
         AddressComponent[] addressComponents = results[0].addressComponents;
         AddressComponentType[] addressComponentTypes = addressComponents[0].types;
 
         int zoomLevel = 10;
         boolean isFoundZoom = false;
         int i = 0;
-        while (!isFoundZoom) {
+        while (!isFoundZoom && i < addressComponents.length) {
             switch (addressComponents[i].types[0].name()) {
                 case "STREET_NUMBER":
                     ;
                 case "ROUTE":
-                    zoomLevel = 17;
+                    zoomLevel = 16;
                     isFoundZoom = true;
                     break;
+                case "NEIGHBORHOOD":
+                    zoomLevel = 14;
+                    isFoundZoom = true;
                 case "POLITICAL":
                     for (AddressComponentType type : addressComponentTypes) {
                         if (type.name() == "SUBLOCALITY"){
@@ -54,7 +61,7 @@ public class MapService {
                     }
                     break;
                 case "LOCALITY":
-                    zoomLevel = 10;
+                    zoomLevel = 11;
                     isFoundZoom = true;
                     break;
                 case "ADMINISTRATIVE_AREA_LEVEL_1":
@@ -65,10 +72,11 @@ public class MapService {
                     zoomLevel = 5;
                     isFoundZoom = true;
                     break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + addressComponents[i].types[0].name());
             }
             i++;
+        }
+        if (isFoundZoom != true) {
+            zoomLevel = 2;
         }
 
         return zoomLevel;
@@ -86,17 +94,35 @@ public class MapService {
         Size size = new Size(700, 350);
         StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
         request.center(centreLatLng).zoom(highestLevelZoom(geocodingResult)).maptype(StaticMapsRequest.StaticMapType.roadmap);
-        //addMapMarkers(request, crimeData);
-
+        Markers markers = addMapMarkers(request, crimeData, centreLatLng);
+        request.markers(markers);
         ImageResult result = request.await();
         Image image = arrayToImage(result.imageData);
         context.shutdown();
         return image;
     }
 
-    /*public static void addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData) {
-
-    }*/
+    public static Markers addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation) {
+        Markers markers = new Markers();
+        int numMarkers = 0;
+        for (int i =0; i < crimeData.size(); i++) {
+            try {
+                Double crimeLat = Double.parseDouble(crimeData.get(i).getLatitude());
+                Double crimeLng = Double.parseDouble(crimeData.get(i).getLongitude());
+                LatLng crimeLocation = new LatLng(crimeLat, crimeLng);
+                Double distanceToCentre = getDistanceFromCentre(crimeData.get(i), centreLocation);
+                if ((distanceToCentre < 6) && (numMarkers < 500)) {
+                    System.out.println("Lat: " + crimeLat + " Long: " + crimeLng + " Distance: " + distanceToCentre);
+                    markers.addLocation(crimeLocation);
+                    numMarkers++;
+                }
+            } catch (java.lang.NumberFormatException e) {
+                System.out.println("empty crime: " + crimeData.get(i).getCaseNumber());
+            }
+        }
+        System.out.println("number of markers: " +numMarkers);
+        return markers;
+    }
 
     public static Image arrayToImage(byte[] byte_array) {
         Image image = null;
@@ -111,6 +137,13 @@ public class MapService {
 
         return image;
     }
+
+    public static Double getDistanceFromCentre(Crime otherCrime, LatLng centre){
+        Double x = (centre.lng - Double.parseDouble(otherCrime.getLongitude())) * 111; //Don't ask me what is going on I don't know either
+        Double y = (centre.lat - Double.parseDouble(otherCrime.getLatitude())) * 111;  //But it works. The *111 is to convert to KM's
+        return Math.hypot(x, y); //Again return value is in km
+    }
+
 
     /*public static void main(String[] args) {
         ArrayList<Crime> crimeData = null;
