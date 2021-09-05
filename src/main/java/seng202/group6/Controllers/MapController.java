@@ -87,7 +87,7 @@ public class MapController extends MasterController {
                 Image image = MapService.getStaticMap(address, super.crimeData);
                 mapImage.setImage(image);
             } catch (Exception e) {
-                System.out.println("Error: " + e);
+                System.out.println("Error opening Image: " + e);
             }
         } else {
             noAddressText.setVisible(true);

@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
-import com.google.maps.StaticMapsRequest.Markers;
+import com.google.maps.StaticMapsRequest.*;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
@@ -19,6 +19,33 @@ import seng202.group6.Models.Crime;
 
 public class MapService {
     private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
+
+    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException {
+        try {
+            GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
+
+            GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
+            LatLng centreLatLng = geocodingResult[0].geometry.location;
+
+            Size size = new Size(700, 350);
+            StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
+            int zoom = highestLevelZoom(geocodingResult);
+            request.center(centreLatLng).zoom(zoom).maptype(StaticMapsRequest.StaticMapType.roadmap);
+            Markers markers = addMapMarkers(request, crimeData, centreLatLng, zoom);
+
+            request.markers(markers);
+
+            ImageResult result = request.await();
+            Image image = arrayToImage(result.imageData);
+            context.shutdown();
+            return image;
+        } catch (Exception e) {
+            System.out.println("Error in getStaticMap: " + e);
+            BufferedImage bufferedImage = ImageIO.read(new File("src/main/resources/Images/imageIfMapNotFound.png"));
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            return image;
+        }
+    }
 
     public static GeocodingResult[] geoCodeAddress(GeoApiContext context, String address) throws IOException, InterruptedException, ApiException {
 
@@ -76,33 +103,12 @@ public class MapService {
             i++;
         }
         if (isFoundZoom != true) {
-            zoomLevel = 2;
+            zoomLevel = 10;
         }
-
         return zoomLevel;
     }
 
-
-    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException, InterruptedException, ApiException {
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey(apiKey)
-                .build();
-
-        GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
-        LatLng centreLatLng = geocodingResult[0].geometry.location;
-
-        Size size = new Size(700, 350);
-        StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
-        request.center(centreLatLng).zoom(highestLevelZoom(geocodingResult)).maptype(StaticMapsRequest.StaticMapType.roadmap);
-        Markers markers = addMapMarkers(request, crimeData, centreLatLng);
-        request.markers(markers);
-        ImageResult result = request.await();
-        Image image = arrayToImage(result.imageData);
-        context.shutdown();
-        return image;
-    }
-
-    public static Markers addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation) {
+    public static Markers addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
         Markers markers = new Markers();
         int numMarkers = 0;
         for (int i =0; i < crimeData.size(); i++) {
@@ -119,6 +125,20 @@ public class MapService {
             } catch (java.lang.NumberFormatException e) {
                 //System.out.println("empty crime: " + crimeData.get(i).getCaseNumber());
             }
+        }
+        switch (zoom) {
+            case 5:;
+            case 8:;
+            case 10:;
+            case 11:
+                markers.size(Markers.MarkersSize.tiny);
+                break;
+            case 16:
+                markers.size(Markers.MarkersSize.normal);
+                break;
+            default:
+                markers.size(Markers.MarkersSize.small);
+
         }
         //System.out.println("number of markers: " +numMarkers);
         return markers;
@@ -143,18 +163,4 @@ public class MapService {
         Double y = (centre.lat - Double.parseDouble(otherCrime.getLatitude())) * 111;  //But it works. The *111 is to convert to KM's
         return Math.hypot(x, y); //Again return value is in km
     }
-
-
-    /*public static void main(String[] args) {
-        ArrayList<Crime> crimeData = null;
-        String address = "Chicago";
-        try {
-            Image image = MapService.getStaticMap(address, crimeData);
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-    }*/
-
-
 }
