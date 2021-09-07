@@ -30,7 +30,7 @@
                   <Font size="35.0" />
                </font>
             </Button>
-            <Text fx:id="noAddressText" layoutX="402.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter an Address" visible="false" wrappingWidth="140.078125" />
+            <Text fx:id="noAddressText" layoutX="600.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter an Address" visible="false" wrappingWidth="140.078125" />
             <WebView fx:id="mapView" layoutX="353.0" layoutY="127.0" prefHeight="478.0" prefWidth="670.0" />
          </children>
       </AnchorPane>

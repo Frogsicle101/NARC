@@ -1,6 +1,7 @@
 package seng202.group6.Controllers;
 
 import com.google.maps.model.LatLng;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -106,6 +107,12 @@ public class MapController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         WebEngine webEngine = mapView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                loadMarkers(webEngine);
+            }
+        });
+
         File file = new File("src/main/resources/HTML/EmbedMaps.html");
         try {
             webEngine.load(file.toURI().toString());
@@ -114,6 +121,10 @@ public class MapController extends MasterController implements Initializable {
         }
     }
 
+    public void loadMarkers(WebEngine webEngine) {
+        String script = MapService.addDynamicMapMarkers(super.crimeData);
+        webEngine.executeScript(script);
+    }
 
 
 }
