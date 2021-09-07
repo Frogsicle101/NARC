@@ -3,23 +3,29 @@ package seng202.group6.Controllers;
 import com.google.maps.model.LatLng;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
 import seng202.group6.Services.MapService;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for map screen in the user interface, associated with homeScreen.fxml.
  * Is a child class of MasterController
  */
 
-public class MapController extends MasterController {
+public class MapController extends MasterController implements Initializable {
 
     @FXML
     private Button homeButton;
@@ -35,6 +41,9 @@ public class MapController extends MasterController {
 
     @FXML
     private ImageView mapImage;
+
+    @FXML
+    private WebView mapView;
 
     @FXML
     private Button viewMapButton;
@@ -78,7 +87,7 @@ public class MapController extends MasterController {
         changeToImportScreen();
     }
 
-    public void clickViewMap(ActionEvent event) {
+   /* public void clickViewMap(ActionEvent event) {
         String address = addressField.getText();
         //System.out.println(address.isEmpty());
         if (!address.isEmpty()) {
@@ -92,6 +101,19 @@ public class MapController extends MasterController {
         } else {
             noAddressText.setVisible(true);
         }
+    }*/
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        WebEngine webEngine = mapView.getEngine();
+        File file = new File("src/main/resources/HTML/EmbedMaps.html");
+        try {
+            webEngine.load(file.toURI().toString());
+        } catch (Exception e) {
+            System.out.println("Error in clickViewMap: " + e);
+        }
     }
+
+
 
 }
