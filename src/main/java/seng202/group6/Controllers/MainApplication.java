@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
+import seng202.group6.Services.DynamicMapService;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class MainApplication extends Application {
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(homeScreen, 1200, 700));
         primaryStage.show();
+        DynamicMapService.initializeDynamicMap();
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
     }
