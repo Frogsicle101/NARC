@@ -23,7 +23,7 @@ public class MainApplication extends Application {
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(homeScreen, 1050, 640));
         primaryStage.show();
-
+        MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
     }
 
