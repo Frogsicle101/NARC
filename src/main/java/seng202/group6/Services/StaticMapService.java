@@ -18,7 +18,7 @@ import seng202.group6.Models.Crime;
 import seng202.group6.Models.DynamicMapMarker;
 
 
-public class MapService {
+public class StaticMapService {
     private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
 
     public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException {
@@ -165,17 +165,5 @@ public class MapService {
         return Math.hypot(x, y); //Again return value is in km
     }
 
-    public static String addDynamicMapMarkers(ArrayList<Crime> crimes) {
-        String script = "addMarkers([";
-        if (!crimes.isEmpty()) {
-            for (int i = 0; i < 50; i++) {
-                DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
-                script += marker.toString();
-                script += ",";
-            }
-        }
-        script += "])";
 
-        return script;
-    }
 }

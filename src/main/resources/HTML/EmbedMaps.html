@@ -7,11 +7,14 @@
     <script src="./EmbedMapsScript.js"></script>
   </head>
   <body>
+    <div id="ac-card">
+      <input id="autocomplete" placeholder="Enter an Address" type="text"/>
+    </div>
     <div id="map"></div>
-
+    
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE&libraries=places&callback=initMap&v=weekly"
       async
     ></script>
   </body>
