@@ -65,9 +65,9 @@
           <version>1.7.25</version>
       </dependency>
       <dependency>
-          <groupId>org.openjfx</groupId>
-          <artifactId>javafx-base</artifactId>
-          <version>16</version>
+          <groupId>org.xerial</groupId>
+          <artifactId>sqlite-jdbc</artifactId>
+          <version>3.36.0.3</version>
       </dependency>
 
   </dependencies>

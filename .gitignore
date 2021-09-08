@@ -8,9 +8,12 @@ target/
 # CMake
 cmake-build-*/
 
+# Persistent database file
+crimes.db
 
 # File-based project format
 *.iws
+*.iml
 
 # IntelliJ
 out/
