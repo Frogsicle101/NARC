@@ -10,9 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seng202.group6.Models.Crime;
 import seng202.group6.Services.Filter;
+import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -130,6 +132,12 @@ public class DataController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        try {
+            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         if (crimeData != null) {
 
             buildFilterSets();
@@ -145,7 +153,8 @@ public class DataController extends MasterController implements Initializable {
             locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, LocalDateTime>("date"));
 
-            tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
+            tableView.setItems(FXCollections.observableArrayList(crimeData));
+
         } else {
 
             noDataText.setVisible(true);

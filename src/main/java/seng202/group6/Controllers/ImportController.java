@@ -100,6 +100,9 @@ public class ImportController extends MasterController {
         } else {
             SQLiteDatabase.createTable("Crimes");
             crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
+
+
+
             filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser

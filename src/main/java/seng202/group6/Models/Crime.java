@@ -50,7 +50,9 @@ public class Crime {
      * @param latitude A string representing the latitudinal coordinates of the crime
      * @param longitude A string representing the longitudinal coordinates of the crime
      */
-    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription, String secondaryDescription, String arrest, String domestic, int beat, int ward, String FBI, String locationDescription, String latitude, String longitude) {
+    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription,
+                 String secondaryDescription, Boolean arrest, Boolean domestic, int beat, int ward, String FBI,
+                 String locationDescription, Double latitude, Double longitude) {
         this.caseNumber = caseNumber;
         this.date = parseDateString(date);
         this.block = block;
@@ -59,16 +61,16 @@ public class Crime {
         this.primaryDescription = primaryDescription;
         this.secondaryDescription = secondaryDescription;
 
-        this.arrest = arrest.equals("Y");
-        this.domestic = domestic.equals("Y");
+        this.arrest = arrest;
+        this.domestic = domestic;
 
 
         this.beat = beat;
         this.ward = ward;
         this.FBI = FBI;
         this.locationDescription = locationDescription;
-        this.latitude = Double.parseDouble(latitude); //TODO convert to double
-        this.longitude = Double.parseDouble(longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -84,7 +86,7 @@ public class Crime {
         int day = Integer.parseInt(date.substring(3, 5));
         int month = Integer.parseInt(date.substring(0, 2));
         int year = Integer.parseInt(date.substring(6, 10));
-        if (date.endsWith("PM")){
+        if (date.endsWith("PM") && hour != 12){
             hour += 12;
         }
 

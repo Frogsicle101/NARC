@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class ParserService {
      * @throws IOException
      * @throws CsvValidationException
      */
-    public static ArrayList<Crime> csvToArrayList(File file) throws IOException, CsvValidationException {
+    public static ArrayList<Crime> csvToArrayList(File file) throws IOException, CsvValidationException, SQLException {
 
         ArrayList<Crime> crimeList = new ArrayList<Crime>();
 
@@ -30,41 +31,14 @@ public class ParserService {
         while(reader.peek() != null) {
             String[] fields = reader.readNext();
 
-            try {
-                Crime toBeAdded = buildCrimeFromFields(fields);
-                crimeList.add(toBeAdded);
-                SQLiteDatabase.insertIntoTable("Crimes", toBeAdded);
-            } catch (Exception e) {
-                counter++;
-            }
-        }
-        System.out.println("%d entries skipped due to malformed record in CSV".format(String.valueOf(counter))); //TODO: Return this to caller somehow so it can be displayed in GUI
+            SQLiteDatabase.insertIntoTable("Crimes", fields);
 
+
+        }
+
+        SQLiteDatabase.selectAllFromTable("Crimes");
         return crimeList;
     }
 
-    /**
-     * Creates a new crime object based on the data in fields
-     * @param fields A String[] with the data from the CSV
-     * @return The crime
-     */
-    private static Crime buildCrimeFromFields(String[] fields) {
-        Crime crime = new Crime (
-                fields[0], //Case Num
-                fields[1], //Date
-                fields[2], //Block
-                fields[3], //IUCR
-                fields[4], //Primary Description
-                fields[5], //Secondary Description
-                fields[7], //Arrest
-                fields[8], //Domestic
-                Integer.parseInt(fields[9]), //Beat
-                Integer.parseInt(fields[10]), //Ward
-                fields[11], //FBI
-                fields[6],  //Location Description
-                fields[14], //Latitude
-                fields[15]  //Longitude
-        );
-        return crime;
-    }
+
 }
