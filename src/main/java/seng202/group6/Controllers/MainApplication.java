@@ -21,7 +21,7 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) throws IOException, SQLException {
         Parent homeScreen = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         primaryStage.setTitle("NARC");
-        primaryStage.setScene(new Scene(homeScreen, 1050, 640));
+        primaryStage.setScene(new Scene(homeScreen, 1200, 700));
         primaryStage.show();
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();

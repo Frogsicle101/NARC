@@ -32,6 +32,7 @@ public class ParserService {
 
             try {
                 Crime toBeAdded = buildCrimeFromFields(fields);
+                crimeList.add(toBeAdded);
                 SQLiteDatabase.insertIntoTable("Crimes", toBeAdded);
             } catch (Exception e) {
                 counter++;
