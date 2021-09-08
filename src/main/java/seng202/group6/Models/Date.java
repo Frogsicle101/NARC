@@ -5,7 +5,7 @@ import java.util.Calendar;
 public class Date extends Time{
 
     private Calendar calendar = new Calendar() {
-        //Calendar is abstract so i have to implement theese methods.
+        //Calendar is abstract so i have to implement these methods.
         @Override
         protected void computeTime() {
 
