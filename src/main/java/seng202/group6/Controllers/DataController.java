@@ -1,25 +1,19 @@
 package seng202.group6.Controllers;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
-import seng202.group6.Models.Date;
 import seng202.group6.Services.Filter;
-import seng202.group6.Services.Rank;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -60,7 +54,7 @@ public class DataController extends MasterController implements Initializable {
     private TableColumn<Crime, String> locationColumn;
 
     @FXML
-    private TableColumn<Crime, Date> dateColumn;
+    private TableColumn<Crime, LocalDateTime> dateColumn;
 
     @FXML
     private Button viewCrime;
@@ -111,6 +105,9 @@ public class DataController extends MasterController implements Initializable {
     private Button deleteButton;
 
     @FXML
+    private Button resetButton;
+
+    @FXML
     private MenuItem mostArea;
 
     @FXML
@@ -120,11 +117,11 @@ public class DataController extends MasterController implements Initializable {
     private MenuItem mostCrime;
 
     @FXML
-    private MenuItem LeastCrime;
+    private MenuItem leastCrime;
 
 
     /**
-    * Method to initialize data scene, checks if there has been data imported first,
+     * Method to initialize data scene, checks if there has been data imported first,
      * if there has it will show a data with all crimes in a table, and give an optional button
      * to click to view a more detailed view of a specific crime. An error message is shown
      * rather than the table and button if there has been no data imported
@@ -146,7 +143,7 @@ public class DataController extends MasterController implements Initializable {
             caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("caseNumber"));
             primaryDescColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("primaryDescription"));
             locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, Date>("date"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, LocalDateTime>("date"));
 
             tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
         } else {

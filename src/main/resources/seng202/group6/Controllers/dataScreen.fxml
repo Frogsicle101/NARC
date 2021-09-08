@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -11,125 +12,136 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
    <children>
-      <AnchorPane layoutY="-25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1191.0">
+      <TableView fx:id="tableView" layoutX="287.0" layoutY="165.0" prefHeight="453.0" prefWidth="488.0">
+         <columns>
+            <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="95.0" text="Case Number" />
+            <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="154.0" text="Primary Description" />
+            <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="128.0" text="Location" />
+            <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="110.0" text="Date" />
+         </columns>
+      </TableView>
+      <Button fx:id="viewCrime" layoutX="680.0" layoutY="627.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" />
+      <Text fx:id="notSelectedText" layoutX="653.0" layoutY="665.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a crime to view" />
+      <Text fx:id="noDataText" layoutX="402.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No data has been imported yet, please import data using the import screen or add individual crime manually" />
+      <VBox fx:id="filterBox" layoutX="804.0" layoutY="184.0" prefHeight="437.0" prefWidth="199.0">
          <children>
-            <Button fx:id="dataButton" defaultButton="true" layoutY="402.0" mnemonicParsing="false" prefHeight="132.0" prefWidth="247.0" text="Data">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter By:" wrappingWidth="143.759765625">
                <font>
-                  <Font size="35.0" />
+                  <Font size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Text>
+            <Label prefHeight="17.0" prefWidth="174.0" text="Start Date:">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <DatePicker fx:id="startDate">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <Label prefHeight="17.0" prefWidth="174.0" text="End Date:">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            <DatePicker fx:id="endDate">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <MenuButton fx:id="crimeTypeDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Crime Type">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </MenuButton>
+            <MenuButton fx:id="locationDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Location Description">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </MenuButton>
+            <TextField fx:id="beatSearch" promptText="Beat (comma separated)">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="wardSearch" promptText="Ward (comma separated)">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </TextField>
+            <CheckBox fx:id="isArrest" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Arrest">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </CheckBox>
+            <CheckBox fx:id="isDomestic" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Domestic">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </CheckBox>
+            <Button fx:id="applyButton" layoutX="30.0" layoutY="310.0" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="89.0" text="Apply Filter">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
             </Button>
-            <Button fx:id="importButton" layoutY="534.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="132.0" prefWidth="247.0" text="Import">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <TableView fx:id="tableView" layoutX="258.0" layoutY="138.0" prefHeight="453.0" prefWidth="488.0">
-              <columns>
-                <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="95.0" text="Case Number" />
-                <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="154.0" text="Primary Description" />
-                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="128.0" text="Location" />
-                  <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="110.0" text="Date" />
-              </columns>
-            </TableView>
-            <Button fx:id="homeButton" layoutY="138.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="132.0" prefWidth="247.0" text="Home">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <Button fx:id="mapButton" layoutY="270.0" mnemonicParsing="false" onAction="#clickMap" prefHeight="132.0" prefWidth="247.0" text="Map">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <Button fx:id="viewCrime" layoutX="651.0" layoutY="600.0" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" />
-            <Text fx:id="notSelectedText" layoutX="624.0" layoutY="638.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a crime to view" />
-            <Text fx:id="noDataText" layoutX="373.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No data has been imported yet, please import data using the import screen or add individual crime manually" />
-            <VBox fx:id="filterBox" layoutX="775.0" layoutY="157.0" prefHeight="437.0" prefWidth="199.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter By:" wrappingWidth="143.759765625">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Text>
-                  <Label prefHeight="17.0" prefWidth="174.0" text="Start Date:">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <DatePicker fx:id="startDate">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </DatePicker>
-                  <Label prefHeight="17.0" prefWidth="174.0" text="End Date:">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <DatePicker fx:id="endDate">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </DatePicker>
-                  <MenuButton fx:id="crimeTypeDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Crime Type">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </MenuButton>
-                  <MenuButton fx:id="locationDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Location Description">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </MenuButton>
-                  <TextField fx:id="beatSearch" promptText="Beat (comma separated)">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <TextField fx:id="wardSearch" promptText="Ward (comma separated)">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <CheckBox fx:id="isArrest" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Arrest">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <CheckBox fx:id="isDomestic" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Domestic">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <Button fx:id="applyButton" layoutX="30.0" layoutY="310.0" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="89.0" text="Apply Filter">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </Button>
-                  <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" text="Rank by">
-                    <items>
-                      <MenuItem fx:id="mostArea" mnemonicParsing="false" onAction="#clickMostArea" text="Most Dangerous Area" />
-                      <MenuItem fx:id="leastArea" mnemonicParsing="false" onAction="#clickLeastArea" text="Least Dangerous Area" />
-                        <MenuItem fx:id="mostCrime" mnemonicParsing="false" onAction="#clickMostCrime" text="Most Common Crime" />
-                        <MenuItem fx:id="leastCrime" mnemonicParsing="false" onAction="#clickLeastCrime" text="Least Common Crime" />
-                    </items>
-                  </MenuButton>
-                  <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="139.0" text="Reset Filter and Rank" />
-               </children>
-            </VBox>
-            <Button fx:id="addButton" layoutX="258.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickAdd" text="Add Crime" />
-            <Button fx:id="editButton" layoutX="387.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickEdit" text="Edit Crime" />
-            <Button fx:id="deleteButton" layoutX="521.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickDelete" text="Delete Crime" />
+            <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="91.0" text="Rank by">
+               <items>
+                  <MenuItem fx:id="mostArea" mnemonicParsing="false" onAction="#clickMostArea" text="Most Dangerous Area" />
+                  <MenuItem fx:id="leastArea" mnemonicParsing="false" onAction="#clickLeastArea" text="Least Dangerous Area" />
+                  <MenuItem fx:id="mostCrime" mnemonicParsing="false" onAction="#clickMostCrime" text="Most Common Crime" />
+                  <MenuItem fx:id="leastCrime" mnemonicParsing="false" onAction="#clickLeastCrime" text="Least Common Crime" />
+               </items>
+            </MenuButton>
+            <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="139.0" text="Reset Filter and Rank" />
          </children>
-      </AnchorPane>
+      </VBox>
+      <Button fx:id="addButton" layoutX="287.0" layoutY="627.0" mnemonicParsing="false" onAction="#clickAdd" text="Add Crime" />
+      <Button fx:id="editButton" layoutX="416.0" layoutY="627.0" mnemonicParsing="false" onAction="#clickEdit" text="Edit Crime" />
+      <Button fx:id="deleteButton" layoutX="550.0" layoutY="627.0" mnemonicParsing="false" onAction="#clickDelete" text="Delete Crime" />
+      <Pane layoutY="147.0" prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="147.0">
+         <children>
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#clickHome" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="mapButton" layoutY="79.0" mnemonicParsing="false" onAction="#clickMap" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Map" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Data" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="importButton" defaultButton="true" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="-3.0" prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

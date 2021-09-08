@@ -2,32 +2,46 @@ package seng202.group6.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for home screen in user interface, associated with homeScreen.fxml.
  * Is a child class of MasterController
  */
 
-public class HomeController extends MasterController {
+public class HomeController extends MasterController implements Initializable {
 
     @FXML
-    private Button homeButton;
+    protected static Button homeButton;
 
     @FXML
-    private Button mapButton;
+    protected static Button mapButton;
 
     @FXML
-    private Button dataButton;
+    protected static Button dataButton;
 
     @FXML
-    private Button importButton;
+    protected static Button importButton;
+
+    @FXML
+    protected static Text welcomeText;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+
+
+    }
 
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @param event Button click event when home button is clicked
      * @throws IOException
      */
 
@@ -38,7 +52,6 @@ public class HomeController extends MasterController {
     /**
      * Method to call change to data screen method in MasterController when the data button
      * is clicked
-     * @param event Button click event when data button is clicked
      * @throws IOException
      */
 
