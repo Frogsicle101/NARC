@@ -11,16 +11,23 @@ public class SQLiteDatabase {
     private static final String jdbcUrl = "jdbc:sqlite:crimes.db";  //Constant that stores path to database file
     private static Connection connection;   //Stores database connection. Initialised by connectToDatabase()
 
+    /**
+     * Creates a connection to the database, and creates it if it doesn't exist
+     */
     public static void connectToDatabase() throws SQLException {
-        connection = DriverManager.getConnection(jdbcUrl);  //Gets connection to database
+        connection = DriverManager.getConnection(jdbcUrl);
 
         System.out.println("Connected to Database");
     }
 
-    public static void createTable() throws SQLException{
-        String sql = "CREATE TABLE IF NOT EXISTS crimes (" +
+    /**
+     * Checks whether a table exists in the database, and creates it if it doesn't exist
+     * @param tableName The name of the table to create
+     */
+    public static void createTable(String tableName) throws SQLException{
+        String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ " (" +
                 "case_id CHAR(8) PRIMARY KEY," +
-                //"occurrence_date DATETIME NOT NULL, " +
+                //"occurrence_date DATETIME NOT NULL, " +       Commented out until dates work
                 "block VARCHAR(50) NOT NULL," +
                 "iucr CHAR(4) NOT NULL," +
                 "primary_description VARCHAR(50) NOT NULL," +
@@ -38,8 +45,13 @@ public class SQLiteDatabase {
         statement.executeUpdate(sql);
     }
 
-    public static void insertIntoTable(Crime crime) throws SQLException {
-        String sqlInsert ="INSERT INTO crimes VALUES (";
+    /**
+     * Inserts a crime object into a table
+     * @param tableName The name of the table to insert into
+     * @param crime The crime object to insert into the table
+     */
+    public static void insertIntoTable(String tableName, Crime crime) throws SQLException {
+        String sqlInsert ="INSERT INTO " + tableName + " VALUES (";
 
         String sql = sqlInsert + "'" + crime.getCaseNumber() + "', " +
                 //str.append(crime.getDate() + ", ");   //Dates don't seem to work yet
