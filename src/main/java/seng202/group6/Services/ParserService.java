@@ -29,15 +29,15 @@ public class ParserService {
 
         int counter = 0;
         while(reader.peek() != null) {
+
             String[] fields = reader.readNext();
-
-            SQLiteDatabase.insertIntoTable("Crimes", fields);
-
+            SQLiteDatabase.insertIntoTable("Crimes", fields);   //Populates "Crimes" table in database
 
         }
 
-        SQLiteDatabase.selectAllFromTable("Crimes");
-        return crimeList;
+        //TODO Get rid of or make use of these lines
+        SQLiteDatabase.selectAllFromTable("Crimes");    //This returns a ResultSet but it isn't used
+        return crimeList;       //This currently returns an empty arraylist
     }
 
 

@@ -36,7 +36,7 @@ class ParserServiceTest {
             System.out.println("Hi");
         }
     }
-
+    //TODO Fix this
     /*@Test
     public void csvToArrayList() throws IOException, CsvValidationException, SQLException {
         ArrayList<Crime> generatedCrimes = ParserService.csvToArrayList(new File("test.csv"));

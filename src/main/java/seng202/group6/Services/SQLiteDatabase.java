@@ -16,6 +16,8 @@ public class SQLiteDatabase {
      */
     public static void connectToDatabase() throws SQLException {
         connection = DriverManager.getConnection(jdbcUrl);
+
+        createTable("Crimes");
     }
 
     /**
@@ -48,7 +50,7 @@ public class SQLiteDatabase {
      * @param tableName The name of the table to insert into
      * @param fields The fields to insert into the table
      */
-    public static void insertIntoTable(String tableName, String[] fields) throws SQLException {
+    public static void insertIntoTable(String tableName, String[] fields) {
         String sqlInsert ="INSERT INTO " + tableName + " VALUES (";
 
         String coordinates;
@@ -58,7 +60,7 @@ public class SQLiteDatabase {
             coordinates = ", " + fields[14] + ", " + fields[15];
         }
 
-
+        //TODO Update to accommodate more blank fields
         String sql = sqlInsert + "'" + fields[0] + "', " +  //case_id
                 "'" + fields[1] + "', " +   //occurrence_date
                 "'" + fields[2] + "', " +   //block
@@ -73,12 +75,27 @@ public class SQLiteDatabase {
                 "'" + fields[11] + "'" +  //fbi_cd
                 coordinates + ")";
 
-        Statement statement = connection.createStatement();
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //TODO finish this method
+    public static void insertCrimeObjectIntoTable(String tableName, Crime crime) {
+        String sql = "INSERT INTO " + tableName + "(case_id, occurrence_date, block, iucr, primary_description," +
+                "secondary_description, location, arrest, domestic, beat, ward, fbi_cd, latitude, longitude) VALUES (";
+                //TODO List each variable in crime with commas in between at the end of this string
 
         try {
+            Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-        } catch(SQLException e) {}
-
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -89,9 +106,7 @@ public class SQLiteDatabase {
         String sql = "SElECT * FROM "+tableName;
 
         Statement statement = connection.createStatement();
-        ResultSet allData = statement.executeQuery(sql);
-
-        return allData;
+        return statement.executeQuery(sql);
     }
 
     public static ArrayList<Crime> convertResultSet(ResultSet data) throws SQLException {

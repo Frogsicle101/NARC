@@ -132,6 +132,7 @@ public class DataController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        //Populates crimeData arraylist from database
         try {
             crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
         } catch (SQLException e) {

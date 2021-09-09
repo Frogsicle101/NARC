@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -34,8 +36,6 @@ public class HomeController extends MasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
 
     }
 

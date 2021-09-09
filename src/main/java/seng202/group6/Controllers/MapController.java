@@ -12,11 +12,13 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seng202.group6.Services.DynamicMapService;
+import seng202.group6.Services.SQLiteDatabase;
 import seng202.group6.Services.StaticMapService;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -110,6 +112,15 @@ public class MapController extends MasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //Populates crimeData arraylist from database
+        //Probably a cleaner way to make this work, so it isn't called twice but this works for now
+        try {
+            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         /*WebEngine webEngine = mapView.getEngine();
         webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
