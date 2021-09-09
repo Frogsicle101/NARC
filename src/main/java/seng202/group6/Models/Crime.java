@@ -113,6 +113,9 @@ public class Crime {
         int year = Integer.parseInt(date.substring(6, 10));
         if (date.endsWith("PM")){
             hour += 12;
+            if(hour == 24){
+                hour = 0;
+            }
         }
 
         LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
