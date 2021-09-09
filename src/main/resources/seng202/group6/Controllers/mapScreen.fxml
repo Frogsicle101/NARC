@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
    <children>
-      <Button fx:id="removeMarkesButton" layoutX="1060.0" layoutY="219.0" mnemonicParsing="false" onAction="#removeMarkers" prefHeight="28.0" prefWidth="92.0" text="Remove Markers" />
+      <Button fx:id="removeMarkesButton" layoutX="1043.0" layoutY="219.0" mnemonicParsing="false" onAction="#removeMarkers" prefHeight="28.0" prefWidth="109.0" text="Remove Markers" />
       <Pane layoutY="147.0" prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="147.0">
          <children>
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#clickHome" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Home" textFill="WHITE">
@@ -44,5 +44,6 @@
       </Pane>
       <Pane layoutX="-3.0" prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Pane fx:id="mapPane" layoutX="331.0" layoutY="228.0" prefHeight="390.0" prefWidth="668.0" />
+      <Button fx:id="addMarkersButton" layoutX="1044.0" layoutY="282.0" mnemonicParsing="false" onAction="#addMarkers" prefHeight="25.0" prefWidth="109.0" text="Add Markers" />
    </children>
 </AnchorPane>

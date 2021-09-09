@@ -41,7 +41,8 @@ public class MapController extends MasterController implements Initializable {
     @FXML
     private ImageView mapImage;
 
-
+    @FXML
+    private Button getRemoveMarkersButton;
 
     @FXML
     private Pane mapPane;
@@ -123,15 +124,27 @@ public class MapController extends MasterController implements Initializable {
             System.out.println("Error in clickViewMap: " + e);
         }*/
         WebView mapView = DynamicMapService.getMapView();
+        WebEngine webEngine = mapView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+
+
+
+            }
+        });
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
         mapPane.getChildren().add(mapView);
-        DynamicMapService.loadMarkers(super.crimeData);
+    }
 
+    public void addMarkers(ActionEvent event) {
+        DynamicMapService.loadMarkers(super.crimeData);
     }
 
     public void removeMarkers(ActionEvent event) {
-        DynamicMapService.getMapView().getEngine().executeScript("removeMarkers()");
+        DynamicMapService.removeMarkers();
     }
+
+
 
 
 }

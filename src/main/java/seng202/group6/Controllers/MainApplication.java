@@ -24,9 +24,9 @@ public class MainApplication extends Application {
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(homeScreen, 1200, 700));
         primaryStage.show();
-        DynamicMapService.initializeDynamicMap();
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
+        DynamicMapService.initializeDynamicMap();
     }
 
     /**
