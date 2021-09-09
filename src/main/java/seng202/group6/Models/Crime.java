@@ -31,6 +31,31 @@ public class Crime {
     public Crime() {}
 
     /**
+     * Bug fixing time, will be delete/used later
+     */
+     public Crime(String case_id, String occurrence_date, String block, String iucr, String primary_description, String secondary_description,
+                  boolean arrest, boolean domestic, int beat, int ward, String fbi, String location, double latitude, double longitude) {
+         this.caseNumber = case_id;
+         this.date = parseDateString(occurrence_date);
+         this.block = block;
+         this.IUCR = iucr;
+         this.primaryDescription = primary_description;
+         this.secondaryDescription = secondary_description;
+         this.arrest = arrest;
+         this.domestic = domestic;
+         this.beat = beat;
+         this.ward = ward;
+         this.FBI = fbi;
+         this.locationDescription = location;
+         this.latitude = latitude;
+         this.longitude = longitude;
+     }
+
+
+
+
+
+    /**
      * A constructor for type crime that gets fed a series of strings representing the various variables within it,
      * all parameters are fed in as strings
      * @param caseNumber A string representing the case number of the crime, two Letters followed by 6 digits of form AB123456
@@ -69,7 +94,7 @@ public class Crime {
         this.ward = ward;
         this.FBI = FBI;
         this.locationDescription = locationDescription;
-        this.latitude = Double.parseDouble(latitude); //TODO convert to double
+        this.latitude = Double.parseDouble(latitude);
         this.longitude = Double.parseDouble(longitude);
     }
 

@@ -44,9 +44,9 @@ public class DynamicMapService {
 
     public static void loadMarkers(ArrayList<Crime> crimes) {
         ArrayList<Crime> crimes1 = new ArrayList<Crime>();
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", true, true, 9, 10, "11", "12", 41.85, -87.65));
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", true, true, 9, 10, "11", "12", 41.85, -86.65));
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", true, true, 9, 10, "11", "12", 42.85, -87.65));
+        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-87.65"));
+        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-86.65"));
+        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "42.85", "-87.65"));
         //System.out.println(crimes.size());
         /*for (int i = 0; i < crimes.size(); i++) {
             System.out.println(crimes.get(i));
