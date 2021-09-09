@@ -3,6 +3,7 @@ package seng202.group6.Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
 
 import java.net.URL;
@@ -57,6 +58,9 @@ public class ViewController extends MasterController implements Initializable {
     @FXML
     private Text longitude;
 
+    @FXML
+    private WebView mapView;
+
     /**
      * Method to initialize view scene, sets all the specific text fields to
      * their correlating values in the specific crime given. Specific crime is
@@ -69,7 +73,7 @@ public class ViewController extends MasterController implements Initializable {
         Crime viewedCrime = MasterController.crimeToView;
 
         caseNumber.setText(viewedCrime.getCaseNumber());
-        // date.setText(viewedCrime.getDate());
+        date.setText(viewedCrime.getDate().toString());
         block.setText(viewedCrime.getBlock());
         IUCR.setText(viewedCrime.getIUCR());
         primaryDescription.setText(viewedCrime.getPrimaryDescription());

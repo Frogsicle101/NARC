@@ -13,11 +13,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 import seng202.group6.Services.ParserService;
+import seng202.group6.Services.SQLiteDatabase;
 
 import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -86,7 +88,7 @@ public class ImportController extends MasterController {
      * @throws CsvValidationException
      */
 
-    public void clickImportFile(ActionEvent event) throws IOException, CsvValidationException {
+    public void clickImportFile(ActionEvent event) throws IOException, CsvValidationException, SQLException {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
@@ -96,7 +98,10 @@ public class ImportController extends MasterController {
         if (crimeFile == null) {
             validUpload = false;
         } else {
+            //Creating new tables and giving them a name should be done here
+            //SQLiteDatabase.createTable("Crimes"); This line is currently obsolete
             crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
+
             filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser

@@ -1,23 +1,24 @@
 package seng202.group6.Controllers;
 
-import com.google.maps.model.LatLng;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seng202.group6.Models.Crime;
-import seng202.group6.Services.MapService;
+import seng202.group6.Services.DynamicMapService;
+import seng202.group6.Services.SQLiteDatabase;
+import seng202.group6.Services.StaticMapService;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -43,7 +44,10 @@ public class MapController extends MasterController implements Initializable {
     private ImageView mapImage;
 
     @FXML
-    private WebView mapView;
+    private Button getRemoveMarkersButton;
+
+    @FXML
+    private Pane mapPane;
 
     @FXML
     private Button viewMapButton;
@@ -53,6 +57,9 @@ public class MapController extends MasterController implements Initializable {
 
     @FXML
     private Text noAddressText;
+
+    @FXML
+    private Button removeMarkersButton;
 
     /**
      * Method to call change to home screen method in MasterController when the home button
@@ -105,14 +112,49 @@ public class MapController extends MasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        WebEngine webEngine = mapView.getEngine();
+
+        //Populates crimeData arraylist from database
+        //Probably a cleaner way to make this work, so it isn't called twice but this works for now
+        try {
+            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        /*WebEngine webEngine = mapView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                loadMarkers(webEngine);
+            }
+        });
+
         File file = new File("src/main/resources/HTML/EmbedMaps.html");
         try {
             webEngine.load(file.toURI().toString());
         } catch (Exception e) {
             System.out.println("Error in clickViewMap: " + e);
-        }
+        }*/
+        WebView mapView = DynamicMapService.getMapView();
+        WebEngine webEngine = mapView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+
+
+
+            }
+        });
+        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
+        mapPane.getChildren().add(mapView);
     }
+
+    public void addMarkers(ActionEvent event) {
+        DynamicMapService.loadMarkers(super.crimeData);
+    }
+
+    public void removeMarkers(ActionEvent event) {
+        DynamicMapService.removeMarkers();
+    }
+
 
 
 

@@ -15,9 +15,10 @@ import java.util.ArrayList;
 
 import javafx.embed.swing.SwingFXUtils;
 import seng202.group6.Models.Crime;
+import seng202.group6.Models.DynamicMapMarker;
 
 
-public class MapService {
+public class StaticMapService {
     private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
 
     public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException {
@@ -31,7 +32,7 @@ public class MapService {
             StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
             int zoom = highestLevelZoom(geocodingResult);
             request.center(centreLatLng).zoom(zoom).maptype(StaticMapsRequest.StaticMapType.roadmap);
-            Markers markers = addMapMarkers(request, crimeData, centreLatLng, zoom);
+            Markers markers = addStaticMapMarkers(request, crimeData, centreLatLng, zoom);
 
             request.markers(markers);
 
@@ -108,7 +109,7 @@ public class MapService {
         return zoomLevel;
     }
 
-    public static Markers addMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
+    public static Markers addStaticMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
         Markers markers = new Markers();
         int numMarkers = 0;
         for (int i =0; i < crimeData.size(); i++) {
@@ -163,4 +164,6 @@ public class MapService {
         Double y = (centre.lat - otherCrime.getLatitude()) * 111;  //But it works. The *111 is to convert to KM's
         return Math.hypot(x, y); //Again return value is in km
     }
+
+
 }

@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.web.WebView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
    <children>
-      <AnchorPane layoutY="-25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1191.0">
+      <Button fx:id="removeMarkesButton" layoutX="1043.0" layoutY="219.0" mnemonicParsing="false" onAction="#removeMarkers" prefHeight="28.0" prefWidth="109.0" text="Remove Markers" />
+      <Pane layoutY="147.0" prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="147.0">
          <children>
-            <Button fx:id="mapButton" defaultButton="true" layoutY="269.0" mnemonicParsing="false" prefHeight="132.0" prefWidth="247.0" text="Map">
+            <Button fx:id="homeButton" mnemonicParsing="false" onAction="#clickHome" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Home" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="mapButton" layoutY="79.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Map" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" onAction="#clickData" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Data" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="importButton" defaultButton="true" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
             </Button>
-            <Button fx:id="homeButton" layoutY="137.0" mnemonicParsing="false" onAction="#clickHome" prefHeight="132.0" prefWidth="247.0" text="Home">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <Button fx:id="importButton" layoutY="533.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="132.0" prefWidth="247.0" text="Import">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <Button fx:id="dataButton" layoutY="401.0" mnemonicParsing="false" onAction="#clickData" prefHeight="132.0" prefWidth="247.0" text="Data">
-               <font>
-                  <Font size="35.0" />
-               </font>
-            </Button>
-            <Text fx:id="noAddressText" layoutX="402.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter an Address" visible="false" wrappingWidth="140.078125" />
-            <WebView fx:id="mapView" layoutX="353.0" layoutY="127.0" prefHeight="478.0" prefWidth="670.0" />
          </children>
-      </AnchorPane>
+      </Pane>
+      <Pane layoutX="-3.0" prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Pane fx:id="mapPane" layoutX="331.0" layoutY="228.0" prefHeight="390.0" prefWidth="668.0" />
+      <Button fx:id="addMarkersButton" layoutX="1044.0" layoutY="282.0" mnemonicParsing="false" onAction="#addMarkers" prefHeight="25.0" prefWidth="109.0" text="Add Markers" />
    </children>
 </AnchorPane>

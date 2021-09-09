@@ -23,31 +23,22 @@ public class MasterController {
     protected static Crime crimeToView;
     protected static Stage stage;
 
-    private Parent homeScreen;
-    private Parent mapScreen;
-    private Parent dataScreen;
-    private Parent importScreen;
-
-
-
     /**
      * Method to change between scenes in the current window
      * @param screen A string telling the method with screen to switch to
-     * @param event Button clicked event which allows method to find current stage
      * @throws IOException
      */
 
     public void changeScreen(String screen) throws IOException {
 
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
-        Scene newScene = new Scene(newScreen, 1050, 640);
+        Scene newScene = new Scene(newScreen, 1200, 700);
         stage.setScene(newScene);
     }
 
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the home screen
-     * @param event Button clicked event which allows method to find current stage
      * @throws IOException
      */
 
@@ -58,7 +49,6 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @param event Button clicked event which allows method to find current stage
      * @throws IOException
      */
 
@@ -69,7 +59,6 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the data screen
-     * @param event Button clicked event which allows method to find current stage
      * @throws IOException
      */
 
@@ -80,7 +69,6 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @param event Button clicked event which allows method to find current stage
      * @throws IOException
      */
 
