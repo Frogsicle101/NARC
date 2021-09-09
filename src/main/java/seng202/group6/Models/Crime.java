@@ -50,7 +50,9 @@ public class Crime {
      * @param latitude A string representing the latitudinal coordinates of the crime
      * @param longitude A string representing the longitudinal coordinates of the crime
      */
-    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription, String secondaryDescription, String arrest, String domestic, int beat, int ward, String FBI, String locationDescription, String latitude, String longitude) {
+    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription,
+                 String secondaryDescription, String locationDescription, String arrest, String domestic,
+                 int beat, int ward, String FBI, String latitude, String longitude) {
         this.caseNumber = caseNumber;
         this.date = parseDateString(date);
         this.block = block;
@@ -94,9 +96,30 @@ public class Crime {
         return dateTime;
     }
 
+    /**
+     * An equality checker for a Crime and an object
+     * @param other an object to be compared to
+     * @return A boolean value of if the objects have the same variables
+     */
 
+    @Override public boolean equals(Object other) {
+        boolean equal = false;
+        if (other instanceof Crime) {
+            equal = (this.arrest == ((Crime) other).getArrest() && this.caseNumber == ((Crime) other).getCaseNumber()
+            && this.domestic == ((Crime) other).getDomestic() && this.date.equals(((Crime) other).getDate()) &&
+                    this.longitude == ((Crime) other).getLongitude() && this.beat == ((Crime) other).getBeat() &&
+                    this.block == ((Crime) other).getBlock() && this.FBI == ((Crime) other).getFBI() &&
+                    this.IUCR == ((Crime) other).getIUCR() && this.latitude == ((Crime) other).getLatitude() &&
+                    this.locationDescription == ((Crime) other).getLocationDescription() && this.primaryDescription
+            == ((Crime) other).getPrimaryDescription() && this.secondaryDescription == ((Crime) other).getSecondaryDescription()
+            && this.ward == ((Crime) other).getWard());
+        }
+        return equal;
+    }
 
+    public boolean getArrest() { return this.arrest;}
 
+    public boolean getDomestic() {return this.domestic;}
 
     public String getCaseNumber() {
         return caseNumber;
@@ -205,7 +228,4 @@ public class Crime {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println("ass");
-    }
 }

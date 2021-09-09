@@ -55,12 +55,12 @@ public class ParserService {
                 fields[3], //IUCR
                 fields[4], //Primary Description
                 fields[5], //Secondary Description
+                fields[6],  //Location Description
                 fields[7], //Arrest
                 fields[8], //Domestic
                 Integer.parseInt(fields[9]), //Beat
                 Integer.parseInt(fields[10]), //Ward
                 fields[11], //FBI
-                fields[6],  //Location Description
                 fields[14], //Latitude
                 fields[15]  //Longitude
         );

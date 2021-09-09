@@ -46,12 +46,12 @@ class ParserServiceTest {
                 "0820",
                 "THEFT",
                 "$500 AND UNDER",
+                "STREET",
                 "N",
                 "N",
                 631,
                 8,
                 "061183633",
-                "STREET",
                 "41.880660786",
                 "-87.731186405"
         );

@@ -307,6 +307,11 @@ public class DataController extends MasterController implements Initializable {
     }
 
     public void clickMostArea() {
+        if (filteredCrimeData.size() != 0) {
+            //CAll rank here
+        } else {
+            //call rank here
+        }
 
     }
 
@@ -315,6 +320,11 @@ public class DataController extends MasterController implements Initializable {
     }
 
     public void clickMostCrime() {
+        if (filteredCrimeData.size() != 0) {
+            //CAll rank here
+        } else {
+            //call rank here
+        }
 
     }
 

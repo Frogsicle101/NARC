@@ -2,6 +2,7 @@ package seng202.group6.Services;
 
 import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
+import seng202.group6.Models.CrimeFrequency;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,19 +35,18 @@ public class Rank{
      * @param crimes The input to be ranked
      * @return Array list of type String in decreasing order of crime type
      */
-    public static ArrayList<String> rankedTypeList(ArrayList<Crime> crimes) {
-        ArrayList<String> initialList = new ArrayList<>();
-        ArrayList<String> output = new ArrayList<>();
+    public static ArrayList<CrimeFrequency> rankedTypeList(ArrayList<Crime> crimes) {
+        ArrayList<CrimeFrequency> output = new ArrayList<>();
         for (Crime crime : crimes) {
-            initialList.add(crime.getPrimaryDescription());
-        }
-        initialList.sort(Comparator.comparing(i -> Collections.frequency(initialList, i)).reversed());
-
-        for (String element : initialList) {
-            if (!output.contains(element)) {
-                output.add(element);
+            CrimeFrequency crimeFreq = new CrimeFrequency(crime.getPrimaryDescription());
+            if (output.contains(crimeFreq)) {
+                output.get(output.indexOf(crimeFreq)).incrementFrequency();
+            } else {
+                output.add(crimeFreq);
             }
         }
+        output.sort(Comparator.comparing(CrimeFrequency::getFrequency));
+        Collections.reverse(output);
         return output;
     }
 
@@ -86,4 +86,24 @@ public class Rank{
         }
         return output;
     }
+
+
+
+    public static void main(String[] args) {
+        ArrayList<Crime> crimeList = new ArrayList<>();
+        Crime crime1 = new Crime();
+        Crime crime2 = new Crime();
+        Crime crime3 = new Crime();
+        crime1.setPrimaryDescription("A");
+        crime2.setPrimaryDescription("A");
+        crime3.setPrimaryDescription("B");
+        crimeList.add(crime3);
+        crimeList.add(crime1);
+        crimeList.add(crime2);
+        ArrayList<CrimeFrequency> freqList = rankedTypeList(crimeList);
+        for (CrimeFrequency crime : freqList) {
+            System.out.println(crime.toString());
+        }
+    }
+
 }

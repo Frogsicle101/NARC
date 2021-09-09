@@ -1,22 +1,33 @@
 package seng202.group6.Services;
 
 import seng202.group6.Models.Crime;
-
 import java.time.LocalDateTime;
 
 public class AnalyticsService {
 
     /**
-     * A method used for getting the distance between two crimes in a purely geometric sense (i.e. not accounting for buildings and
-     * the likes in the way)
+     * A method used for getting the distance between two crimes in a purely geometric sense using the HaverSine Formula
      * @param otherCrime The other crime to find the distance between this one and
      * @return Returns a double representing the kilometers between the two crimes.
      */
     public static Double getDistanceBetween(Crime crime, Crime otherCrime){
-        Double x = (crime.getLongitude() - otherCrime.getLongitude()) * 111; //Don't ask me what is going on I don't know either
-        Double y = (crime.getLatitude() - otherCrime.getLatitude()) * 111;  //But it works. The *111 is to convert to KM's
-        return Math.hypot(x, y); //Again return value is in km
+        int earthRadiusKM = 6371; //Not working SICK
+        double latDif = Math.abs(crime.getLatitude() - otherCrime.getLatitude()); //I think theese are busted
+        double lonDif = Math.abs(crime.getLongitude() - otherCrime.getLongitude()); //I think these are busted
+        double lat1 = degreesToRadians(crime.getLatitude());
+        double lat2 = degreesToRadians(otherCrime.getLatitude());
+        double varA = Math.sin(latDif/2) * Math.sin(latDif/2) +
+                Math.sin(lonDif/2) * Math.sin(lonDif/2) * Math.cos(lat1) * Math.cos(lat2);
+        double varC = 2 * Math.atan2(Math.sqrt(varA), Math.sqrt(1-varA));
+        return earthRadiusKM * varC;
     }
+
+    private static Double degreesToRadians(double degrees) {
+        return (degrees * Math.PI) /180;
+    }
+
+
+
 
 
     /**
