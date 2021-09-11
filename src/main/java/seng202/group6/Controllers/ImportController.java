@@ -100,7 +100,7 @@ public class ImportController extends MasterController {
         } else {
             //Creating new tables and giving them a name should be done here
             //SQLiteDatabase.createTable("Crimes"); This line is currently obsolete
-            crimeData.addAll(ParserService.csvToArrayList(crimeFile)); //TODO: deal with thrown exceptions
+            ParserService.csvToDatabase(crimeFile); //TODO: deal with thrown exceptions
 
             filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
