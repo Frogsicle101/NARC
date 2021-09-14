@@ -326,9 +326,9 @@ public class DataController extends MasterController implements Initializable {
 
     }
 
-    public void clickMostCrime() {
+    public void clickMostCrime() throws IOException {
         if (filteredCrimeData.size() != 0) {
-            //CAll rank here
+            launchRankScreen(filteredCrimeData);
         } else {
             //call rank here
         }
