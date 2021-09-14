@@ -69,7 +69,7 @@ public class SQLiteDatabase {
                 "'" + fields[5] + "', " +   //secondary_description
                 "'" + fields[6] + "', " +   //location_description
                 fields[7].equals("Y") + ", " +  //arrest
-                fields[7].equals("Y") + ", " +  //domestic
+                fields[8].equals("Y") + ", " +  //domestic
                 Integer.parseInt(fields[9]) + ", " +    //beat
                 Integer.parseInt(fields[10]) + ", " +   //ward
                 "'" + fields[11] + "'" +  //fbi_cd
@@ -79,7 +79,6 @@ public class SQLiteDatabase {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch(SQLException e) {
-            e.printStackTrace();
         }
 
     }
@@ -94,7 +93,6 @@ public class SQLiteDatabase {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
         } catch(SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -119,8 +117,8 @@ public class SQLiteDatabase {
                     data.getString("iucr"),
                     data.getString("primary_description"),
                     data.getString("secondary_description"),
-                    data.getBoolean("arrest"),
-                    data.getBoolean("domestic"),
+                    data.getInt("arrest") == 1,
+                    data.getInt("domestic") == 1,
                     data.getInt("beat"),
                     data.getInt("ward"),
                     data.getString("fbi_cd"),

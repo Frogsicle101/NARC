@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
+import seng202.group6.Models.CrimeFrequency;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,6 +93,15 @@ public class MasterController {
         viewStage.setScene(newScene);
         viewStage.show();
 
+    }
+
+    public void launchRankScreen(ArrayList<Crime> list) throws IOException {
+        Stage viewStage = new Stage();
+        viewStage.setTitle("Crime Ranking");
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewRankScreen.fxml"));
+        Scene newScene = new Scene(newScreen, 700, 500);
+        viewStage.setScene(newScene);
+        viewStage.show();
     }
 
     public void launchEditScreen(Crime crime) throws IOException {

@@ -1,6 +1,7 @@
 package seng202.group6.Services;
 
 import seng202.group6.Controllers.MasterController;
+import seng202.group6.Models.AreaFrequency;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.CrimeFrequency;
 
@@ -20,6 +21,7 @@ public class Rank{
      * @param type   A string of primary type that will be counted
      * @return The number of certain crime type
      */
+    @Deprecated
     public static int frequencyOfCrime(ArrayList<Crime> crimes, String type) {
         int freqCount = 0;
         for (Crime crime : crimes) {
@@ -56,6 +58,7 @@ public class Rank{
      * @param area A string of the block area that will be counted
      * @return The number of certain crime in an area
      */
+    @Deprecated
     public static int frequencyOfArea(ArrayList<Crime> crimes, String area) {
         int freqCount = 0;
         for (Crime crime : crimes) {
@@ -71,19 +74,18 @@ public class Rank{
      * @param crimes The input to be ranked
      * @return Array list of type String in decreasing order of crime area
      */
-    public static ArrayList<String> rankedAreaList(ArrayList<Crime> crimes) {
-        ArrayList<String> initialList = new ArrayList<>();
-        ArrayList<String> output = new ArrayList<>();
+    public static ArrayList<AreaFrequency> rankedAreaList(ArrayList<Crime> crimes) {
+        ArrayList<AreaFrequency> output = new ArrayList<>();
         for (Crime crime : crimes) {
-            initialList.add(crime.getBlock().substring(0,4));
-        }
-        initialList.sort(Comparator.comparing(i -> Collections.frequency(initialList, i)).reversed());
-
-        for (String element : initialList) {
-            if (!output.contains(element)) {
-                output.add(element);
+            AreaFrequency areaFrequency = new AreaFrequency(crime.getBlock());
+            if (output.contains(areaFrequency)) {
+                output.get(output.indexOf(areaFrequency)).incrementFrequency();
+            } else {
+                output.add(areaFrequency);
             }
         }
+        output.sort(Comparator.comparing(AreaFrequency::getFrequency));
+        Collections.reverse(output);
         return output;
     }
 
