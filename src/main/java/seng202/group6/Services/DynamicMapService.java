@@ -9,6 +9,10 @@ import seng202.group6.Models.DynamicMapMarker;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Service for creating and manipulating a dynamic Google Map
+ * which is loaded by a javafx.scene.web.WebEngine Object.
+ */
 public class DynamicMapService {
     private static WebView mapView;
 
@@ -53,6 +57,18 @@ public class DynamicMapService {
         }*/
         String script = addDynamicMapMarkers(crimes);
         mapView.getEngine().executeScript(script);
+    }
+
+    public static void loadMarker(ArrayList<Crime> crimes) {
+        for (int i = 0; i < 500; i++) {
+            String script = "addMarker([";
+
+            DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
+            script += marker.toString();
+            script += ",])";
+            mapView.getEngine().executeScript(script);
+        }
+
     }
 
     public static void removeMarkers() {

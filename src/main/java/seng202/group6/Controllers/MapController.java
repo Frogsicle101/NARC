@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import seng202.group6.Models.Crime;
 import seng202.group6.Services.DynamicMapService;
 import seng202.group6.Services.SQLiteDatabase;
 import seng202.group6.Services.StaticMapService;
@@ -147,8 +148,12 @@ public class MapController extends MasterController implements Initializable {
         mapPane.getChildren().add(mapView);
     }
 
-    public void addMarkers(ActionEvent event) {
+    /*public void addMarkers(ActionEvent event) {
         DynamicMapService.loadMarkers(super.crimeData);
+    }*/
+
+    public void addMarkers(ActionEvent event) {
+        DynamicMapService.loadMarker(super.crimeData);
     }
 
     public void removeMarkers(ActionEvent event) {
