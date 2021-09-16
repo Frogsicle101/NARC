@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
-   <children>
-      <Button fx:id="removeMarkesButton" layoutX="1043.0" layoutY="219.0" mnemonicParsing="false" onAction="#removeMarkers" prefHeight="28.0" prefWidth="109.0" text="Remove Markers" />
-      <Pane layoutY="147.0" prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="147.0">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
+   <left>
+      <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#clickHome" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Home" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Button fx:id="mapButton" layoutY="79.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Map" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
             </Button>
             <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" onAction="#clickData" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Data" textFill="WHITE">
                <font>
@@ -35,15 +35,43 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="importButton" defaultButton="true" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
+            <Button fx:id="importButton" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </Pane>
-      <Pane layoutX="-3.0" prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Pane fx:id="mapPane" layoutX="331.0" layoutY="228.0" prefHeight="390.0" prefWidth="668.0" />
-      <Button fx:id="addMarkersButton" layoutX="1044.0" layoutY="282.0" mnemonicParsing="false" onAction="#addMarkers" prefHeight="25.0" prefWidth="109.0" text="Add Markers" />
-   </children>
-</AnchorPane>
+   </left>
+   <top>
+      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="690.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="500.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane fx:id="mapPane" prefHeight="450.0" prefWidth="690.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="removeMarkersButton" mnemonicParsing="false" onAction="#removeMarkers" prefHeight="25.0" prefWidth="133.0" text="Remove Markers" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="addMarkersButton" mnemonicParsing="false" onAction="#addMarkers" prefHeight="25.0" prefWidth="133.0" text="Add Markers" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="50.0" />
+               </GridPane.margin></Button>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

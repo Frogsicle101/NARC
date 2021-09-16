@@ -125,7 +125,7 @@ public class EditController extends MasterController implements Initializable {
         MasterController.crimeToView.setLongitude(Double.parseDouble(longitude.getText()));
 
         if (isNewCrime) {
-            MasterController.crimeData.add(MasterController.crimeToView);
+            crimeData.add(MasterController.crimeToView);
             System.out.println(crimeToView.getPrimaryDescription());
         }
 

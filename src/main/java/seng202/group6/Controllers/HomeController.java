@@ -20,23 +20,26 @@ import java.util.ResourceBundle;
 public class HomeController extends MasterController implements Initializable {
 
     @FXML
-    protected static Button homeButton;
+    private Button homeButton;
 
     @FXML
-    protected static Button mapButton;
+    private Button mapButton;
 
     @FXML
-    protected static Button dataButton;
+    private Button dataButton;
 
     @FXML
-    protected static Button importButton;
+    private Button importButton;
 
     @FXML
-    protected static Text welcomeText;
+    private Text welcomeText;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        mapButton.setFocusTraversable(false);
+        dataButton.setFocusTraversable(false);
+        importButton.setFocusTraversable(false);
     }
 
     /**

@@ -62,12 +62,6 @@ public class DataController extends MasterController implements Initializable {
     private Button viewCrime;
 
     @FXML
-    private Text noDataText;
-
-    @FXML
-    private Text notSelectedText;
-
-    @FXML
     private VBox filterBox;
 
     @FXML
@@ -98,13 +92,13 @@ public class DataController extends MasterController implements Initializable {
     private Button applyButton;
 
     @FXML
-    private Button addButton;
+    private Button addCrime;
 
     @FXML
-    private Button editButton;
+    private Button editCrime;
 
     @FXML
-    private Button deleteButton;
+    private Button deleteCrime;
 
     @FXML
     private Button resetButton;
@@ -132,6 +126,12 @@ public class DataController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        homeButton.setFocusTraversable(false);
+        mapButton.setFocusTraversable(false);
+        importButton.setFocusTraversable(false);
+
+        tableView.setFocusTraversable(false);
+
         //Populates crimeData arraylist from database
         try {
             crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
@@ -144,9 +144,13 @@ public class DataController extends MasterController implements Initializable {
             buildFilterSets();
             buildDropdowns();
 
-            noDataText.setVisible(false);
             tableView.setVisible(true);
+
             viewCrime.setVisible(true);
+            addCrime.setVisible(true);
+            deleteCrime.setVisible(true);
+            editCrime.setVisible(true);
+
             filterBox.setVisible(true);
 
             caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("caseNumber"));
@@ -158,9 +162,13 @@ public class DataController extends MasterController implements Initializable {
 
         } else {
 
-            noDataText.setVisible(true);
             tableView.setVisible(false);
+
             viewCrime.setVisible(false);
+            addCrime.setVisible(false);
+            editCrime.setVisible(false);
+            deleteCrime.setVisible(false);
+
             filterBox.setVisible(false);
         }
 
@@ -176,10 +184,7 @@ public class DataController extends MasterController implements Initializable {
     public void selectCrime(ActionEvent event) throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
         if (crime != null) {
-            notSelectedText.setVisible(false);
             launchViewScreen(crime);
-        } else {
-            notSelectedText.setVisible(true);
         }
     }
 
@@ -260,14 +265,11 @@ public class DataController extends MasterController implements Initializable {
         launchEditScreen(crime);
     }
 
-    public void clickEdit(ActionEvent event) throws IOException{
+    public void clickEdit(ActionEvent event) throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
         if (crime != null) {
-            notSelectedText.setVisible(false);
             EditController.isNewCrime = false;
             launchEditScreen(crime);
-        } else {
-            notSelectedText.setVisible(true);
         }
     }
 
