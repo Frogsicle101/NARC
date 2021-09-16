@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 public class Crime {
     private String caseNumber;
-    private LocalDateTime date ;
+    private LocalDateTime date;
     private String block ;
     private String IUCR;
     private String primaryDescription;
@@ -33,10 +33,10 @@ public class Crime {
     /**
      * Bug fixing time, will be delete/used later
      */
-     public Crime(String case_id, String occurrence_date, String block, String iucr, String primary_description, String secondary_description,
+     public Crime(String case_id, LocalDateTime occurrence_date, String block, String iucr, String primary_description, String secondary_description,
                   boolean arrest, boolean domestic, int beat, int ward, String fbi, String location, double latitude, double longitude) {
          this.caseNumber = case_id;
-         this.date = parseDateString(occurrence_date);
+         this.date = occurrence_date;
          this.block = block;
          this.IUCR = iucr;
          this.primaryDescription = primary_description;
@@ -50,10 +50,6 @@ public class Crime {
          this.latitude = latitude;
          this.longitude = longitude;
      }
-
-
-
-
 
     /**
      * A constructor for type crime that gets fed a series of strings representing the various variables within it,
@@ -75,7 +71,7 @@ public class Crime {
      * @param latitude A string representing the latitudinal coordinates of the crime
      * @param longitude A string representing the longitudinal coordinates of the crime
      */
-    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription,
+   /* public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription,
                  String secondaryDescription, String locationDescription, String arrest, String domestic,
                  int beat, int ward, String FBI, String latitude, String longitude) {
         this.caseNumber = caseNumber;
@@ -97,40 +93,16 @@ public class Crime {
         this.latitude = Double.parseDouble(latitude);
         this.longitude = Double.parseDouble(longitude);
     }
+*/
 
-    /**
-     * This method takes a string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM and converts it
-     * into an object of type LocalDateTime to represent it
-     * @param date A string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM
-     * @return Returns a LocalDateTime object representing the date-time passed to it as a string.
-     */
-    private LocalDateTime parseDateString(String date) {
-        int second = Integer.parseInt(date.substring(17, 19));
-        int minute = Integer.parseInt(date.substring(14, 16));
-        int hour = Integer.parseInt(date.substring(11, 13));
-        int day = Integer.parseInt(date.substring(3, 5));
-        int month = Integer.parseInt(date.substring(0, 2));
-        int year = Integer.parseInt(date.substring(6, 10));
-        if (date.endsWith("PM")){
-            hour += 12;
-            if(hour == 24){
-                hour = 0;
-            }
-        }
-
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
-
-
-        return dateTime;
-    }
 
     /**
      * An equality checker for a Crime and an object
      * @param other an object to be compared to
      * @return A boolean value of if the objects have the same variables
      */
-
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         boolean equal = false;
         if (other instanceof Crime) {
             equal = (this.arrest == ((Crime) other).getArrest() && this.caseNumber == ((Crime) other).getCaseNumber()
@@ -145,17 +117,37 @@ public class Crime {
         return equal;
     }
 
+    /**
+     * Returns a string containing each variable in the crime object separated by commas
+     * Blank variables are formatted as 'NULL' in the string
+     * This string representation is the same format necessary for SQL INSERT statements
+     * @return String representation of a Crime object
+     */
+    @Override
+    public String toString() {
+        return "'" + (this.caseNumber.equals("") ? "NULL" : this.caseNumber) + "', " +
+        "'" + (this.date.equals("") ? "NULL" : this.date) + "', " +
+        "'" + (this.block.equals("") ? "NULL" : this.block) + "', " +
+        "'" + (this.IUCR.equals("") ? "NULL" : this.IUCR) + "', " +
+        "'" + (this.primaryDescription.equals("") ? "NULL" : this.primaryDescription) + "', " +
+        "'" + (this.secondaryDescription.equals("") ? "NULL" : this.secondaryDescription) + "', " +
+        "'" + (this.locationDescription.equals("") ? "NULL" : this.locationDescription) + "', " +
+        this.arrest + ", " +
+        this.domestic + ", " +
+        this.beat + ", " +
+        this.ward + ", " +
+        "'" + (this.FBI.equals("") ? "NULL" : this.FBI) + "', " +
+        (this.latitude == (0.0) ? "NULL" : this.latitude) + ", " +
+        (this.longitude == (0.0) ? "NULL" : this.longitude);
+    }
+
     public boolean getArrest() { return this.arrest;}
 
     public boolean getDomestic() {return this.domestic;}
 
-    public String getCaseNumber() {
-        return caseNumber;
-    }
+    public String getCaseNumber() {return caseNumber;}
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+    public LocalDateTime getDate() {return date;}
 
     public String getFBI() { return FBI; }
 

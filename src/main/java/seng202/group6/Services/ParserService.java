@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,10 +26,60 @@ public class ParserService {
 
         while(reader.peek() != null) {
             String[] fields = reader.readNext();
-            SQLiteDatabase.insertIntoTable("Crimes", fields);   //Populates "Crimes" table in database
+
+            Crime crime = buildCrimeFromFields(fields);
+            SQLiteDatabase.insertIntoTable("Crimes", crime);   //Populates "Crimes" table in database
         }
         SQLiteDatabase.endTransaction();
     }
 
+    /**
+     * Creates a new crime object based on the data in fields
+     * @param fields A String[] with the data from the CSV
+     * @return The crime
+     */
+    private static Crime buildCrimeFromFields(String[] fields) {
+        Crime crime = new Crime (
+                fields[0], //Case Num
+                parseDateString(fields[1]), //Date
+                fields[2], //Block
+                fields[3], //IUCR
+                fields[4], //Primary Description
+                fields[5], //Secondary Description
+                fields[7].equals("Y"), //Arrest
+                fields[8].equals("Y"), //Domestic
+                Integer.parseInt(fields[9]), //Beat
+                Integer.parseInt(fields[10]), //Ward
+                fields[11], //FBI
+                fields[6],  //Location Description
+                fields[14].equals("") ? 0.0 : Double.parseDouble(fields[14]), //Latitude
+                fields[15].equals("") ? 0.0 : Double.parseDouble(fields[15]) //Longitude
+        );
+        return crime;
+    }
 
+    /**
+     * This method takes a string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM and converts it
+     * into an object of type LocalDateTime to represent it
+     * @param date A string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM
+     * @return Returns a LocalDateTime object representing the date-time passed to it as a string.
+     */
+    private static LocalDateTime parseDateString(String date) {
+        int second = Integer.parseInt(date.substring(17, 19));
+        int minute = Integer.parseInt(date.substring(14, 16));
+        int hour = Integer.parseInt(date.substring(11, 13));
+        int day = Integer.parseInt(date.substring(3, 5));
+        int month = Integer.parseInt(date.substring(0, 2));
+        int year = Integer.parseInt(date.substring(6, 10));
+        if (date.endsWith("PM")){
+            hour += 12;
+            if(hour == 24){
+                hour = 0;
+            }
+        }
+
+        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
+
+        return dateTime;
+    }
 }
