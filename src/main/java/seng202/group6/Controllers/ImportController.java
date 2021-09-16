@@ -89,7 +89,7 @@ public class ImportController extends MasterController implements Initializable 
 
     /**
      * Method to import a file when import file button is clicked. Creates a new file
-     * chooser instance which opens on the users computer to select a file from the
+     * chooser instance which opens on the user's computer to select a file from the
      * local system. Checks if the file uploaded is valid and if it is will send the
      * data to ParserService to read. If file is not valid will show an error message
      * on screen
@@ -102,15 +102,15 @@ public class ImportController extends MasterController implements Initializable 
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
-
+        int recordsOmitted = 0;
         boolean validUpload;
         File crimeFile = fileChooser.showOpenDialog(stage);
         if (crimeFile == null) {
             validUpload = false;
         } else {
             //Creating new tables and giving them a name should be done here
-            //SQLiteDatabase.createTable("Crimes"); This line is currently obsolete
-            ParserService.csvToDatabase(crimeFile); //TODO: deal with thrown exceptions
+
+            recordsOmitted = ParserService.csvToDatabase(crimeFile); //TODO: deal with thrown exceptions
 
             filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
@@ -119,6 +119,7 @@ public class ImportController extends MasterController implements Initializable 
         }
 
         if (validUpload) {
+            uploadSuccess.setText("File uploaded successfully. " + recordsOmitted + " records omitted.");
             uploadSuccess.setVisible(true);
         }
 

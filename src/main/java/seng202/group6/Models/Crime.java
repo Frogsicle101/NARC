@@ -106,8 +106,8 @@ public class Crime {
         "'" + (this.locationDescription.equals("") ? "NULL" : this.locationDescription) + "', " +
         this.arrest + ", " +
         this.domestic + ", " +
-        this.beat + ", " +
-        this.ward + ", " +
+        (this.beat == (-1) ? "NULL" : this.beat) + ", " +
+        (this.ward == (-1) ? "NULL" : this.ward) + ", " +
         "'" + (this.FBI.equals("") ? "NULL" : this.FBI) + "', " +
         (this.latitude == (0.0) ? "NULL" : this.latitude) + ", " +
         (this.longitude == (0.0) ? "NULL" : this.longitude);

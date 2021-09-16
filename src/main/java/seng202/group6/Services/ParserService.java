@@ -21,16 +21,21 @@ public class ParserService {
      * @throws IOException
      * @throws CsvValidationException
      */
-    public static void csvToDatabase(File file) throws IOException, CsvValidationException, SQLException {
+    public static int csvToDatabase(File file) throws IOException, CsvValidationException, SQLException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
-
+        int counter = 0;
         while(reader.peek() != null) {
             String[] fields = reader.readNext();
 
             Crime crime = buildCrimeFromFields(fields);
-            SQLiteDatabase.insertIntoTable("Crimes", crime);   //Populates "Crimes" table in database
+            try {
+                SQLiteDatabase.insertIntoTable("Crimes", crime);   //Populates "Crimes" table in database
+            } catch (SQLException e) {
+                counter++;
+            }
         }
         SQLiteDatabase.endTransaction();
+        return counter;
     }
 
     /**
@@ -48,8 +53,8 @@ public class ParserService {
                 fields[5], //Secondary Description
                 fields[7].equals("Y"), //Arrest
                 fields[8].equals("Y"), //Domestic
-                Integer.parseInt(fields[9]), //Beat
-                Integer.parseInt(fields[10]), //Ward
+                fields[9].equals("") ? -1 : Integer.parseInt(fields[9]), //Beat
+                fields[10].equals("") ? -1 : Integer.parseInt(fields[10]), //Ward
                 fields[11], //FBI
                 fields[6],  //Location Description
                 fields[14].equals("") ? 0.0 : Double.parseDouble(fields[14]), //Latitude

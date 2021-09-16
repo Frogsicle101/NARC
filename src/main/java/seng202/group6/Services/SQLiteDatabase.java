@@ -51,13 +51,12 @@ public class SQLiteDatabase {
      * @param tableName The name of the table to insert into
      * @param crime The crime object to insert into the table
      */
-    public static void insertIntoTable(String tableName, Crime crime) {
+    public static void insertIntoTable(String tableName, Crime crime) throws SQLException{
         String sql = "INSERT INTO " + tableName + " VALUES (" + crime.toString() + ")";
 
-        try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-        } catch(SQLException e) {}
+
     }
 
     /**

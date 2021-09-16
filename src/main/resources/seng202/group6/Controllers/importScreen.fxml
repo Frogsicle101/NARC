@@ -64,7 +64,7 @@
           <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="importFileButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#clickImportFile" text="Import FIle" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <Button fx:id="importFileButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#clickImportFile" text="Import File" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor>
