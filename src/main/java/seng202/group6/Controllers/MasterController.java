@@ -89,7 +89,7 @@ public class MasterController {
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
-        Scene newScene = new Scene(newScreen, 700, 500);
+        Scene newScene = new Scene(newScreen, 700, 550);
         viewStage.setScene(newScene);
         viewStage.show();
 

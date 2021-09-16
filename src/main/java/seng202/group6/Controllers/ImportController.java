@@ -1,6 +1,7 @@
 package seng202.group6.Controllers;
 
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.fxml.Initializable;
 import seng202.group6.Controllers.DataController;
 
 import javafx.collections.FXCollections;
@@ -19,15 +20,17 @@ import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for import screen in user interface, is associated with importScreen.fxml.
  * Is a child class of MasterController
  */
 
-public class ImportController extends MasterController {
+public class ImportController extends MasterController implements Initializable {
 
     @FXML
     private Button homeButton;
@@ -46,6 +49,13 @@ public class ImportController extends MasterController {
 
     @FXML
     private Text uploadSuccess;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        homeButton.setFocusTraversable(false);
+        mapButton.setFocusTraversable(false);
+        dataButton.setFocusTraversable(false);
+    }
 
     /**
      * Method to call change to home screen method in MasterController when the home button

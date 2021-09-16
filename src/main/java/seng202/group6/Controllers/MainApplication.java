@@ -23,6 +23,8 @@ public class MainApplication extends Application {
         Parent homeScreen = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));
         primaryStage.setTitle("NARC");
         primaryStage.setScene(new Scene(homeScreen, 1200, 700));
+        primaryStage.setMinHeight(700);
+        primaryStage.setMinWidth(1200);
         primaryStage.show();
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
