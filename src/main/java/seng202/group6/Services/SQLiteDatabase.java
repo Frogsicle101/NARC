@@ -16,6 +16,7 @@ public class SQLiteDatabase {
      */
     public static void connectToDatabase() throws SQLException {
         connection = DriverManager.getConnection(jdbcUrl);
+        connection.setAutoCommit(false);
 
         createTable("Crimes");
     }
@@ -94,6 +95,14 @@ public class SQLiteDatabase {
             statement.executeUpdate(sql);
         } catch(SQLException e) {
         }
+    }
+
+    /**
+     * Ends an SQL transaction and commits the results to file. Call after every change to the database
+     * @throws SQLException
+     */
+    public static void endTransaction() throws SQLException {
+        connection.commit();
     }
 
     /**

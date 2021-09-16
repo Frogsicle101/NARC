@@ -27,6 +27,7 @@ public class ParserService {
             String[] fields = reader.readNext();
             SQLiteDatabase.insertIntoTable("Crimes", fields);   //Populates "Crimes" table in database
         }
+        SQLiteDatabase.endTransaction();
     }
 
 
