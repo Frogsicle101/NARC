@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 
@@ -78,7 +77,7 @@ public class EditController extends MasterController implements Initializable {
             caseNumber.setText(viewedCrime.getCaseNumber());
             // date.setDate()
             block.setText(viewedCrime.getBlock());
-            IUCR.setText(viewedCrime.getIUCR());
+            IUCR.setText(viewedCrime.getIucr());
             primaryDescription.setText(viewedCrime.getPrimaryDescription());
             secondaryDescription.setText(viewedCrime.getSecondaryDescription());
             location.setText(viewedCrime.getLocationDescription());
@@ -112,7 +111,7 @@ public class EditController extends MasterController implements Initializable {
         MasterController.crimeToView.setCaseNumber(caseNumber.getText());
         //TODO: Date stuff
         MasterController.crimeToView.setBlock(block.getText());
-        MasterController.crimeToView.setIUCR(IUCR.getText());
+        MasterController.crimeToView.setIucr(IUCR.getText());
         MasterController.crimeToView.setPrimaryDescription(primaryDescription.getText());
         MasterController.crimeToView.setSecondaryDescription(secondaryDescription.getText());
         MasterController.crimeToView.setLocationDescription(location.getText());
