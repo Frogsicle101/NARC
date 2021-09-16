@@ -1,8 +1,12 @@
 package seng202.group6.Services;
 
+import org.apache.commons.lang3.ObjectUtils;
 import seng202.group6.Models.Crime;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +40,10 @@ public class Filter {
         for (Crime crime : crimes) {
 
             if (
+                    (start == null || crime.getDate().isAfter(ChronoLocalDateTime.from
+                            (LocalDateTime.of(start, LocalTime.MIDNIGHT)))) &&
+                    (end == null || crime.getDate().isBefore(ChronoLocalDateTime.from
+                            (LocalDateTime.of(end, LocalTime.MIDNIGHT)))) &&
                     (types.isEmpty() || types.contains(crime.getPrimaryDescription())) &&
                     (locations.isEmpty() || locations.contains(crime.getLocationDescription())) &&
                     (crime.isArrest() == arrest) &&
