@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import seng202.group6.Models.AreaFrequency;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.CrimeFrequency;
 
@@ -16,28 +17,28 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
+import static seng202.group6.Services.Rank.rankedAreaList;
 import static seng202.group6.Services.Rank.rankedTypeList;
 
-public class ViewRankScreenController extends MasterController implements Initializable {
-    private ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
+public class ViewRankScreenController2 extends MasterController implements Initializable {
+    private ArrayList<AreaFrequency> data = new ArrayList<AreaFrequency>();
     private ArrayList<Crime> whac;
 
     @FXML
-    protected TableView<CrimeFrequency> tableView;
+    protected TableView<AreaFrequency> tableView;
 
     @FXML
-    private TableColumn<CrimeFrequency, String> typeCrimeColumn;
+    private TableColumn<AreaFrequency, String> AreaColumn;
 
     @FXML
-    private TableColumn<CrimeFrequency, String> frequencyColumn;
+    private TableColumn<AreaFrequency, String> frequencyColumn;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //assume not null (fix later?)
-        data = rankedTypeList(filteredCrimeData);
-        typeCrimeColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("crime"));
-        frequencyColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("frequency"));
+        data = rankedAreaList(filteredCrimeData);
+        AreaColumn.setCellValueFactory(new PropertyValueFactory<AreaFrequency, String>("area"));
+        frequencyColumn.setCellValueFactory(new PropertyValueFactory<AreaFrequency, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
 
 

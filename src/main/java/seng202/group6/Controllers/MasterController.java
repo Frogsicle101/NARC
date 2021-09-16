@@ -19,10 +19,12 @@ import java.util.ArrayList;
 
 public class MasterController {
 
+
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
     protected static ArrayList<Crime> filteredCrimeData = new ArrayList<>();
     protected static Crime crimeToView;
     protected static Stage stage;
+
 
     /**
      * Method to change between scenes in the current window
@@ -96,6 +98,8 @@ public class MasterController {
     }
 
     public void launchRankScreen(ArrayList<Crime> list) throws IOException {
+
+
         Stage viewStage = new Stage();
         viewStage.setTitle("Crime Ranking");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewRankScreen.fxml"));
@@ -103,6 +107,17 @@ public class MasterController {
         viewStage.setScene(newScene);
         viewStage.show();
     }
+
+    public void launchRankScreen2(ArrayList<Crime> list) throws IOException {
+
+        Stage viewStage = new Stage();
+        viewStage.setTitle("Area Ranking");
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewRankScreen2.fxml")); //Causing problems
+        Scene newScene = new Scene(newScreen, 700, 500);
+        viewStage.setScene(newScene);
+        viewStage.show();
+    }
+
 
     public void launchEditScreen(Crime crime) throws IOException {
 

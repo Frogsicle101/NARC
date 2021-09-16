@@ -38,18 +38,25 @@ public class Rank{
      * @return Array list of type String in decreasing order of crime type
      */
     public static ArrayList<CrimeFrequency> rankedTypeList(ArrayList<Crime> crimes) {
-        ArrayList<CrimeFrequency> output = new ArrayList<>();
+        ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
+        boolean found;
         for (Crime crime : crimes) {
-            CrimeFrequency crimeFreq = new CrimeFrequency(crime.getPrimaryDescription());
-            if (output.contains(crimeFreq)) {
-                output.get(output.indexOf(crimeFreq)).incrementFrequency();
-            } else {
-                output.add(crimeFreq);
+            found = false;
+            CrimeFrequency crimeFrequency = new CrimeFrequency(crime.getPrimaryDescription());
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getCrime().equals(crimeFrequency.getCrime())) {
+                    data.get(i).incrementFrequency();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                data.add(crimeFrequency);
             }
         }
-        output.sort(Comparator.comparing(CrimeFrequency::getFrequency));
-        Collections.reverse(output);
-        return output;
+        data.sort(Comparator.comparing(CrimeFrequency::getFrequency));
+        Collections.reverse(data);
+        return data;
     }
 
     /**
@@ -75,18 +82,25 @@ public class Rank{
      * @return Array list of type String in decreasing order of crime area
      */
     public static ArrayList<AreaFrequency> rankedAreaList(ArrayList<Crime> crimes) {
-        ArrayList<AreaFrequency> output = new ArrayList<>();
+        ArrayList<AreaFrequency> data = new ArrayList<AreaFrequency>();
+        boolean found;
         for (Crime crime : crimes) {
-            AreaFrequency areaFrequency = new AreaFrequency(crime.getBlock());
-            if (output.contains(areaFrequency)) {
-                output.get(output.indexOf(areaFrequency)).incrementFrequency();
-            } else {
-                output.add(areaFrequency);
+            found = false;
+            AreaFrequency areaFrequency = new AreaFrequency(crime.getBlock().substring(0, 3));
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getArea().equals(areaFrequency.getArea())) {
+                    data.get(i).incrementFrequency();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                data.add(areaFrequency);
             }
         }
-        output.sort(Comparator.comparing(AreaFrequency::getFrequency));
-        Collections.reverse(output);
-        return output;
+        data.sort(Comparator.comparing(AreaFrequency::getFrequency));
+        Collections.reverse(data);
+        return data;
     }
 
 
@@ -96,9 +110,9 @@ public class Rank{
         Crime crime1 = new Crime();
         Crime crime2 = new Crime();
         Crime crime3 = new Crime();
-        crime1.setPrimaryDescription("A");
-        crime2.setPrimaryDescription("A");
-        crime3.setPrimaryDescription("B");
+        crime1.setPrimaryDescription("ROBBERY");
+        crime2.setPrimaryDescription("CRIMINAL DAMAGE");
+        crime3.setPrimaryDescription("ROBBERY");
         crimeList.add(crime3);
         crimeList.add(crime1);
         crimeList.add(crime2);
