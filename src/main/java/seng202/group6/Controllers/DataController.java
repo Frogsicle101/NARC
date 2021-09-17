@@ -77,16 +77,30 @@ public class DataController extends MasterController implements Initializable {
     private MenuButton locationDropdown;
 
     @FXML
+    private RadioButton anyArrest;
+
+    @FXML
+    private RadioButton yesArrest;
+
+    @FXML
+    private RadioButton noArrest;
+
+    @FXML
+    private RadioButton anyDomestic;
+
+    @FXML
+    private RadioButton yesDomestic;
+
+    @FXML
+    private RadioButton noDomestic;
+
+
+    @FXML
     private TextField wardSearch;
 
     @FXML
     private TextField beatSearch;
 
-    @FXML
-    private CheckBox isArrest;
-
-    @FXML
-    private CheckBox isDomestic;
 
     @FXML
     private Button applyButton;
@@ -244,8 +258,19 @@ public class DataController extends MasterController implements Initializable {
         filter.setLocations(selectedLocations);
 
 
-        filter.setArrest(isArrest.isSelected());
-        filter.setDomestic(isDomestic.isSelected());
+
+        if (yesArrest.isSelected()) {
+            filter.setArrest(true);
+        } else if (noArrest.isSelected()) {
+            filter.setArrest(false);
+        }
+
+        if (yesDomestic.isSelected()) {
+            filter.setDomestic(true);
+        } else if (noDomestic.isSelected()) {
+            filter.setDomestic(false);
+        }
+        //If anyArrest or anyDomestic is selected that field is left as null
 
         filter.setBeats(beatSearch.getText());
         filter.setWards(wardSearch.getText());

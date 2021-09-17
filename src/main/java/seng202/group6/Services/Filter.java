@@ -24,8 +24,8 @@ public class Filter {
     private LocalDate end;
     private Set<String> types;
     private Set<String> locations;
-    private boolean arrest;
-    private boolean domestic;
+    private Boolean arrest;
+    private Boolean domestic;
     private Set<Integer> beats = new HashSet<>();
     private Set<Integer> wards = new HashSet<>();
 
@@ -46,8 +46,8 @@ public class Filter {
                             (LocalDateTime.of(end, LocalTime.MIDNIGHT)))) &&
                     (types.isEmpty() || types.contains(crime.getPrimaryDescription())) &&
                     (locations.isEmpty() || locations.contains(crime.getLocationDescription())) &&
-                    (crime.isArrest() == arrest) &&
-                    (crime.isDomestic() == domestic) &&
+                    (arrest == null || crime.isArrest() == arrest) &&
+                    (domestic == null || crime.isDomestic() == domestic) &&
                     (beats.isEmpty() || beats.contains(crime.getBeat())) &&
                     (wards.isEmpty() || wards.contains(crime.getWard()))
             ) {

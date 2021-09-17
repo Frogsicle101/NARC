@@ -3,17 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -145,19 +147,63 @@
                   </TextField>
                   <TextField fx:id="wardSearch" maxWidth="200.0" promptText="Ward (comma separated)">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="5.0" top="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <CheckBox fx:id="isArrest" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Arrest">
+                  <Label text="Arrest:">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                  </CheckBox>
-                  <CheckBox fx:id="isDomestic" mnemonicParsing="false" prefHeight="17.0" prefWidth="150.0" text="Domestic">
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="anyArrest" mnemonicParsing="false" selected="true" text="Any">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="arrestButtons" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="yesArrest" mnemonicParsing="false" text="Yes" toggleGroup="$arrestButtons">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="noArrest" mnemonicParsing="false" text="No" toggleGroup="$arrestButtons">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <Label text="Domestic">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
-                  </CheckBox>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="anyDomestic" mnemonicParsing="false" selected="true" text="Any">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="domesticButtons" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="yesDomestic" mnemonicParsing="false" text="Yes" toggleGroup="$domesticButtons">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="noDomestic" mnemonicParsing="false" text="No" toggleGroup="$domesticButtons">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
                   <Button fx:id="applyButton" layoutX="30.0" layoutY="310.0" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="105.0" text="Apply Filter">
                      <VBox.margin>
                         <Insets top="10.0" />
