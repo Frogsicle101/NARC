@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import com.google.maps.model.LatLng;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -144,8 +145,6 @@ public class MapController extends MasterController implements Initializable {
         webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
 
-
-
             }
         });
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
@@ -158,6 +157,8 @@ public class MapController extends MasterController implements Initializable {
 
     public void addMarkers(ActionEvent event) {
         DynamicMapService.loadMarker(crimeData);
+        Double centre = DynamicMapService.getCentre();
+        System.out.println(centre);
     }
 
     public void removeMarkers(ActionEvent event) {

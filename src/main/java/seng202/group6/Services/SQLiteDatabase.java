@@ -4,6 +4,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import com.google.maps.model.LatLng;
 import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
 
@@ -99,5 +100,16 @@ public class SQLiteDatabase {
             out.add(newCrime);
         }
         return out;
+    }
+
+    public static ResultSet selectLocationsFromTable(LatLng location) throws SQLException {
+        Double latRight = location.lat - 0.01;
+        Double latLeft = location.lat + 0.01;
+        Double lngUp = location.lng - 0.001;
+        Double lngDown = location.lng + 0.001;
+        String sql = "SELECT latitude, longitude FROM crimes WHERE (latitude BETWEEN "+latRight+" AND "
+                +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(sql);
     }
 }

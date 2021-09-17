@@ -1,5 +1,11 @@
 let map;
 let mapMarkers = [];
+let return_location = { lat: 41.85, lng: -87.65 };
+
+function callscript() {
+  var nameVar = "This is a JS var";
+  app.callJavascript(nameVar);
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -32,8 +38,11 @@ function onPlaceChanged() {
     map.setCenter(place.geometry.location);
     map.setZoom(17);
   }
+}
 
-  
+function getLocation() {
+  callscript();
+  return return_location;
 }
 
 function addMarkers(markers) {
@@ -59,4 +68,6 @@ function removeMarkers() {
   for (let i = 0; i < mapMarkers.length; i++) {
     mapMarkers[i].setMap(null);
   }
+  callscript();
 }
+
