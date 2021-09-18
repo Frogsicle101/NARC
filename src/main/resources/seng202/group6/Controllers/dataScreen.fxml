@@ -6,7 +6,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -22,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -209,17 +208,24 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Rank by">
-                     <items>
-                        <MenuItem fx:id="mostArea" mnemonicParsing="false" onAction="#clickMostArea" text="Most Dangerous Area" />
-                        <MenuItem fx:id="leastArea" mnemonicParsing="false" onAction="#clickLeastArea" text="Least Dangerous Area" />
-                        <MenuItem fx:id="mostCrime" mnemonicParsing="false" onAction="#clickMostCrime" text="Most Common Crime" />
-                        <MenuItem fx:id="leastCrime" mnemonicParsing="false" onAction="#clickLeastCrime" text="Least Common Crime" />
-                     </items>
+                  <Label prefHeight="17.0" prefWidth="174.0" text="Rank By:">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </VBox.margin>
-                  </MenuButton>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#clickRankCrimeType" text="Crime Type">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#clickRankArea" prefHeight="26.0" prefWidth="93.0" text="Area" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
                   <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="175.0" text="Reset Filter and Rank">
                      <VBox.margin>
                         <Insets top="10.0" />

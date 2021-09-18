@@ -97,7 +97,7 @@ public class MasterController {
 
     }
 
-    public void launchRankScreen(ArrayList<Crime> list) throws IOException {
+    public void launchRankScreen() throws IOException {
 
 
         Stage viewStage = new Stage();
@@ -108,7 +108,7 @@ public class MasterController {
         viewStage.show();
     }
 
-    public void launchRankScreen2(ArrayList<Crime> list) throws IOException {
+    public void launchRankScreen2() throws IOException {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Area Ranking");

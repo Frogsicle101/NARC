@@ -131,6 +131,12 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private MenuItem leastCrime;
 
+    @FXML
+    private Button rankArea;
+
+    @FXML
+    private Button rankCrimeType;
+
 
     /**
      * Method to initialize data scene, checks if there has been data imported first,
@@ -342,30 +348,17 @@ public class DataController extends MasterController implements Initializable {
         tableView.setItems(FXCollections.observableArrayList(crimeData));
     }
 
-    public void clickMostArea() throws IOException {
-        if (filteredCrimeData.size() != 0) {
-            launchRankScreen2(filteredCrimeData);
-        } else {
-            launchRankScreen2(crimeData);
-        }
+
+    public void clickRankArea() throws IOException {
+        launchRankScreen2();
 
     }
 
-    public void clickLeastArea() {
-
-    }
-
-    public void clickMostCrime() throws IOException {
-        if (filteredCrimeData.size() != 0) {
-            launchRankScreen(filteredCrimeData);
-        } else {
-            launchRankScreen(crimeData);
-        }
-
-    }
-
-    public void clickLeastCrime() {
+    public void clickRankCrimeType() throws IOException {
+        launchRankScreen();
 
     }
 
 }
+
+

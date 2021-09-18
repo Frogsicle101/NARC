@@ -36,7 +36,11 @@ public class ViewRankScreenController2 extends MasterController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        data = rankedAreaList(filteredCrimeData);
+        if (filteredCrimeData.size() != 0) {
+            data = rankedAreaList(filteredCrimeData);
+        } else {
+            data = rankedAreaList(crimeData);
+        }
         AreaColumn.setCellValueFactory(new PropertyValueFactory<AreaFrequency, String>("area"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<AreaFrequency, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
