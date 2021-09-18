@@ -1,7 +1,5 @@
 package seng202.group6.Services;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
@@ -15,57 +13,70 @@ import java.util.ArrayList;
 
 import javafx.embed.swing.SwingFXUtils;
 import seng202.group6.Models.Crime;
-import seng202.group6.Models.DynamicMapMarker;
 
-
+/**
+ * Service for creating a static map image with markers.
+ */
 public class StaticMapService {
+    /**
+     * Google Maps API Key
+     */
     private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
 
-    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData) throws IOException {
+    /**
+     * Provides implementation for getting a static map image from the Google Maps API using an HTTP request.
+     * @param centre The Address for the centre of the map. Can provide "lat,lng" as well as "address".
+     * @param crimeData An ArrayList which holds the Crime objects whose locations are to be displayed as markers on
+     *                  the map.
+     * @param width Width of the static map image.
+     * @param height Height of the static map image.
+     * @return returns a javafx.scene.image.Image object or null if an error occurs.
+     */
+    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData, int width, int height) {
         try {
             GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
-
             GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
             LatLng centreLatLng = geocodingResult[0].geometry.location;
-
-            Size size = new Size(700, 350);
+            Size size = new Size(width, height);
             StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
             int zoom = highestLevelZoom(geocodingResult);
             request.center(centreLatLng).zoom(zoom).maptype(StaticMapsRequest.StaticMapType.roadmap);
-            Markers markers = addStaticMapMarkers(request, crimeData, centreLatLng, zoom);
-
+            Markers markers = addStaticMapMarkers(crimeData, centreLatLng, zoom);
             request.markers(markers);
-
             ImageResult result = request.await();
             Image image = arrayToImage(result.imageData);
             context.shutdown();
             return image;
         } catch (Exception e) {
-            System.out.println("Error in getStaticMap: " + e);
-            BufferedImage bufferedImage = ImageIO.read(new File("src/main/resources/Images/imageIfMapNotFound.png"));
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            return image;
+            System.out.println("Error in StaticMapService.getStaticMap: " + e);
+            return null;
         }
     }
 
+    /**
+     * Gets geocoding data from the Google Maps api.
+     * @param context GeoApiContext object.
+     * @param address Address to get geocoding information about. Can also provide "lat,lng" String.
+     * @return GeocodingResult[] object with data received from the Google Maps api.
+     * @throws IOException Caused by requesting from Google Maps api.
+     * @throws InterruptedException Caused by requesting from Google Maps api.
+     * @throws ApiException Caused by requesting from Google Maps api.
+     */
     public static GeocodingResult[] geoCodeAddress(GeoApiContext context, String address) throws IOException, InterruptedException, ApiException {
-
         GeocodingResult[] results =  GeocodingApi.geocode(context,
                 address).await();
-        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        //System.out.println(gson.toJson(results[0].geometry.location));
         return results;
     }
 
-    public static int highestLevelZoom(GeocodingResult[] results) throws IOException, InterruptedException, ApiException {
-
-        //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        //System.out.println(gson.toJson(results[0]));
-
+    /**
+     * Finds the appropriate zoom level for the static map based on how much information the GeocodingResult[] object
+     * has. The Google Maps api provides more information depending on how detailed the address given to it was.
+     * @param results Result from geocoding an address.
+     * @return An int which describes the zoom level for the static map.
+     */
+    public static int highestLevelZoom(GeocodingResult[] results) {
         AddressComponent[] addressComponents = results[0].addressComponents;
         AddressComponentType[] addressComponentTypes = addressComponents[0].types;
-
         int zoomLevel = 10;
         boolean isFoundZoom = false;
         int i = 0;
@@ -109,7 +120,15 @@ public class StaticMapService {
         return zoomLevel;
     }
 
-    public static Markers addStaticMapMarkers(StaticMapsRequest request, ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
+    /**
+     * Creates a Markers object which holds the markers to be added to the static map. Crime locations are added in a
+     * 6 km radius around the centreLocation. Marker size is based on the zoom level.
+     * @param crimeData ArrayList which stores the crime objects whose locations will be added to request.
+     * @param centreLocation Location of the centre of the static map.
+     * @param zoom Zoom level of the static map.
+     * @return Markers Object which holds the locations and size of markers to be added to static map.
+     */
+    public static Markers addStaticMapMarkers(ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
         Markers markers = new Markers();
         int numMarkers = 0;
         for (int i =0; i < crimeData.size(); i++) {
@@ -119,12 +138,10 @@ public class StaticMapService {
                 LatLng crimeLocation = new LatLng(crimeLat, crimeLng);
                 Double distanceToCentre = getDistanceFromCentre(crimeData.get(i), centreLocation);
                 if ((distanceToCentre < 6) && (numMarkers < 500)) {
-                    //System.out.println("Lat: " + crimeLat + " Long: " + crimeLng + " Distance: " + distanceToCentre);
                     markers.addLocation(crimeLocation);
                     numMarkers++;
                 }
             } catch (java.lang.NumberFormatException e) {
-                //System.out.println("empty crime: " + crimeData.get(i).getCaseNumber());
             }
         }
         switch (zoom) {
@@ -139,12 +156,15 @@ public class StaticMapService {
                 break;
             default:
                 markers.size(Markers.MarkersSize.small);
-
         }
-        //System.out.println("number of markers: " +numMarkers);
         return markers;
     }
 
+    /**
+     * Converts a bytearray into a javafx.scene.image.Image.
+     * @param byte_array bytearray with image data.
+     * @return Javafx Image.
+     */
     public static Image arrayToImage(byte[] byte_array) {
         Image image = null;
         try {
@@ -159,10 +179,16 @@ public class StaticMapService {
         return image;
     }
 
+    /**
+     * Gets the distance between a crime location and centre location.
+     * @param otherCrime Crime to find distance to.
+     * @param centre Location to find distance from.
+     * @return Distance between a crime and location.
+     */
     public static Double getDistanceFromCentre(Crime otherCrime, LatLng centre){
-        Double x = (centre.lng - otherCrime.getLongitude()) * 111; //Don't ask me what is going on I don't know either
-        Double y = (centre.lat - otherCrime.getLatitude()) * 111;  //But it works. The *111 is to convert to KM's
-        return Math.hypot(x, y); //Again return value is in km
+        Double x = (centre.lng - otherCrime.getLongitude()) * 111;
+        Double y = (centre.lat - otherCrime.getLatitude()) * 111;
+        return Math.hypot(x, y);
     }
 
 

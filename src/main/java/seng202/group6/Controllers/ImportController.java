@@ -1,6 +1,7 @@
 package seng202.group6.Controllers;
 
 import com.opencsv.exceptions.CsvValidationException;
+import javafx.fxml.Initializable;
 import seng202.group6.Controllers.DataController;
 
 import javafx.collections.FXCollections;
@@ -19,15 +20,17 @@ import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Controller class for import screen in user interface, is associated with importScreen.fxml.
  * Is a child class of MasterController
  */
 
-public class ImportController extends MasterController {
+public class ImportController extends MasterController implements Initializable {
 
     @FXML
     private Button homeButton;
@@ -46,6 +49,13 @@ public class ImportController extends MasterController {
 
     @FXML
     private Text uploadSuccess;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        homeButton.setFocusTraversable(false);
+        mapButton.setFocusTraversable(false);
+        dataButton.setFocusTraversable(false);
+    }
 
     /**
      * Method to call change to home screen method in MasterController when the home button
@@ -79,7 +89,7 @@ public class ImportController extends MasterController {
 
     /**
      * Method to import a file when import file button is clicked. Creates a new file
-     * chooser instance which opens on the users computer to select a file from the
+     * chooser instance which opens on the user's computer to select a file from the
      * local system. Checks if the file uploaded is valid and if it is will send the
      * data to ParserService to read. If file is not valid will show an error message
      * on screen
@@ -92,15 +102,15 @@ public class ImportController extends MasterController {
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
-
+        int recordsOmitted = 0;
         boolean validUpload;
         File crimeFile = fileChooser.showOpenDialog(stage);
         if (crimeFile == null) {
             validUpload = false;
         } else {
             //Creating new tables and giving them a name should be done here
-            //SQLiteDatabase.createTable("Crimes"); This line is currently obsolete
-            ParserService.csvToDatabase(crimeFile); //TODO: deal with thrown exceptions
+
+            recordsOmitted = ParserService.csvToDatabase(crimeFile); //TODO: deal with thrown exceptions
 
             filteredCrimeData = crimeData;
             // need to make method to check if file is csv format and if they actually selected a file
@@ -109,6 +119,7 @@ public class ImportController extends MasterController {
         }
 
         if (validUpload) {
+            uploadSuccess.setText("File uploaded successfully. " + recordsOmitted + " records omitted.");
             uploadSuccess.setVisible(true);
         }
 

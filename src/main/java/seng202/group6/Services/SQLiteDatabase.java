@@ -16,6 +16,7 @@ public class SQLiteDatabase {
      */
     public static void connectToDatabase() throws SQLException {
         connection = DriverManager.getConnection(jdbcUrl);
+        connection.setAutoCommit(false);
 
         createTable("Crimes");
     }
@@ -48,52 +49,22 @@ public class SQLiteDatabase {
     /**
      * Inserts a crime object into a table
      * @param tableName The name of the table to insert into
-     * @param fields The fields to insert into the table
+     * @param crime The crime object to insert into the table
      */
-    public static void insertIntoTable(String tableName, String[] fields) {
-        String sqlInsert ="INSERT INTO " + tableName + " VALUES (";
+    public static void insertIntoTable(String tableName, Crime crime) throws SQLException{
+        String sql = "INSERT INTO " + tableName + " VALUES (" + crime.toString() + ")";
 
-        String coordinates;
-        if(fields[14].equals("") || fields[15].equals("")){
-            coordinates = ",NULL, NULL";
-        } else {
-            coordinates = ", " + fields[14] + ", " + fields[15];
-        }
-
-        //TODO Update to accommodate more blank fields
-        String sql = sqlInsert + "'" + fields[0] + "', " +  //case_id
-                "'" + fields[1] + "', " +   //occurrence_date
-                "'" + fields[2] + "', " +   //block
-                "'" + fields[3] + "', " +   //iucr
-                "'" + fields[4] + "', " +   //primary_description
-                "'" + fields[5] + "', " +   //secondary_description
-                "'" + fields[6] + "', " +   //location_description
-                fields[7].equals("Y") + ", " +  //arrest
-                fields[8].equals("Y") + ", " +  //domestic
-                Integer.parseInt(fields[9]) + ", " +    //beat
-                Integer.parseInt(fields[10]) + ", " +   //ward
-                "'" + fields[11] + "'" +  //fbi_cd
-                coordinates + ")";
-
-        try {
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-        } catch(SQLException e) {
-        }
 
     }
 
-    //TODO finish this method
-    public static void insertCrimeObjectIntoTable(String tableName, Crime crime) {
-        String sql = "INSERT INTO " + tableName + "(case_id, occurrence_date, block, iucr, primary_description," +
-                "secondary_description, location, arrest, domestic, beat, ward, fbi_cd, latitude, longitude) VALUES (";
-                //TODO List each variable in crime with commas in between at the end of this string
-
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sql);
-        } catch(SQLException e) {
-        }
+    /**
+     * Ends an SQL transaction and commits the results to file. Call after every change to the database
+     * @throws SQLException
+     */
+    public static void endTransaction() throws SQLException {
+        connection.commit();
     }
 
     /**
@@ -112,7 +83,7 @@ public class SQLiteDatabase {
 
         while (data.next()) {
             Crime newCrime = new Crime(data.getString("case_id"),
-                    data.getString("occurrence_date"),
+                    LocalDateTime.parse(data.getString("occurrence_date")),
                     data.getString("block"),
                     data.getString("iucr"),
                     data.getString("primary_description"),

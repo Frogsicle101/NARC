@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import seng202.group6.Models.Crime;
 import seng202.group6.Services.DynamicMapService;
 import seng202.group6.Services.SQLiteDatabase;
 import seng202.group6.Services.StaticMapService;
@@ -44,9 +45,6 @@ public class MapController extends MasterController implements Initializable {
     private ImageView mapImage;
 
     @FXML
-    private Button getRemoveMarkersButton;
-
-    @FXML
     private Pane mapPane;
 
     @FXML
@@ -60,6 +58,9 @@ public class MapController extends MasterController implements Initializable {
 
     @FXML
     private Button removeMarkersButton;
+
+    @FXML
+    private Button addMarkersButton;
 
     /**
      * Method to call change to home screen method in MasterController when the home button
@@ -113,6 +114,10 @@ public class MapController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        homeButton.setFocusTraversable(false);
+        dataButton.setFocusTraversable(false);
+        importButton.setFocusTraversable(false);
+
         //Populates crimeData arraylist from database
         //Probably a cleaner way to make this work, so it isn't called twice but this works for now
         try {
@@ -147,8 +152,12 @@ public class MapController extends MasterController implements Initializable {
         mapPane.getChildren().add(mapView);
     }
 
-    public void addMarkers(ActionEvent event) {
+    /*public void addMarkers(ActionEvent event) {
         DynamicMapService.loadMarkers(super.crimeData);
+    }*/
+
+    public void addMarkers(ActionEvent event) {
+        DynamicMapService.loadMarker(crimeData);
     }
 
     public void removeMarkers(ActionEvent event) {

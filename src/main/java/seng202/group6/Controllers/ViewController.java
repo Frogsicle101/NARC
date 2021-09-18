@@ -75,7 +75,7 @@ public class ViewController extends MasterController implements Initializable {
         caseNumber.setText(viewedCrime.getCaseNumber());
         date.setText(viewedCrime.getDate().toString());
         block.setText(viewedCrime.getBlock());
-        IUCR.setText(viewedCrime.getIUCR());
+        IUCR.setText(viewedCrime.getIucr());
         primaryDescription.setText(viewedCrime.getPrimaryDescription());
         secondaryDescription.setText(viewedCrime.getSecondaryDescription());
         location.setText(viewedCrime.getLocationDescription());

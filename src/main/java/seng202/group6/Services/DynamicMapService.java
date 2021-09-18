@@ -9,6 +9,10 @@ import seng202.group6.Models.DynamicMapMarker;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Service for creating and manipulating a dynamic Google Map
+ * which is loaded by a javafx.scene.web.WebEngine Object.
+ */
 public class DynamicMapService {
     private static WebView mapView;
 
@@ -44,15 +48,29 @@ public class DynamicMapService {
 
     public static void loadMarkers(ArrayList<Crime> crimes) {
         ArrayList<Crime> crimes1 = new ArrayList<Crime>();
+        /* Sorry we broke your test crimes, the constructor changed
         crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-87.65"));
         crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-86.65"));
         crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "42.85", "-87.65"));
+        */
         //System.out.println(crimes.size());
         /*for (int i = 0; i < crimes.size(); i++) {
             System.out.println(crimes.get(i));
         }*/
         String script = addDynamicMapMarkers(crimes);
         mapView.getEngine().executeScript(script);
+    }
+
+    public static void loadMarker(ArrayList<Crime> crimes) {
+        for (int i = 0; i < 500; i++) {
+            String script = "addMarker([";
+
+            DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
+            script += marker.toString();
+            script += ",])";
+            mapView.getEngine().executeScript(script);
+        }
+
     }
 
     public static void removeMarkers() {

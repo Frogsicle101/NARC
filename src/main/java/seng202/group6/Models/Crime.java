@@ -1,5 +1,4 @@
 package seng202.group6.Models;
-import java.lang.Math;
 import java.time.LocalDateTime;
 
 //TODO put analytical stuff into services as static methods
@@ -11,9 +10,9 @@ import java.time.LocalDateTime;
 
 public class Crime {
     private String caseNumber;
-    private LocalDateTime date ;
+    private LocalDateTime date;
     private String block ;
-    private String IUCR;
+    private String iucr;
     private String primaryDescription;
     private String secondaryDescription;
     private String locationDescription;
@@ -31,14 +30,31 @@ public class Crime {
     public Crime() {}
 
     /**
-     * Bug fixing time, will be delete/used later
+     * A constructor for type crime that gets fed a series of strings representing the various variables within it,
+     * all parameters are fed in as strings
+     * @param case_id A string representing the case number of the crime, two Letters followed by 6 digits of form AB123456
+     * @param occurrence_date A LocalDateTime representing the date of the crime
+     * @param block A string representing the block the crime occurred at, presented as a zip code and streets with the last two digits anonymized, an
+     *              example is 073XX S SOUTH SHORE DR
+     * @param iucr A string representing the Illinois Uniform Crime Reporting code
+     * @param primary_description A string representing the textual description of the crime i.e. THEFT/ MURDER
+     * @param secondary_description A string representing further detail of the nature of the crime, i.e. if the primary is
+     *                             THEFT the secondary might be OVER $500
+     * @param arrest Whether the perpetrator of the crime was arrested
+     * @param domestic Whether the crime was domestic or not
+     * @param beat The number of the police district the crime occurred in
+     * @param ward The election district the crime occurred in
+     * @param fbi A string representing the FBI code of the crime
+     * @param location A string giving further detail about the location of the crime
+     * @param latitude The latitudinal coordinates of the crime
+     * @param longitude The longitudinal coordinates of the crime
      */
-     public Crime(String case_id, String occurrence_date, String block, String iucr, String primary_description, String secondary_description,
+     public Crime(String case_id, LocalDateTime occurrence_date, String block, String iucr, String primary_description, String secondary_description,
                   boolean arrest, boolean domestic, int beat, int ward, String fbi, String location, double latitude, double longitude) {
          this.caseNumber = case_id;
-         this.date = parseDateString(occurrence_date);
+         this.date = occurrence_date;
          this.block = block;
-         this.IUCR = iucr;
+         this.iucr = iucr;
          this.primaryDescription = primary_description;
          this.secondaryDescription = secondary_description;
          this.arrest = arrest;
@@ -52,92 +68,20 @@ public class Crime {
      }
 
 
-
-
-
-    /**
-     * A constructor for type crime that gets fed a series of strings representing the various variables within it,
-     * all parameters are fed in as strings
-     * @param caseNumber A string representing the case number of the crime, two Letters followed by 6 digits of form AB123456
-     * @param date A string representing the date of the crime in format MM/DD/YYYY Hour/Minute/Second AM/PM
-     * @param block A string representing the block the crime occurred at, presented as a zip code and streets with the last two digits anonymized, an
-     *              example is 073XX S SOUTH SHORE DR
-     * @param IUCR A string representing the Illinois Uniform Crime Reporting code
-     * @param primaryDescription A string representing the textual description of the crime i.e. THEFT/ MURDER
-     * @param secondaryDescription A string representing further detail of the nature of the crime, i.e. if the primary is
-     *                             THEFT the secondary might be OVER $500
-     * @param arrest A string of form "Y" or "N" representing whether the perpetrator of the crime was arrested
-     * @param domestic A string of form "Y" or "N" representing whether the crime was domestic or not
-     * @param beat A string representing the number of the police district the crime occurred in
-     * @param ward A string of a number representing the election district the crime occurred in
-     * @param FBI A string representing the FBI code of the crime
-     * @param locationDescription A string giving further detail about the location of the crime
-     * @param latitude A string representing the latitudinal coordinates of the crime
-     * @param longitude A string representing the longitudinal coordinates of the crime
-     */
-    public Crime(String caseNumber, String date, String block, String IUCR, String primaryDescription,
-                 String secondaryDescription, String locationDescription, String arrest, String domestic,
-                 int beat, int ward, String FBI, String latitude, String longitude) {
-        this.caseNumber = caseNumber;
-        this.date = parseDateString(date);
-        this.block = block;
-        this.IUCR = IUCR;
-
-        this.primaryDescription = primaryDescription;
-        this.secondaryDescription = secondaryDescription;
-
-        this.arrest = arrest.equals("Y");
-        this.domestic = domestic.equals("Y");
-
-
-        this.beat = beat;
-        this.ward = ward;
-        this.FBI = FBI;
-        this.locationDescription = locationDescription;
-        this.latitude = Double.parseDouble(latitude);
-        this.longitude = Double.parseDouble(longitude);
-    }
-
-    /**
-     * This method takes a string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM and converts it
-     * into an object of type LocalDateTime to represent it
-     * @param date A string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM
-     * @return Returns a LocalDateTime object representing the date-time passed to it as a string.
-     */
-    private LocalDateTime parseDateString(String date) {
-        int second = Integer.parseInt(date.substring(17, 19));
-        int minute = Integer.parseInt(date.substring(14, 16));
-        int hour = Integer.parseInt(date.substring(11, 13));
-        int day = Integer.parseInt(date.substring(3, 5));
-        int month = Integer.parseInt(date.substring(0, 2));
-        int year = Integer.parseInt(date.substring(6, 10));
-        if (date.endsWith("PM")){
-            hour += 12;
-            if(hour == 24){
-                hour = 0;
-            }
-        }
-
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
-
-
-        return dateTime;
-    }
-
     /**
      * An equality checker for a Crime and an object
      * @param other an object to be compared to
      * @return A boolean value of if the objects have the same variables
      */
-
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         boolean equal = false;
         if (other instanceof Crime) {
             equal = (this.arrest == ((Crime) other).getArrest() && this.caseNumber == ((Crime) other).getCaseNumber()
             && this.domestic == ((Crime) other).getDomestic() && this.date.equals(((Crime) other).getDate()) &&
                     this.longitude == ((Crime) other).getLongitude() && this.beat == ((Crime) other).getBeat() &&
                     this.block == ((Crime) other).getBlock() && this.FBI == ((Crime) other).getFBI() &&
-                    this.IUCR == ((Crime) other).getIUCR() && this.latitude == ((Crime) other).getLatitude() &&
+                    this.iucr == ((Crime) other).getIucr() && this.latitude == ((Crime) other).getLatitude() &&
                     this.locationDescription == ((Crime) other).getLocationDescription() && this.primaryDescription
             == ((Crime) other).getPrimaryDescription() && this.secondaryDescription == ((Crime) other).getSecondaryDescription()
             && this.ward == ((Crime) other).getWard());
@@ -145,23 +89,43 @@ public class Crime {
         return equal;
     }
 
+    /**
+     * Returns a string containing each variable in the crime object separated by commas
+     * Blank variables are formatted as 'NULL' in the string
+     * This string representation is the same format necessary for SQL INSERT statements
+     * @return String representation of a Crime object
+     */
+    @Override
+    public String toString() {
+        return "'" + (this.caseNumber.equals("") ? "NULL" : this.caseNumber) + "', " +
+        "'" + (this.date.equals("") ? "NULL" : this.date) + "', " +
+        "'" + (this.block.equals("") ? "NULL" : this.block) + "', " +
+        "'" + (this.iucr.equals("") ? "NULL" : this.iucr) + "', " +
+        "'" + (this.primaryDescription.equals("") ? "NULL" : this.primaryDescription) + "', " +
+        "'" + (this.secondaryDescription.equals("") ? "NULL" : this.secondaryDescription) + "', " +
+        "'" + (this.locationDescription.equals("") ? "NULL" : this.locationDescription) + "', " +
+        this.arrest + ", " +
+        this.domestic + ", " +
+        (this.beat == (-1) ? "NULL" : this.beat) + ", " +
+        (this.ward == (-1) ? "NULL" : this.ward) + ", " +
+        "'" + (this.FBI.equals("") ? "NULL" : this.FBI) + "', " +
+        (this.latitude == (0.0) ? "NULL" : this.latitude) + ", " +
+        (this.longitude == (0.0) ? "NULL" : this.longitude);
+    }
+
     public boolean getArrest() { return this.arrest;}
 
     public boolean getDomestic() {return this.domestic;}
 
-    public String getCaseNumber() {
-        return caseNumber;
-    }
+    public String getCaseNumber() {return caseNumber;}
 
-    public LocalDateTime getDate() {
-        return date;
-    }
+    public LocalDateTime getDate() {return date;}
 
     public String getFBI() { return FBI; }
 
     public String getBlock() { return block; }
 
-    public String getIUCR() { return IUCR; }
+    public String getIucr() { return iucr; }
 
     public String getPrimaryDescription() {
         return primaryDescription;
@@ -211,8 +175,8 @@ public class Crime {
         this.block = block;
     }
 
-    public void setIUCR(String IUCR) {
-        this.IUCR = IUCR;
+    public void setIucr(String iucr) {
+        this.iucr = iucr;
     }
 
     public void setPrimaryDescription(String primaryDescription) {

@@ -46,6 +46,15 @@ function addMarkers(markers) {
   }
 }
 
+function addMarker(marker) {
+  mapMarkers.push(
+    new google.maps.Marker({
+      position: marker[0],
+      map: map,
+    })
+  );
+}
+
 function removeMarkers() {
   for (let i = 0; i < mapMarkers.length; i++) {
     mapMarkers[i].setMap(null);

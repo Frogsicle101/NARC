@@ -2,21 +2,24 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1191.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
-   <children>
-      <Pane layoutY="147.0" prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="147.0">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
+   <left>
+      <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="homeButton" mnemonicParsing="false" onAction="#clickHome" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Home" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Button fx:id="mapButton" layoutY="79.0" mnemonicParsing="false" onAction="#clickMap" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Map" textFill="WHITE">
@@ -24,7 +27,7 @@
                   <Font size="35.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" onAction="#clickData" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Data" textFill="WHITE">
@@ -35,20 +38,43 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="importButton" defaultButton="true" layoutY="237.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Import" textFill="WHITE">
+            <Button fx:id="importButton" layoutY="237.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Import" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
             </Button>
          </children>
       </Pane>
-      <Button fx:id="importFileButton" alignment="BOTTOM_CENTER" layoutX="551.0" layoutY="296.0" mnemonicParsing="false" onAction="#clickImportFile" text="Import FIle">
-         <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-         </cursor>
-      </Button>
-      <Text layoutX="402.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can import a file from your own computer to view" />
-      <Text fx:id="uploadSuccess" layoutX="509.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text="File uploaded successfully" visible="false" />
-      <Pane layoutX="-3.0" prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   </children>
-</AnchorPane>
+   </left>
+   <top>
+      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="202.0" minHeight="0.0" prefHeight="59.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="141.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="235.0" minHeight="5.0" prefHeight="84.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="138.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="importFileButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#clickImportFile" text="Import File" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </Button>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can import a file from your own computer to view" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Text fx:id="uploadSuccess" strokeType="OUTSIDE" strokeWidth="0.0" text="File uploaded successfully" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </center>
+   <right>
+      <Pane prefHeight="546.0" prefWidth="237.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
