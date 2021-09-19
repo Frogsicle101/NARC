@@ -21,7 +21,7 @@ public class EditController extends MasterController implements Initializable {
 
 
     protected static boolean isNewCrime;
-
+//testing push because i've forgotten how git works
     @FXML
     private TextField caseNumber;
 
