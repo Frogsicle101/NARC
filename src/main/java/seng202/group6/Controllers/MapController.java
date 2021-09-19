@@ -42,6 +42,9 @@ public class MapController extends MasterController implements Initializable {
     private Button importButton;
 
     @FXML
+    private Button graphButton;
+
+    @FXML
     private ImageView mapImage;
 
     @FXML
@@ -95,6 +98,15 @@ public class MapController extends MasterController implements Initializable {
         changeToImportScreen();
     }
 
+    /**
+     * Method to call change to graph screen method in MasterController when the graph button
+     * is clicked
+     * @throws IOException
+     */
+    public void clickGraph() throws IOException {
+        changeToGraphScreen();
+    }
+
    /* public void clickViewMap(ActionEvent event) {
         String address = addressField.getText();
         //System.out.println(address.isEmpty());
@@ -117,6 +129,7 @@ public class MapController extends MasterController implements Initializable {
         homeButton.setFocusTraversable(false);
         dataButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
+        graphButton.setFocusTraversable(false);
 
         //Populates crimeData arraylist from database
         //Probably a cleaner way to make this work, so it isn't called twice but this works for now

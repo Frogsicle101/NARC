@@ -45,6 +45,9 @@ public class ImportController extends MasterController implements Initializable 
     private Button importButton;
 
     @FXML
+    private Button graphButton;
+
+    @FXML
     private Button importFileButton;
 
     @FXML
@@ -55,6 +58,7 @@ public class ImportController extends MasterController implements Initializable 
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         dataButton.setFocusTraversable(false);
+        graphButton.setFocusTraversable(false);
     }
 
     /**
@@ -85,6 +89,15 @@ public class ImportController extends MasterController implements Initializable 
 
     public void clickData() throws IOException {
         changeToDataScreen();
+    }
+
+    /**
+     * Method to call change to graph screen method in MasterController when the graph button
+     * is clicked
+     * @throws IOException
+     */
+    public void clickGraph() throws IOException {
+        changeToGraphScreen();
     }
 
     /**

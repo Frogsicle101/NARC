@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.MapController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -36,6 +36,14 @@
                </cursor>
             </Button>
             <Button fx:id="importButton" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="graphButton" layoutY="316.0" mnemonicParsing="false" onAction="#clickGraph" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Graphs" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>

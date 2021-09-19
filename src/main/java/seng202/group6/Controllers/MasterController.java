@@ -78,6 +78,16 @@ public class MasterController {
     }
 
     /**
+     * Method to call change screen method with parameter screen to
+     * change current scene to the graph screen
+     * @throws IOException
+     */
+
+    public void changeToGraphScreen() throws IOException {
+        changeScreen("graphScreen.fxml");
+    }
+
+    /**
      * Method to launch new window for viewing specific crime in order to show detailed
      * attributes, takes a specific crime as a parameter
      * @param crime Specific crime selected by user to view detailed description

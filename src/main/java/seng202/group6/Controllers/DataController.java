@@ -44,6 +44,9 @@ public class DataController extends MasterController implements Initializable {
     private Button importButton;
 
     @FXML
+    private Button graphButton;
+
+    @FXML
     protected TableView<Crime> tableView;
 
     @FXML
@@ -143,6 +146,7 @@ public class DataController extends MasterController implements Initializable {
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
+        graphButton.setFocusTraversable(false);
 
         tableView.setFocusTraversable(false);
 
@@ -230,6 +234,15 @@ public class DataController extends MasterController implements Initializable {
 
     public void clickImport() throws IOException {
         changeToImportScreen();
+    }
+
+    /**
+     * Method to call change to graph screen method in MasterController when the graph button
+     * is clicked
+     * @throws IOException
+     */
+    public void clickGraph() throws IOException {
+        changeToGraphScreen();
     }
 
 
