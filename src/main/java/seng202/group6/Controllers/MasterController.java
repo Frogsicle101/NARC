@@ -102,7 +102,7 @@ public class MasterController {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Crime Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewRankScreen.fxml"));
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeRankingScreen.fxml"));
         Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();
@@ -112,7 +112,7 @@ public class MasterController {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Area Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewRankScreen2.fxml")); //Causing problems
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewAreaRankingScreen.fxml")); //Causing problems
         Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();

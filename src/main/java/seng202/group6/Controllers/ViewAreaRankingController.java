@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 import static seng202.group6.Services.Rank.rankedAreaList;
 import static seng202.group6.Services.Rank.rankedTypeList;
 
-public class ViewRankScreenController2 extends MasterController implements Initializable {
+public class ViewAreaRankingController extends MasterController implements Initializable {
     private ArrayList<AreaFrequency> data = new ArrayList<AreaFrequency>();
     private ArrayList<Crime> whac;
 
