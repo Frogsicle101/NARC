@@ -34,9 +34,6 @@ public class MapController extends MasterController implements Initializable {
     private Button homeButton;
 
     @FXML
-    private Button mapButton;
-
-    @FXML
     private Button dataButton;
 
     @FXML

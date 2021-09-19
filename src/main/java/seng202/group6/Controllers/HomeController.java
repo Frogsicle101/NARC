@@ -19,8 +19,6 @@ import java.util.ResourceBundle;
 
 public class HomeController extends MasterController implements Initializable {
 
-    @FXML
-    private Button homeButton;
 
     @FXML
     private Button mapButton;

@@ -38,9 +38,6 @@ public class DataController extends MasterController implements Initializable {
     private Button mapButton;
 
     @FXML
-    private Button dataButton;
-
-    @FXML
     private Button importButton;
 
     @FXML

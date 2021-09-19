@@ -42,9 +42,6 @@ public class ImportController extends MasterController implements Initializable 
     private Button dataButton;
 
     @FXML
-    private Button importButton;
-
-    @FXML
     private Button graphButton;
 
     @FXML
