@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import static seng202.group6.Services.Rank.rankedTypeList;
+
 /**
  * Controller class for data screen in user interface, associated with dataScreen.fxml.
  * Is a child class of DataController
@@ -128,6 +130,12 @@ public class DataController extends MasterController implements Initializable {
 
     @FXML
     private MenuItem leastCrime;
+
+    @FXML
+    private Button rankArea;
+
+    @FXML
+    private Button rankCrimeType;
 
 
     /**
@@ -350,30 +358,17 @@ public class DataController extends MasterController implements Initializable {
         tableView.setItems(FXCollections.observableArrayList(crimeData));
     }
 
-    public void clickMostArea() {
-        if (filteredCrimeData.size() != 0) {
-            //CAll rank here
-        } else {
-            //call rank here
-        }
+
+    public void clickRankArea() throws IOException {
+        launchRankScreen2();
 
     }
 
-    public void clickLeastArea() {
-
-    }
-
-    public void clickMostCrime() throws IOException {
-        if (filteredCrimeData.size() != 0) {
-            launchRankScreen(filteredCrimeData);
-        } else {
-            //call rank here
-        }
-
-    }
-
-    public void clickLeastCrime() {
+    public void clickRankCrimeType() throws IOException {
+        launchRankScreen();
 
     }
 
 }
+
+

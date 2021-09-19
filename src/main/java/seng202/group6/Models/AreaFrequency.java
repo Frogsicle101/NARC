@@ -20,7 +20,7 @@ public class AreaFrequency {
         return equal;
     }
 
-    public String getCrime() {return this.area;}
+    public String getArea() {return this.area;}
 
     public int getFrequency() {return this.frequency;}
 

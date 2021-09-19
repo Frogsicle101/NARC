@@ -11,12 +11,16 @@ import seng202.group6.Models.CrimeFrequency;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import static seng202.group6.Services.Rank.rankedTypeList;
 
-public class ViewRankScreenController extends MasterController implements Initializable {
-    private ArrayList<CrimeFrequency> data;
+public class ViewCrimeRankingController extends MasterController implements Initializable {
+    private ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
+    private ArrayList<Crime> whac;
 
     @FXML
     protected TableView<CrimeFrequency> tableView;
@@ -31,9 +35,13 @@ public class ViewRankScreenController extends MasterController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //assume not null (fix later?)
-        data = rankedTypeList(filteredCrimeData);
-        typeCrimeColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("Type of crime"));
-        frequencyColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("Frequency of crime"));
+        if (filteredCrimeData.size() != 0) {
+            data = rankedTypeList(filteredCrimeData);
+        } else {
+            data = rankedTypeList(crimeData);
+        }
+        typeCrimeColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("crime"));
+        frequencyColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
 
 
