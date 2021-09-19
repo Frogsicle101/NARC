@@ -43,6 +43,9 @@ public class DataController extends MasterController implements Initializable {
     private Button graphButton;
 
     @FXML
+    private Button rankTime;
+
+    @FXML
     protected TableView<Crime> tableView;
 
     @FXML
@@ -364,6 +367,10 @@ public class DataController extends MasterController implements Initializable {
     public void clickRankCrimeType() throws IOException {
         launchCrimeRankScreen();
 
+    }
+
+    public void clickRankTime() throws IOException {
+        launchTimeRankScreen();
     }
 
 }
