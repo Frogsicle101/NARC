@@ -2,11 +2,15 @@ package seng202.group6.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static java.lang.String.valueOf;
 
 /**
  * Controller class for Graph screen in user interface, associated with graphScreen.fxml.
@@ -25,6 +29,12 @@ public class GraphController extends MasterController implements Initializable {
 
     @FXML
     private Button importButton;
+
+    @FXML
+    private Button applyChartButton;
+
+    @FXML
+    private LineChart<String, Number> lineChart;
 
 
     @Override
@@ -74,6 +84,23 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickData() throws IOException {
         changeToDataScreen();
+    }
+
+    /**
+     * Method to make a line chart be created on the graph
+     * @throws IOException
+     */
+    public void clickApplyChart() throws IOException {
+        lineChart.getData().clear();
+        XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
+        int a = 0;
+        for (int i=0; i < 24; i++) {
+            series.getData().add(new XYChart.Data<String, Number>(valueOf(i), a));
+            a++;
+        }
+        series.setName("Crime Frequency Over Day");
+        lineChart.getData().add(series);
+
     }
 
 }
