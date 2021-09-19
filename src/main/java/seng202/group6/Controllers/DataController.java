@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import seng202.group6.Models.Crime;
 import seng202.group6.Services.Filter;
 import seng202.group6.Services.SQLiteDatabase;
@@ -19,8 +18,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import static seng202.group6.Services.Rank.rankedTypeList;
 
 /**
  * Controller class for data screen in user interface, associated with dataScreen.fxml.
@@ -360,12 +357,12 @@ public class DataController extends MasterController implements Initializable {
 
 
     public void clickRankArea() throws IOException {
-        launchRankScreen2();
+        launchAreaRankScreen();
 
     }
 
     public void clickRankCrimeType() throws IOException {
-        launchRankScreen();
+        launchCrimeRankScreen();
 
     }
 

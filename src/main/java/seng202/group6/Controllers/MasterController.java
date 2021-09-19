@@ -107,7 +107,7 @@ public class MasterController {
 
     }
 
-    public void launchRankScreen() throws IOException {
+    public void launchCrimeRankScreen() throws IOException {
 
 
         Stage viewStage = new Stage();
@@ -118,15 +118,27 @@ public class MasterController {
         viewStage.show();
     }
 
-    public void launchRankScreen2() throws IOException {
+    public void launchAreaRankScreen() throws IOException {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Area Ranking");
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewAreaRankingScreen.fxml"));
+        Scene newScene = new Scene(newScreen, 700, 500);
+        viewStage.setScene(newScene);
+        viewStage.show();
+    }
+
+    public void launchTimeRankScreen() throws IOException {
+
+        Stage viewStage = new Stage();
+        viewStage.setTitle("Hour of the Day Ranking");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewAreaRankingScreen.fxml")); //Causing problems
         Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();
     }
+
+
 
 
     public void launchEditScreen(Crime crime) throws IOException {

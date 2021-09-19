@@ -24,7 +24,7 @@ public class AreaFrequency {
 
     public int getFrequency() {return this.frequency;}
 
-    public void setCrime(String area) { this.area = area;}
+    public void setArea(String area) { this.area = area;}
 
     public void setFrequency(int frequency) {this.frequency = frequency;}
 

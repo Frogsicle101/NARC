@@ -4,6 +4,7 @@ import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.AreaFrequency;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.CrimeFrequency;
+import seng202.group6.Models.TimeFrequency;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,22 +16,7 @@ import java.util.Set;
 //Todo test
 
 public class Rank{
-    /**
-     * Ranks data by passed in String parameter crime type
-     * @param crimes The input to count types
-     * @param type   A string of primary type that will be counted
-     * @return The number of certain crime type
-     */
-    @Deprecated
-    public static int frequencyOfCrime(ArrayList<Crime> crimes, String type) {
-        int freqCount = 0;
-        for (Crime crime : crimes) {
-            if (crime.getPrimaryDescription().equals(type)) {
-                freqCount++;
-            }
-        }
-        return freqCount;
-    }
+
 
     /**
      * Sorts data by frequency of crime type
@@ -59,22 +45,7 @@ public class Rank{
         return data;
     }
 
-    /**
-     * Ranks data by passed in String parameter area
-     * @param crimes The input to count types
-     * @param area A string of the block area that will be counted
-     * @return The number of certain crime in an area
-     */
-    @Deprecated
-    public static int frequencyOfArea(ArrayList<Crime> crimes, String area) {
-        int freqCount = 0;
-        for (Crime crime : crimes) {
-            if (crime.getBlock().substring(0,4).equals(area.substring(0,4))) {
-                freqCount++;
-            }
-        }
-        return freqCount;
-    }
+
 
     /**
      * Sorts data by frequency of crime area
@@ -99,6 +70,28 @@ public class Rank{
             }
         }
         data.sort(Comparator.comparing(AreaFrequency::getFrequency));
+        Collections.reverse(data);
+        return data;
+    }
+
+    public static ArrayList<TimeFrequency> rankedTimeList(ArrayList<Crime> crimes) {
+        ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
+        boolean found;
+        for (Crime crime : crimes) {
+            found = false;
+            TimeFrequency timeFrequency = new TimeFrequency(crime.getDate().getHour());
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getHourOfTheDay() == (timeFrequency.getHourOfTheDay())) {
+                    data.get(i).incrementFrequency();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                data.add(timeFrequency);
+            }
+        }
+        data.sort(Comparator.comparing(TimeFrequency::getFrequency));
         Collections.reverse(data);
         return data;
     }
