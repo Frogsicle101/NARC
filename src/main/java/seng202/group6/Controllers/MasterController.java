@@ -132,7 +132,7 @@ public class MasterController {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Hour of the Day Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewAreaRankingScreen.fxml")); //Causing problems
+        Parent newScreen = FXMLLoader.load(getClass().getResource("viewTimeRankingScreen.fxml")); //Causing problems
         Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();
