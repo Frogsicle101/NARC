@@ -3,8 +3,7 @@ let mapMarkers = [];
 let return_location = { lat: 41.85, lng: -87.65 };
 
 function callscript() {
-  var nameVar = "This is a JS var";
-  app.callJavascript(nameVar);
+  app.callJavascript();
 }
 
 function initMap() {
@@ -38,10 +37,11 @@ function onPlaceChanged() {
     map.setCenter(place.geometry.location);
     map.setZoom(17);
   }
+  return_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+  callscript();
 }
 
 function getLocation() {
-  callscript();
   return return_location;
 }
 
@@ -68,6 +68,6 @@ function removeMarkers() {
   for (let i = 0; i < mapMarkers.length; i++) {
     mapMarkers[i].setMap(null);
   }
-  callscript();
+  mapMarkers = [];
 }
 

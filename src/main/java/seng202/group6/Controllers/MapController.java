@@ -121,11 +121,6 @@ public class MapController extends MasterController implements Initializable {
 
         //Populates crimeData arraylist from database
         //Probably a cleaner way to make this work, so it isn't called twice but this works for now
-        try {
-            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
         /*WebEngine webEngine = mapView.getEngine();
         webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
@@ -141,12 +136,6 @@ public class MapController extends MasterController implements Initializable {
             System.out.println("Error in clickViewMap: " + e);
         }*/
         WebView mapView = DynamicMapService.getMapView();
-        WebEngine webEngine = mapView.getEngine();
-        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-
-            }
-        });
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
         mapPane.getChildren().add(mapView);
     }
@@ -155,11 +144,14 @@ public class MapController extends MasterController implements Initializable {
         DynamicMapService.loadMarkers(super.crimeData);
     }*/
 
-    public void addMarkers(ActionEvent event) {
-        DynamicMapService.loadMarker(crimeData);
-        Double centre = DynamicMapService.getCentre();
-        System.out.println(centre);
-    }
+    /*public void addMarkers(ActionEvent event) {
+        //DynamicMapService.loadMarker(crimeData);
+        //Double centre = DynamicMapService.getCentre();
+        //System.out.println(centre);
+        //LatLng centre = DynamicMapService.getCentre();
+        //System.out.println(centre.lat);
+        //System.out.println(centre.lng);
+    }*/
 
     public void removeMarkers(ActionEvent event) {
         DynamicMapService.removeMarkers();
