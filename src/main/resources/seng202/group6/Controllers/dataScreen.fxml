@@ -223,12 +223,16 @@
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#clickRankCrimeType" text="Crime Type">
+                        <Button mnemonicParsing="false" onAction="#clickRankCrimeType" prefHeight="26.0" prefWidth="58.0" text="Crime">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#clickRankArea" prefHeight="26.0" prefWidth="93.0" text="Area" />
+                        <Button mnemonicParsing="false" onAction="#clickRankArea" prefHeight="26.0" prefWidth="58.0" text="Area">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="rankTime" mnemonicParsing="false" onAction="#clickRankTime" prefHeight="26.0" prefWidth="58.0" text="Time" />
                      </children>
                      <VBox.margin>
                         <Insets top="5.0" />
