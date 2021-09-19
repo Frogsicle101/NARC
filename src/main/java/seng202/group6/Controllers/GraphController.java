@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import seng202.group6.Models.CrimeFrequency;
 import seng202.group6.Models.TimeFrequency;
 
 import java.io.IOException;
@@ -105,11 +106,23 @@ public class GraphController extends MasterController implements Initializable {
             data = rankedTimeList(crimeData);
         }
         data.sort(Comparator.comparing(TimeFrequency::getHourOfTheDay));
-        int a = 0;
         for (int i=0; i < 24; i++) {
-            series.getData().add(new XYChart.Data<String, Number>(valueOf(data.get(i).getHourOfTheDay()), data.get(i).getFrequency()));
-            a++;
+            boolean found = false;
+            int index = 0;
+            for (TimeFrequency time : data) {
+                if (time.getHourOfTheDay() == i) {
+                    found = true;
+                    index = data.indexOf(time);
+                }
+            }
+            if (found) {
+                series.getData().add(new XYChart.Data<String, Number>(valueOf(data.get(index).getHourOfTheDay()), data.get(index).getFrequency()));
+            } else {
+                series.getData().add(new XYChart.Data<String, Number>(valueOf(i), 0));
+            }
+
         }
+
         series.setName("Crime Frequency Over Day");
         lineChart.getData().add(series);
 
