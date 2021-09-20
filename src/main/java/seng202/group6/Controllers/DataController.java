@@ -167,7 +167,7 @@ public class DataController extends MasterController implements Initializable {
             caseNumColumn.setCellValueFactory(new PropertyValueFactory<>("caseNumber"));
             primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
             locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
 
             tableView.setItems(FXCollections.observableArrayList(crimeData));
 

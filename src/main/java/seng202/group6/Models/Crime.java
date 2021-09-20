@@ -1,5 +1,6 @@
 package seng202.group6.Models;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //TODO put analytical stuff into services as static methods
 /**
@@ -120,6 +121,11 @@ public class Crime {
     public String getCaseNumber() {return caseNumber;}
 
     public LocalDateTime getDate() {return date;}
+
+    public String getReadableDate() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return getDate().format(format);
+    }
 
     public String getFBI() { return FBI; }
 
