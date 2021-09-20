@@ -31,12 +31,8 @@ function initMap() {
 
 function onPlaceChanged() {
   const place = autocomplete.getPlace();
-  if (place.geometry.viewport) {
-    map.fitBounds(place.geometry.viewport);
-  } else {
-    map.setCenter(place.geometry.location);
-    map.setZoom(17);
-  }
+  map.setCenter(place.geometry.location);
+  map.setZoom(16);
   return_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
   callscript();
 }
