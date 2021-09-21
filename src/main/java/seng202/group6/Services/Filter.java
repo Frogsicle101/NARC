@@ -10,6 +10,7 @@ import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -31,11 +32,79 @@ public class Filter {
 
 
     /**
+     * Builds an SQL query from the different filter settings
+     * @return The query as a String
+     */
+    private String queryBuilder() {
+        String tableName = "Crimes";
+        String statement = "SELECT * FROM " + tableName + " ";
+        statement += "WHERE ";
+
+        if (start != null) {
+            statement += "occurrence_date > '" + LocalDateTime.of(start, LocalTime.MIDNIGHT) + "' ";
+            statement += "AND ";
+        }
+
+        if (end != null) {
+            statement += "occurrence_date <= '" + LocalDateTime.of(end, LocalTime.MIDNIGHT) + "' ";
+            statement += "AND ";
+        }
+
+        if (!types.isEmpty()) {
+            statement += "primary_description IN ('" + String.join("', '", types) + "') ";
+            statement += "AND ";
+        }
+
+
+        if (!locations.isEmpty()) {
+            statement += "location IN ('" + String.join("', '", locations) + "') ";
+            statement += "AND ";
+        }
+
+        if (arrest != null) {
+            statement += "arrest = " + arrest + " ";
+            statement += "AND ";
+        }
+
+        if (domestic != null) {
+            statement += "domestic = " + domestic + " ";
+            statement += "AND ";
+        }
+
+
+        if (!beats.isEmpty()) {
+            statement += "beat IN (" + String.join(", ", beats.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.toSet()))
+                    + ") ";
+            statement += "AND ";
+        }
+
+        if (!wards.isEmpty()) {
+            statement += "ward IN (" + String.join(", ", wards.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.toSet()))
+                    + ") ";
+
+        } else {
+            statement = statement.substring(0, statement.length() - 4); //Get rid of trailing AND
+        }
+
+        statement += ";";
+
+
+        return statement;
+
+    }
+
+
+    /**
      * Filters the given set using the properties of the filter
      * @param crimes The arrayList to be filtered
      * @return The filtered arrayList
      */
     public ArrayList<Crime> applyFilter(ArrayList<Crime> crimes) {
+        System.out.println(queryBuilder());
         ArrayList<Crime> output = new ArrayList<>();
         for (Crime crime : crimes) {
 
@@ -71,7 +140,7 @@ public class Filter {
      * @param end The end date
      */
     public void setEnd(LocalDate end) {
-        this.end = end;
+        this.end = end.plusDays(1);
     }
 
     /**
@@ -112,7 +181,7 @@ public class Filter {
      */
     public void setBeats(String beatString) {
         if (!beatString.isEmpty()) {
-            for (String beat : beatString.split(",")) {
+            for (String beat : beatString.split(",\\s*")) {
                 beats.add(Integer.parseInt(beat));
             }
         }
