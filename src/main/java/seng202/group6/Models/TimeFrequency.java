@@ -29,8 +29,6 @@ public class TimeFrequency {
 
     public void setFrequency(int frequency) {this.frequency = frequency;}
 
-    public void setHourString(int hourOfTheDay) { this.hourString = hourOfTheDay + ":00";}
-
     public void incrementFrequency() {this.frequency += 1;}
 
     @Override public String toString(){
