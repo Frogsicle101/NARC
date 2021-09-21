@@ -128,13 +128,8 @@ public class ImportController extends MasterController implements Initializable 
             validUpload = true;
         }
 
-        //Populates crimeData arraylist from database
-        try {
-            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
+        MasterController.populateCrimeArray();
+
         if (validUpload) {
             uploadSuccess.setText("File uploaded successfully. " + recordsOmitted + " records omitted.");
             uploadSuccess.setVisible(true);
