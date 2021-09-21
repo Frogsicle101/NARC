@@ -128,6 +128,8 @@ public class ImportController extends MasterController implements Initializable 
             validUpload = true;
         }
 
+        MasterController.populateCrimeArray();
+
         if (validUpload) {
             uploadSuccess.setText("File uploaded successfully. " + recordsOmitted + " records omitted.");
             uploadSuccess.setVisible(true);

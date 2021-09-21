@@ -40,7 +40,7 @@ public class AnalyticsService {
      */
     public static LocalDateTime compareCrimeTimes(Crime crime,Crime otherCrime) {
         LocalDateTime dateTime;
-        if (crime.getDate().compareTo(otherCrime.getDate()) < 0) {
+        if ((crime.getDate().compareTo(otherCrime.getDate()) < 0)) {
             dateTime = getTimeDifference(crime.getDate(), otherCrime.getDate());
         } else {
             dateTime = getTimeDifference(otherCrime.getDate(), crime.getDate());
@@ -56,7 +56,6 @@ public class AnalyticsService {
      * @return Returns a LocalDateTime object representing the difference in time between the two LocalDateTimes
      */
     private static LocalDateTime getTimeDifference(LocalDateTime smallTime, LocalDateTime bigTime) {
-        //TODO Optimize later
         LocalDateTime dateTime = bigTime;
         dateTime = dateTime.minusSeconds(smallTime.getSecond());
         dateTime = dateTime.minusMinutes(smallTime.getMinute());

@@ -29,6 +29,7 @@ public class MainApplication extends Application {
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
         DynamicMapService.initializeDynamicMap();
+        MasterController.populateCrimeArray();
     }
 
     /**

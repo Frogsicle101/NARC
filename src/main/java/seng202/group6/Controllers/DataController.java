@@ -143,12 +143,7 @@ public class DataController extends MasterController implements Initializable {
 
         tableView.setFocusTraversable(false);
 
-        //Populates crimeData arraylist from database
-        try {
-            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
         if (crimeData != null) {
 

@@ -11,17 +11,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 
-//Todo complete rank class to involve dangerous areas
-//Todo make sure crime frequency is ranked correctly
-//Todo test
+/**
+ * class used for ranking of crimes in terms of Area, Type of crime and Time
+ */
 
 public class Rank{
 
 
     /**
-     * Sorts data by frequency of crime type
-     * @param crimes The input to be ranked
-     * @return Array list of type String in decreasing order of crime type
+     * Using the CrimeFrequency class this method sorts an array of crimes into an ordered list of Crime Frequencies and returns it
+     * @param crimes An array list of Crime objects
+     * @return A sorted array list of CrimeFrequencies
      */
     public static ArrayList<CrimeFrequency> rankedTypeList(ArrayList<Crime> crimes) {
         ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
@@ -48,9 +48,9 @@ public class Rank{
 
 
     /**
-     * Sorts data by frequency of crime area
-     * @param crimes The input to be ranked
-     * @return Array list of type String in decreasing order of crime area
+     * Using the AreaFrequency class this method sorts an array of crimes into an ordered list of AreaFrequency objects and returns it
+     * @param crimes An array list of Crime objects
+     * @return A sorted array list of AreaFrequency
      */
     public static ArrayList<AreaFrequency> rankedAreaList(ArrayList<Crime> crimes) {
         ArrayList<AreaFrequency> data = new ArrayList<AreaFrequency>();
@@ -74,6 +74,11 @@ public class Rank{
         return data;
     }
 
+    /**
+     * Using the TimeFrequency class this method sorts an array of crimes into an ordered list of TimeFrequency objects and returns it
+     * @param crimes An array list of Crime objects
+     * @return A sorted array list of TimeFrequency
+     */
     public static ArrayList<TimeFrequency> rankedTimeList(ArrayList<Crime> crimes) {
         ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
         boolean found;
@@ -94,25 +99,6 @@ public class Rank{
         data.sort(Comparator.comparing(TimeFrequency::getFrequency));
         Collections.reverse(data);
         return data;
-    }
-
-
-
-    public static void main(String[] args) {
-        ArrayList<Crime> crimeList = new ArrayList<>();
-        Crime crime1 = new Crime();
-        Crime crime2 = new Crime();
-        Crime crime3 = new Crime();
-        crime1.setPrimaryDescription("ROBBERY");
-        crime2.setPrimaryDescription("CRIMINAL DAMAGE");
-        crime3.setPrimaryDescription("ROBBERY");
-        crimeList.add(crime3);
-        crimeList.add(crime1);
-        crimeList.add(crime2);
-        ArrayList<CrimeFrequency> freqList = rankedTypeList(crimeList);
-        for (CrimeFrequency crime : freqList) {
-            System.out.println(crime.toString());
-        }
     }
 
 }
