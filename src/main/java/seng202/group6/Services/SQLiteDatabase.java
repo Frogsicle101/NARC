@@ -68,6 +68,8 @@ public class SQLiteDatabase {
         connection.commit();
     }
 
+
+
     /**
      * Select all data from a table
      * @param tableName The name of the table to select from
@@ -111,5 +113,11 @@ public class SQLiteDatabase {
                 +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         Statement statement = connection.createStatement();
         return statement.executeQuery(sql);
+    }
+
+    public static ResultSet executeQuery(String query) throws SQLException {
+
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(query);
     }
 }

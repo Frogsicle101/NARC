@@ -281,8 +281,12 @@ public class DataController extends MasterController implements Initializable {
         filter.setBeats(beatSearch.getText());
         filter.setWards(wardSearch.getText());
 
-
-        filteredCrimeData = filter.applyFilter(crimeData);
+        try {
+            filteredCrimeData = filter.applyFilter();
+        } catch (SQLException e) {
+            (new Alert(Alert.AlertType.ERROR, "SQL Query Failed: " + e)).show();
+            e.printStackTrace();
+        }
 
         tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
 

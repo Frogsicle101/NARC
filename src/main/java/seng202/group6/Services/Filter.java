@@ -3,6 +3,8 @@ package seng202.group6.Services;
 import org.apache.commons.lang3.ObjectUtils;
 import seng202.group6.Models.Crime;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -98,34 +100,14 @@ public class Filter {
     }
 
 
-    /**
-     * Filters the given set using the properties of the filter
-     * @param crimes The arrayList to be filtered
-     * @return The filtered arrayList
-     */
-    public ArrayList<Crime> applyFilter(ArrayList<Crime> crimes) {
-        System.out.println(queryBuilder());
-        ArrayList<Crime> output = new ArrayList<>();
-        for (Crime crime : crimes) {
 
-            if (
-                    (start == null || crime.getDate().isAfter(ChronoLocalDateTime.from
-                            (LocalDateTime.of(start, LocalTime.MIDNIGHT)))) &&
-                    (end == null || crime.getDate().isBefore(ChronoLocalDateTime.from
-                            (LocalDateTime.of(end, LocalTime.MIDNIGHT)))) &&
-                    (types.isEmpty() || types.contains(crime.getPrimaryDescription())) &&
-                    (locations.isEmpty() || locations.contains(crime.getLocationDescription())) &&
-                    (arrest == null || crime.isArrest() == arrest) &&
-                    (domestic == null || crime.isDomestic() == domestic) &&
-                    (beats.isEmpty() || beats.contains(crime.getBeat())) &&
-                    (wards.isEmpty() || wards.contains(crime.getWard()))
-            ) {
-                output.add(crime);
-            }
 
-        }
-        return output;
+    public ArrayList<Crime> applyFilter() throws SQLException {
+        ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
+        ArrayList<Crime> out = SQLiteDatabase.convertResultSet(result);
+        return out;
     }
+
 
     /**
      * Sets the filter to filter from a specific start date
@@ -140,7 +122,10 @@ public class Filter {
      * @param end The end date
      */
     public void setEnd(LocalDate end) {
-        this.end = end.plusDays(1);
+        if (end != null) {
+            this.end = end.plusDays(1);
+        }
+
     }
 
     /**
