@@ -34,7 +34,14 @@ function onPlaceChanged() {
   map.setCenter(place.geometry.location);
   map.setZoom(16);
   return_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+
   callscript();
+  mapMarkers.push(new google.maps.Marker({
+    position: return_location,
+    map: map,
+    title: "Centre",
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  }));
 }
 
 function getLocation() {
@@ -47,6 +54,7 @@ function addMarkers(markers) {
     new google.maps.Marker({
       position: markers[i],
       map: map,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
     });
   }
 }
@@ -56,6 +64,7 @@ function addMarker(marker) {
     new google.maps.Marker({
       position: marker[0],
       map: map,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
     })
   );
 }

@@ -163,6 +163,13 @@ public class MapController extends MasterController implements Initializable {
         //System.out.println(centre.lng);
     }*/
 
+    public void reloadMap(ActionEvent event) {
+        DynamicMapService.initializeDynamicMap();
+        WebView mapView = DynamicMapService.getMapView();
+        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
+        mapPane.getChildren().add(mapView);
+    }
+
     public void removeMarkers(ActionEvent event) {
         DynamicMapService.removeMarkers();
     }

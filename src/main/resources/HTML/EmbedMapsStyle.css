@@ -22,3 +22,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.view-link {
+  display: none !important;
+}
+
+a[title="Open this area in Google Maps (opens a new window)"] {
+  display: none !important;
+}
