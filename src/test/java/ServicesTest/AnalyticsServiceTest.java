@@ -6,21 +6,20 @@ import seng202.group6.Models.Crime;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seng202.group6.Services.AnalyticsService.getDistanceBetween;
+import static seng202.group6.Services.AnalyticsService.compareCrimeTimes;
 
 public class AnalyticsServiceTest {
-    //TODO This test case does not pass.
-    /*
     @Test
-    public void getDistanceBetweenTest() {
+    public void compareTimeTest() {
         Crime crime1 = new Crime();
         Crime crime2 = new Crime();
-        crime1.setLongitude(-43.540053);
-        crime1.setLatitude(172.633589);
-        crime2.setLongitude(-43.533884462594315);
-        crime2.setLatitude(172.6332843037812);
-        assertEquals(0.6863, getDistanceBetween(crime1, crime2));
+        LocalDateTime date1 = LocalDateTime.of(0, 1,1,0,0,0);
+        LocalDateTime date2 = LocalDateTime.of(0, 2,2,0,0,5);
+        crime1.setDate(date1);
+        crime2.setDate(date2);
+        LocalDateTime date3 = LocalDateTime.of(0, 1,1,0,0,5);
+        assertEquals(date3, compareCrimeTimes(crime1, crime2));
 
     }
-    */
+    
 }

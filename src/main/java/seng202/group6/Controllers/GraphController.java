@@ -52,6 +52,7 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lineChart.getData().clear();
@@ -60,15 +61,11 @@ public class GraphController extends MasterController implements Initializable {
         xAxis.forceZeroInRangeProperty();
         xAxis.setTickUnit(1);
         xAxis.setTickLabelGap(1);
-
-
-
-//        try {
-//            data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes")));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
+        try {
+            clickApplyChart();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mapButton.setFocusTraversable(false);
         dataButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
@@ -119,7 +116,7 @@ public class GraphController extends MasterController implements Initializable {
      * Method to make a line chart be created on the graph
      * @throws IOException
      */
-    public void clickApplyChart() throws IOException {
+    private void clickApplyChart() throws IOException {
        if ((data.size() == 0 && crimeData.size() == 0) || (data.size() != rankedTimeList(filteredCrimeData).size() && filteredCrimeData.size() != 0) || (
                data.size() != rankedTimeList(crimeData).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
             XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
