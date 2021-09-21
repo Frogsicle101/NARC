@@ -108,7 +108,6 @@ public class DynamicMapService {
     }
 
     public static LatLng getCentre() {
-
         JSObject location = (JSObject) mapView.getEngine().executeScript("getLocation()");
         Double lat = (Double) location.getMember("lat");
         Double lng = (Double) location.getMember("lng");
@@ -158,7 +157,6 @@ public class DynamicMapService {
         LatLng centre = getCentre();
         System.out.println(centre.lat);
         System.out.println(centre.lng);
-
     }
 
 }

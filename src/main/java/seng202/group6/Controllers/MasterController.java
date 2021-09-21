@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.CrimeFrequency;
+import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -26,12 +28,19 @@ public class MasterController {
     protected static Stage stage;
 
 
+    public static void populateCrimeArray() {
+        //Populates crimeData arraylist from database
+        try {
+            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
+        } catch (SQLException e) {
+            System.out.println("Error in MasterController.populateCrimeArray" + e);
+        }
+    }
     /**
      * Method to change between scenes in the current window
      * @param screen A string telling the method with screen to switch to
      * @throws IOException
      */
-
     public void changeScreen(String screen) throws IOException {
 
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
