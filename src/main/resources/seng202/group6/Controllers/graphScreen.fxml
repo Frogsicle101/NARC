@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -74,9 +73,9 @@
          <children>
             <Pane prefHeight="393.0" prefWidth="691.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <LineChart fx:id="lineChart" layoutX="14.0" layoutY="9.0" prefHeight="336.0" prefWidth="500.0">
+                  <LineChart fx:id="lineChart" layoutX="14.0" layoutY="9.0" prefHeight="375.0" prefWidth="738.0" title="Crime Over Time">
                     <xAxis>
-                      <NumberAxis label="Time of Day" side="BOTTOM" fx:id="xAxis" />
+                      <NumberAxis autoRanging="false" label="Time of Day" minorTickCount="0" minorTickLength="1.0" side="BOTTOM" tickLength="5.0" tickUnit="1.0" upperBound="23.0" fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis label="Crime Occurrences" side="LEFT" />
@@ -86,7 +85,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="applyChartButton" layoutX="214.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickApplyChart" text="Apply Chart" />
+                  <Button fx:id="applyChartButton" layoutX="363.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickApplyChart" text="Apply Chart" />
                </children>
             </Pane>
          </children>
