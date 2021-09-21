@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.EditController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.EditController">
     <children>
         <Text layoutX="51.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Case Number" />
         <Text layoutX="52.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date " />
@@ -25,7 +25,7 @@
         <Text layoutX="51.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Domestic" />
         <Text layoutX="51.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beat" />
         <Text layoutX="49.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude" />
-      <TextField fx:id="caseNumber" layoutX="200.0" layoutY="61.0" prefWidth="250.0" />
+      <TextField fx:id="caseNumber" disable="true" editable="false" layoutX="200.0" layoutY="61.0" prefWidth="250.0" />
       <DatePicker fx:id="date" layoutX="200.0" layoutY="96.0" prefHeight="25.0" prefWidth="250.0" />
       <TextField fx:id="block" layoutX="200.0" layoutY="128.0" prefWidth="250.0" />
       <TextField fx:id="primaryDescription" layoutX="200.0" layoutY="195.0" prefWidth="250.0" />
@@ -37,7 +37,7 @@
       <TextField fx:id="fbiCD" layoutX="200.0" layoutY="426.0" prefWidth="250.0" />
       <TextField fx:id="latitude" layoutX="200.0" layoutY="458.0" prefWidth="250.0" />
       <TextField fx:id="longitude" layoutX="200.0" layoutY="488.0" prefWidth="250.0" />
-      <Button fx:id="applyButton" layoutX="246.0" layoutY="540.0" mnemonicParsing="false" onAction="#clickApply" text="Apply">
+      <Button fx:id="applyButton" layoutX="227.0" layoutY="540.0" mnemonicParsing="false" onAction="#clickApply" text="Apply">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

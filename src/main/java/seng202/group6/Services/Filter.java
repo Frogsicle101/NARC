@@ -43,12 +43,12 @@ public class Filter {
         statement += "WHERE ";
 
         if (start != null) {
-            statement += "occurrence_date > '" + LocalDateTime.of(start, LocalTime.MIDNIGHT) + "' ";
+            statement += "occurrence_date >= '" + LocalDateTime.of(start, LocalTime.MIDNIGHT) + "' ";
             statement += "AND ";
         }
 
         if (end != null) {
-            statement += "occurrence_date <= '" + LocalDateTime.of(end, LocalTime.MIDNIGHT) + "' ";
+            statement += "occurrence_date < '" + LocalDateTime.of(end, LocalTime.MIDNIGHT) + "' ";
             statement += "AND ";
         }
 

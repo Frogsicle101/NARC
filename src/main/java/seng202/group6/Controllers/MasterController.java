@@ -1,13 +1,10 @@
 package seng202.group6.Controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
-import seng202.group6.Models.CrimeFrequency;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ public class MasterController {
 
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
     protected static ArrayList<Crime> filteredCrimeData = new ArrayList<>();
-    protected static Crime crimeToView;
+    protected static Crime currentCrime;
     protected static Stage stage;
 
 
@@ -97,7 +94,7 @@ public class MasterController {
 
     public void launchViewScreen(Crime crime) throws IOException {
 
-        crimeToView = crime;
+        currentCrime = crime;
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
@@ -143,11 +140,11 @@ public class MasterController {
 
     public void launchEditScreen(Crime crime) throws IOException {
 
-        crimeToView = crime;
+        currentCrime = crime;
         Stage viewStage = new Stage();
         viewStage.setTitle("Edit Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("editCrimeScreen.fxml"));
-        Scene newScene = new Scene(newScreen, 500, 550);
+        Scene newScene = new Scene(newScreen, 500, 600);
         viewStage.setScene(newScene);
         viewStage.show();
 

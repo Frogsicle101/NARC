@@ -70,7 +70,7 @@ public class ViewController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Crime viewedCrime = MasterController.crimeToView;
+        Crime viewedCrime = MasterController.currentCrime;
 
         caseNumber.setText(viewedCrime.getCaseNumber());
         date.setText(viewedCrime.getDate().toString());

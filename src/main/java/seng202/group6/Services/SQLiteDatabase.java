@@ -60,6 +60,40 @@ public class SQLiteDatabase {
 
     }
 
+    public static void updateInTable(String tableName, Crime crime) throws SQLException{
+        String sql = "UPDATE " + tableName + " " +
+                "SET " +
+                "occurrence_date = '" + crime.getDate() + "', " +
+                "primary_description = '" + crime.getPrimaryDescription() + "', " +
+                "location = '" + crime.getLocationDescription() + "', " +
+                "secondary_description = '" + crime.getSecondaryDescription() + "', " +
+                "arrest = " + crime.isArrest() + ", " +
+                "domestic = " + crime.isDomestic() + ", " +
+                "beat = " + crime.getBeat() + ", " +
+                "ward = " + crime.getWard() + ", " +
+                "fbi_cd = '" + crime.getFBI() + "', " +
+                "block = '" + crime.getBlock() + "', " +
+                "iucr = '" + crime.getIucr() + "', " +
+                "latitude = " + crime.getLatitude() + ", " +
+                "longitude = " + crime.getLongitude() + " " +
+                "WHERE case_id LIKE '" + crime.getCaseNumber() + "';";
+
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+
+    }
+
+    public static void deleteFromTable(String tableName, Crime crime) throws SQLException {
+        String sql = "DELETE FROM " + tableName +
+                " WHERE case_id = '" + crime.getCaseNumber() + "';";
+
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+        endTransaction();
+    }
+
     /**
      * Ends an SQL transaction and commits the results to file. Call after every change to the database
      * @throws SQLException
