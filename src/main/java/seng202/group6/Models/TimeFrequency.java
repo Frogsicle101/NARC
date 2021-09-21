@@ -3,6 +3,7 @@ package seng202.group6.Models;
 public class TimeFrequency {
     private int hourOfTheDay;
     private int frequency = 1;
+    private String hourString;
 
     public TimeFrequency(int hourOfTheDay) {
         this.hourOfTheDay = hourOfTheDay;
@@ -22,9 +23,13 @@ public class TimeFrequency {
 
     public int getFrequency() {return this.frequency;}
 
+    public String getHourString() { return this.hourOfTheDay + ":00";}
+
     public void setHourOfTheDay(int hourOfTheDay) { this.hourOfTheDay = hourOfTheDay;}
 
     public void setFrequency(int frequency) {this.frequency = frequency;}
+
+    public void setHourString(int hourOfTheDay) { this.hourString = hourOfTheDay + ":00";}
 
     public void incrementFrequency() {this.frequency += 1;}
 
