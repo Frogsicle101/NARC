@@ -26,8 +26,8 @@ import java.util.Set;
 
 public class DataController extends MasterController implements Initializable {
 
-    private Set<String> types = new HashSet<String>();
-    private Set<String> locations = new HashSet<String>();
+    private Set<String> types = new HashSet<>();
+    private Set<String> locations = new HashSet<>();
 
 
     @FXML
@@ -41,9 +41,6 @@ public class DataController extends MasterController implements Initializable {
 
     @FXML
     private Button graphButton;
-
-    @FXML
-    private Button rankTime;
 
     @FXML
     protected TableView<Crime> tableView;
@@ -79,7 +76,7 @@ public class DataController extends MasterController implements Initializable {
     private MenuButton locationDropdown;
 
     @FXML
-    private RadioButton anyArrest;
+    private RadioButton anyArrest; //Likewise with needing?
 
     @FXML
     private RadioButton yesArrest;
@@ -88,7 +85,7 @@ public class DataController extends MasterController implements Initializable {
     private RadioButton noArrest;
 
     @FXML
-    private RadioButton anyDomestic;
+    private RadioButton anyDomestic; //Likewise with needing?
 
     @FXML
     private RadioButton yesDomestic;
@@ -103,10 +100,6 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private TextField beatSearch;
 
-
-    @FXML
-    private Button applyButton;
-
     @FXML
     private Button addCrime;
 
@@ -116,20 +109,15 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private Button deleteCrime;
 
+    //Do we need these? I don't think we do
+    @FXML
+    private Button applyButton;
+
     @FXML
     private Button resetButton;
 
     @FXML
-    private MenuItem mostArea;
-
-    @FXML
-    private MenuItem leastArea;
-
-    @FXML
-    private MenuItem mostCrime;
-
-    @FXML
-    private MenuItem leastCrime;
+    private Button rankTime;
 
     @FXML
     private Button rankArea;
@@ -155,12 +143,7 @@ public class DataController extends MasterController implements Initializable {
 
         tableView.setFocusTraversable(false);
 
-        //Populates crimeData arraylist from database
-        try {
-            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
         if (crimeData != null) {
 
@@ -176,10 +159,10 @@ public class DataController extends MasterController implements Initializable {
 
             filterBox.setVisible(true);
 
-            caseNumColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("caseNumber"));
-            primaryDescColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("primaryDescription"));
-            locationColumn.setCellValueFactory(new PropertyValueFactory<Crime, String>("locationDescription"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<Crime, LocalDateTime>("date"));
+            caseNumColumn.setCellValueFactory(new PropertyValueFactory<>("caseNumber"));
+            primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
+            locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
 
             tableView.setItems(FXCollections.observableArrayList(crimeData));
 

@@ -19,8 +19,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 import static seng202.group6.Services.Rank.rankedTypeList;
 
 public class ViewCrimeRankingController extends MasterController implements Initializable {
-    private ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
-    private ArrayList<Crime> whac;
+    private ArrayList<CrimeFrequency> data = new ArrayList<>();
 
     @FXML
     protected TableView<CrimeFrequency> tableView;

@@ -21,14 +21,14 @@ import java.util.concurrent.atomic.AtomicReferenceArray;
 import static seng202.group6.Services.Rank.*;
 
 public class ViewTimeRankingController extends MasterController implements Initializable {
-    private ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
+    private ArrayList<TimeFrequency> data = new ArrayList<>();
 
 
     @FXML
     protected TableView<TimeFrequency> tableView;
 
     @FXML
-    private TableColumn<TimeFrequency, String> TimeColumn;
+    private TableColumn<TimeFrequency, String> timeColumn;
 
     @FXML
     private TableColumn<TimeFrequency, String> frequencyColumn;
@@ -41,7 +41,7 @@ public class ViewTimeRankingController extends MasterController implements Initi
         } else {
             data = rankedTimeList(crimeData);
         }
-        TimeColumn.setCellValueFactory(new PropertyValueFactory<TimeFrequency, String>("hourOfTheDay"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<TimeFrequency, String>("hourString"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<TimeFrequency, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
     }
