@@ -123,17 +123,16 @@ public class GraphController extends MasterController implements Initializable {
             lineChart.getData().clear();
             if (filteredCrimeData.size() != 0) {
                 data = rankedTimeList(filteredCrimeData); //DO we want this from filtered data or
+            } else if (crimeData.size() != 0) {
+                data = rankedTimeList(crimeData);
             } else {
-                if (crimeData.size() != 0) {
-                    data = rankedTimeList(crimeData);
-                } else {
-                    try {
-                        data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)));
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
+
             data.sort(Comparator.comparing(TimeFrequency::getHourOfTheDay));
             for (int i = 0; i < 24; i++) {
                 boolean found = false;
