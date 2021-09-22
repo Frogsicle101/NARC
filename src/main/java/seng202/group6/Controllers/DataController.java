@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Controller class for data screen in user interface, associated with dataScreen.fxml.
@@ -330,7 +331,7 @@ public class DataController extends MasterController implements Initializable {
     }
 
     private void buildDropdowns() {
-        for (String type: types) {
+        for (String type: types.stream().sorted().collect(Collectors.toList())) {
             if (type.equals("")) {
                 type = "NO TYPE GIVEN";
             }
@@ -341,7 +342,7 @@ public class DataController extends MasterController implements Initializable {
             crimeTypeDropdown.getItems().add(newItem);
         }
 
-        for (String location: locations) {
+        for (String location: locations.stream().sorted().collect(Collectors.toList())) {
             if (location.equals("")) {
                 location = "NO LOCATION GIVEN";
             }
@@ -353,6 +354,27 @@ public class DataController extends MasterController implements Initializable {
     }
 
     public void clickReset() {
+
+        startDate.setValue(null);
+        endDate.setValue(null);
+
+        for (MenuItem item: crimeTypeDropdown.getItems()) {
+            CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
+            box.setSelected(false);
+        }
+
+        for (MenuItem item: locationDropdown.getItems()) {
+            CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
+            box.setSelected(false);
+        }
+
+        beatSearch.setText("");
+        wardSearch.setText("");
+
+        anyArrest.setSelected(true);
+        anyDomestic.setSelected(true);
+
+
         filteredCrimeData = crimeData;
         tableView.setItems(FXCollections.observableArrayList(crimeData));
         dataFilter = null;
