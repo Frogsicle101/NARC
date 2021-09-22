@@ -94,8 +94,8 @@ public class Filter {
         if (centre != null){
             Double latRight = centre.lat - 0.0036;
             Double latLeft = centre.lat + 0.0031;
-            Double lngUp = centre.lng - 0.007;
-            Double lngDown = centre.lng + 0.007;
+            Double lngUp = centre.lng - 0.0062;
+            Double lngDown = centre.lng + 0.0062;
             statement += "(latitude BETWEEN "+latRight+" AND "
                     +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         } else {
