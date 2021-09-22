@@ -107,12 +107,12 @@ public class MasterController {
      * @param crime Specific crime selected by user to view detailed description
      */
 
-    public void launchViewScreen(Crime crime) throws IOException {
+    public static void launchViewScreen(Crime crime) throws IOException {
 
         currentCrime = crime;
         Stage viewStage = new Stage();
         viewStage.setTitle("View Crime Info");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeScreen.fxml"));
+        Parent newScreen = FXMLLoader.load(MasterController.class.getResource("viewCrimeScreen.fxml"));
         Scene newScene = new Scene(newScreen, 700, 550);
         viewStage.setScene(newScene);
         viewStage.show();

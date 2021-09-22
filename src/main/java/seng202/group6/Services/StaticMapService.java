@@ -85,7 +85,7 @@ public class StaticMapService {
                 case "STREET_NUMBER":
                     ;
                 case "ROUTE":
-                    zoomLevel = 16;
+                    zoomLevel = 15;
                     isFoundZoom = true;
                     break;
                 case "NEIGHBORHOOD":
@@ -151,7 +151,7 @@ public class StaticMapService {
             case 11:
                 markers.size(Markers.MarkersSize.tiny);
                 break;
-            case 16:
+            case 15:
                 markers.size(Markers.MarkersSize.normal);
                 break;
             default:
