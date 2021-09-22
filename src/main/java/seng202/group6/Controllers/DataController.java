@@ -347,6 +347,27 @@ public class DataController extends MasterController implements Initializable {
     }
 
     public void clickReset() {
+
+        startDate.setValue(null);
+        endDate.setValue(null);
+
+        for (MenuItem item: crimeTypeDropdown.getItems()) {
+            CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
+            box.setSelected(false);
+        }
+
+        for (MenuItem item: locationDropdown.getItems()) {
+            CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
+            box.setSelected(false);
+        }
+
+        beatSearch.setText("");
+        wardSearch.setText("");
+
+        anyArrest.setSelected(true);
+        anyDomestic.setSelected(true);
+
+
         filteredCrimeData = crimeData;
         tableView.setItems(FXCollections.observableArrayList(crimeData));
     }
