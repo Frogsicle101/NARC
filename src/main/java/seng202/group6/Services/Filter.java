@@ -115,6 +115,7 @@ public class Filter {
     public ArrayList<Crime> applyFilter() throws SQLException {
         ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
         ArrayList<Crime> out = SQLiteDatabase.convertResultSet(result);
+
         return out;
     }
 
