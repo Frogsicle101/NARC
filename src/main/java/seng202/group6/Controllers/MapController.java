@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Controller class for map screen in the user interface, associated with homeScreen.fxml.
  * Is a child class of MasterController
  */
-
+@Deprecated
 public class MapController extends MasterController implements Initializable {
 
     @FXML
