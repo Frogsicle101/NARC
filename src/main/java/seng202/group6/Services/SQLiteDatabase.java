@@ -19,7 +19,6 @@ public class SQLiteDatabase {
         connection = DriverManager.getConnection(jdbcUrl);
         connection.setAutoCommit(false);
 
-        createTable("Crimes");
     }
 
     /**
@@ -45,6 +44,7 @@ public class SQLiteDatabase {
                 ")";
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
+        endTransaction();
     }
 
     /**
@@ -94,6 +94,14 @@ public class SQLiteDatabase {
         endTransaction();
     }
 
+    public static ResultSet getTableNames() throws SQLException {
+
+        String sql = "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite%';";
+        Statement statement = connection.createStatement();
+        return statement.executeQuery(sql);
+
+    }
+
     /**
      * Ends an SQL transaction and commits the results to file. Call after every change to the database
      * @throws SQLException
@@ -135,6 +143,9 @@ public class SQLiteDatabase {
                     data.getDouble("longitude"));
             out.add(newCrime);
         }
+
+        data.close();
+
         return out;
     }
 
@@ -153,5 +164,15 @@ public class SQLiteDatabase {
 
         Statement statement = connection.createStatement();
         return statement.executeQuery(query);
+    }
+
+    public static void dropTable(String tableName) throws SQLException {
+
+        String sql = "DROP TABLE " + tableName + ";";
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(sql);
+
+        endTransaction();
     }
 }

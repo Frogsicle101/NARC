@@ -128,7 +128,7 @@ public class GraphController extends MasterController implements Initializable {
                     data = rankedTimeList(crimeData);
                 } else {
                     try {
-                        data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes")));
+                        data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

@@ -29,7 +29,13 @@ public class MainApplication extends Application {
         MasterController.stage = primaryStage;
         SQLiteDatabase.connectToDatabase();
         DynamicMapService.initializeDynamicMap();
-        MasterController.populateCrimeArray();
+        try {
+            String tableName = ImportController.getFirstTable();
+            MasterController.populateCrimeArray(tableName);
+            ImportController.currentTable = tableName;
+        } catch (SQLException e) {
+            ImportController.currentTable = "There is no table to view";
+        }
     }
 
     /**

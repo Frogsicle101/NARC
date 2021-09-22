@@ -21,7 +21,7 @@ public class ParserService {
      * @throws IOException
      * @throws CsvValidationException
      */
-    public static int csvToDatabase(File file) throws IOException, CsvValidationException, SQLException {
+    public static int csvToDatabase(File file, String tableName) throws IOException, CsvValidationException, SQLException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
         int counter = 0;
         while(reader.peek() != null) {
@@ -29,7 +29,7 @@ public class ParserService {
 
             Crime crime = buildCrimeFromFields(fields);
             try {
-                SQLiteDatabase.insertIntoTable("Crimes", crime);   //Populates "Crimes" table in database
+                SQLiteDatabase.insertIntoTable(tableName, crime);   //Populates "Crimes" table in database
             } catch (SQLException e) {
                 counter++;
             }

@@ -29,10 +29,10 @@ public class MasterController {
     protected static boolean choseMap = false;
 
 
-    public static void populateCrimeArray() {
+    public static void populateCrimeArray(String tableName) {
         //Populates crimeData arraylist from database
         try {
-            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable("Crimes"));
+            crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
         } catch (SQLException e) {
             System.out.println("Error in MasterController.populateCrimeArray" + e);
         }
