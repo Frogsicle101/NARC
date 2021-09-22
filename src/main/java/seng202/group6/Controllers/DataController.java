@@ -6,8 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
+import seng202.group6.Services.DynamicMapService;
 import seng202.group6.Services.Filter;
 import seng202.group6.Services.SQLiteDatabase;
 
@@ -125,6 +128,12 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private Button rankCrimeType;
 
+    @FXML
+    private Pane mapPane;
+
+    @FXML
+    private Button reloadMapButton;
+
 
     /**
      * Method to initialize data scene, checks if there has been data imported first,
@@ -143,39 +152,25 @@ public class DataController extends MasterController implements Initializable {
 
         tableView.setFocusTraversable(false);
 
+        WebView mapView = DynamicMapService.getMapView();
+        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
+        mapPane.getChildren().add(mapView);
 
+        buildFilterSets();
+        buildDropdowns();
 
-        if (crimeData != null) {
+        filterBox.setVisible(true);
+        caseNumColumn.setCellValueFactory(new PropertyValueFactory<>("caseNumber"));
+        primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
 
-            buildFilterSets();
-            buildDropdowns();
+        tableView.setItems(FXCollections.observableArrayList(crimeData));
 
-            tableView.setVisible(true);
-
-            viewCrime.setVisible(true);
-            addCrime.setVisible(true);
-            deleteCrime.setVisible(true);
-            editCrime.setVisible(true);
-
-            filterBox.setVisible(true);
-
-            caseNumColumn.setCellValueFactory(new PropertyValueFactory<>("caseNumber"));
-            primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
-            locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
-
-            tableView.setItems(FXCollections.observableArrayList(crimeData));
-
+        if (!choseMap) {
+            switchToTable();
         } else {
-
-            tableView.setVisible(false);
-
-            viewCrime.setVisible(false);
-            addCrime.setVisible(false);
-            editCrime.setVisible(false);
-            deleteCrime.setVisible(false);
-
-            filterBox.setVisible(false);
+            switchToMap();
         }
 
     }
@@ -211,7 +206,11 @@ public class DataController extends MasterController implements Initializable {
      */
 
     public void clickMap() throws IOException {
-        changeToMapScreen();
+        switchToMap();
+    }
+
+    public void clickData() throws IOException {
+        switchToTable();
     }
 
     /**
@@ -276,6 +275,8 @@ public class DataController extends MasterController implements Initializable {
         filter.setBeats(beatSearch.getText());
         filter.setWards(wardSearch.getText());
 
+        dataFilter = filter; //added to allow map to use data filter
+
         try {
             filteredCrimeData = filter.applyFilter();
         } catch (SQLException e) {
@@ -285,7 +286,12 @@ public class DataController extends MasterController implements Initializable {
 
         tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
 
-
+        DynamicMapService.removeMarkers();
+        try {
+            DynamicMapService.loadFilteredMarkers(dataFilter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -349,6 +355,11 @@ public class DataController extends MasterController implements Initializable {
     public void clickReset() {
         filteredCrimeData = crimeData;
         tableView.setItems(FXCollections.observableArrayList(crimeData));
+        dataFilter = null;
+        DynamicMapService.removeMarkers();
+        DynamicMapService.loadSearchMarkers();
+
+
     }
 
 
@@ -364,6 +375,33 @@ public class DataController extends MasterController implements Initializable {
 
     public void clickRankTime() throws IOException {
         launchTimeRankScreen();
+    }
+
+    public void switchToTable() {
+        mapPane.setVisible(false);
+        tableView.setVisible(true);
+        viewCrime.setVisible(true);
+        addCrime.setVisible(true);
+        deleteCrime.setVisible(true);
+        editCrime.setVisible(true);
+        reloadMapButton.setVisible(false);
+    }
+
+    public void switchToMap() {
+        mapPane.setVisible(true);
+        tableView.setVisible(false);
+        viewCrime.setVisible(false);
+        addCrime.setVisible(false);
+        editCrime.setVisible(false);
+        deleteCrime.setVisible(false);
+        reloadMapButton.setVisible(true);
+    }
+
+    public void reloadMap(ActionEvent event) {
+        DynamicMapService.initializeDynamicMap();
+        WebView mapView = DynamicMapService.getMapView();
+        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
+        mapPane.getChildren().add(mapView);
     }
 
 }

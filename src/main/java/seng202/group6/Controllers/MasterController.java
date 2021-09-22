@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.CrimeFrequency;
+import seng202.group6.Services.Filter;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class MasterController {
     protected static ArrayList<Crime> filteredCrimeData = new ArrayList<>();
     protected static Crime currentCrime;
     protected static Stage stage;
+    protected static Filter dataFilter;
+    protected static boolean choseMap = false;
 
 
     public static void populateCrimeArray() {
@@ -63,7 +66,8 @@ public class MasterController {
      */
 
     public void changeToMapScreen() throws IOException {
-        changeScreen("mapScreen.fxml");
+        choseMap = true;
+        changeScreen("dataScreen.fxml");
     }
 
     /**
@@ -73,6 +77,7 @@ public class MasterController {
      */
 
     public void changeToDataScreen() throws IOException {
+        choseMap = false;
         changeScreen("dataScreen.fxml");
     }
 
@@ -158,6 +163,10 @@ public class MasterController {
         viewStage.setScene(newScene);
         viewStage.show();
 
+    }
+
+    public static Filter getFilter() {
+        return dataFilter;
     }
 
 

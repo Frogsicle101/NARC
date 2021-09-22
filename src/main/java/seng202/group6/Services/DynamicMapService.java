@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.DynamicMapMarker;
 
 import java.io.File;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -84,7 +86,7 @@ public class DynamicMapService {
     }
 
     public static void loadMarker(ArrayList<Crime> crimes) {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < crimes.size(); i++) {
             String script = "addMarker([";
 
             DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
@@ -123,29 +125,39 @@ public class DynamicMapService {
         mapView.getEngine().executeScript("removeMarkers()");
     }
 
-    public static void loadSearchMarkers() {
-        //System.out.println("Got to load search markers");
-        LatLng location = new LatLng();
-        location.lat = 41.85;
-        location.lng = -87.65;
-        ArrayList<LatLng> locations = new ArrayList<LatLng>();
-        try {
-            ResultSet resultSet = SQLiteDatabase.selectLocationsFromTable(getCentre());
-            //System.out.println(resultSet);
-            while (resultSet.next()) {
-                //System.out.println(resultSet.getDouble("latitude"));
-                //System.out.println(resultSet.getDouble("longitude"));
-                LatLng local = new LatLng();
-                local.lat = resultSet.getDouble("latitude");
-                local.lng = resultSet.getDouble("longitude");
-                locations.add(local);
-            }
-        } catch (Exception e) {
-            System.out.println("Error in DynamicMapService.loadSearchMarkers: " + e);
-            e.printStackTrace();
-        }
-        loadMarkerLocation(locations);
+    public static void removeLocationMarker() {
+        DynamicMapService.getMapView().getEngine().executeScript("removeLocationMarker()");
+    }
 
+    public static void loadSearchMarkers() {
+        Filter filter = MasterController.getFilter();
+        if (filter != null) {
+            try {
+                loadFilteredMarkers(filter);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                ArrayList<Crime> locations = new ArrayList<Crime>();
+                ResultSet resultSet = SQLiteDatabase.selectLocationsFromTable(getCentre());
+                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(resultSet);
+                loadMarker(crimes);
+            } catch (Exception e) {
+                System.out.println("Error in DynamicMapService.loadSearchMarkers: " + e);
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void loadFilteredMarkers(Filter filter) throws SQLException {
+        filter.setCentre(getCentre());
+        ArrayList<Crime> crimes = filter.applyFilter();
+        loadMarker(crimes);
+    }
+
+    public static void addLocationMarker() {
+        DynamicMapService.getMapView().getEngine().executeScript("addLocationMarker()");
     }
 
     public static void main(String[] args) {
@@ -158,5 +170,6 @@ public class DynamicMapService {
         System.out.println(centre.lat);
         System.out.println(centre.lng);
     }
+
 
 }

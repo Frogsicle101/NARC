@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
+<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -41,7 +41,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Data" textFill="WHITE">
+            <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" onAction="#clickData" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #575757;" text="Data" textFill="WHITE">
                <font>
                   <Font size="35.0" />
                </font>
@@ -248,6 +248,8 @@
                   <Insets left="20.0" right="50.0" />
                </GridPane.margin>
             </VBox>
+            <Button fx:id="reloadMapButton" mnemonicParsing="false" onAction="#reloadMap" text="Reload Map" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Pane fx:id="mapPane" prefHeight="453.0" prefWidth="630.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>

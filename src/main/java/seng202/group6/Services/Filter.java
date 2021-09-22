@@ -1,5 +1,6 @@
 package seng202.group6.Services;
 
+import com.google.maps.model.LatLng;
 import org.apache.commons.lang3.ObjectUtils;
 import seng202.group6.Models.Crime;
 
@@ -31,6 +32,7 @@ public class Filter {
     private Boolean domestic;
     private Set<Integer> beats = new HashSet<>();
     private Set<Integer> wards = new HashSet<>();
+    private LatLng centre;
 
 
     /**
@@ -87,7 +89,15 @@ public class Filter {
                     .map(String::valueOf)
                     .collect(Collectors.toSet()))
                     + ") ";
-
+            statement += "AND ";
+        }
+        if (centre != null){
+            Double latRight = centre.lat - 0.0036;
+            Double latLeft = centre.lat + 0.0031;
+            Double lngUp = centre.lng - 0.007;
+            Double lngDown = centre.lng + 0.007;
+            statement += "(latitude BETWEEN "+latRight+" AND "
+                    +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         } else {
             statement = statement.substring(0, statement.length() - 4); //Get rid of trailing AND
         }
@@ -158,6 +168,10 @@ public class Filter {
      */
     public void setDomestic(boolean domestic) {
         this.domestic = domestic;
+    }
+
+    public void setCentre(LatLng centre) {
+        this.centre = centre;
     }
 
     /**
