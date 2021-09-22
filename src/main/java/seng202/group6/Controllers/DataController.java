@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Controller class for data screen in user interface, associated with dataScreen.fxml.
@@ -324,7 +325,7 @@ public class DataController extends MasterController implements Initializable {
     }
 
     private void buildDropdowns() {
-        for (String type: types) {
+        for (String type: types.stream().sorted().collect(Collectors.toList())) {
             if (type.equals("")) {
                 type = "NO TYPE GIVEN";
             }
@@ -335,7 +336,7 @@ public class DataController extends MasterController implements Initializable {
             crimeTypeDropdown.getItems().add(newItem);
         }
 
-        for (String location: locations) {
+        for (String location: locations.stream().sorted().collect(Collectors.toList())) {
             if (location.equals("")) {
                 location = "NO LOCATION GIVEN";
             }
