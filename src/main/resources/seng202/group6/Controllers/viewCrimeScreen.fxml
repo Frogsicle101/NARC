@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.web.WebView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ViewController">
     <children>
         <Text layoutX="46.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Case Number" />
         <Text layoutX="47.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date " />
@@ -40,6 +40,6 @@
             <Font size="19.0" />
          </font>
       </Text>
-      <WebView fx:id="mapView" layoutX="396.0" layoutY="303.0" prefHeight="200.0" prefWidth="242.0" />
+      <ImageView fx:id="imageView" fitHeight="182.0" fitWidth="261.0" layoutX="392.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>

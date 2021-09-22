@@ -17,7 +17,8 @@ public class DynamicMapMarker {
 
     private String crimeType;
 
-    private LocalDateTime date;
+    private String date;
+    private String crimeID;
 
     /**
      * Constructor for a DynamicMapMarker.
@@ -29,11 +30,12 @@ public class DynamicMapMarker {
         this.lng = lng.toString();
     }
 
-    public DynamicMapMarker(Double lat, Double lng, String crimeType, LocalDateTime date) {
+    public DynamicMapMarker(Double lat, Double lng, String crimeType, String date, String crimeID) {
         this.lat = lat.toString();
         this.lng = lng.toString();
         this.crimeType = crimeType;
         this.date = date;
+        this.crimeID = crimeID;
     }
 
     /**
@@ -44,7 +46,7 @@ public class DynamicMapMarker {
         if (crimeType == null) {
             return "{lat:" + lat + ",lng:" + lng + "}";
         } else {
-            return "{lat:" + lat + ",lng:" + lng + "},"+ "{crime:\"" + crimeType + "\"},{date:\""+date.toString()+"\"}";
+            return "{lat:" + lat + ",lng:" + lng + "},"+ "{crime:\"" + crimeType + "\"},{date:\""+date+"\"},{id:\""+crimeID+"\"}";
         }
     }
 }

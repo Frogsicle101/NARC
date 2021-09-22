@@ -193,6 +193,7 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
@@ -436,7 +437,7 @@ public class DataController extends MasterController implements Initializable {
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
         mapPane.getChildren().add(mapView);
     }
-    
+
 }
 
 

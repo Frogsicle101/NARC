@@ -1,6 +1,7 @@
 let map;
 let mapMarkers = [];
-let return_location = { lat: 41.85, lng: -87.65 };
+let returnLocation = { lat: 41.85, lng: -87.65 };
+let currentAddress;
 let locationMarker;
 
 function callscript() {
@@ -34,12 +35,13 @@ function onPlaceChanged() {
   const place = autocomplete.getPlace();
   map.setCenter(place.geometry.location);
   map.setZoom(17);
-  return_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+  returnLocation = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
+  currentAddress = document.getElementById("autocomplete").value;
   callscript();
 }
 
 function getLocation() {
-  return return_location;
+  return returnLocation;
 }
 
 function addMarkers(markers) {
@@ -58,8 +60,10 @@ function addMarker(crim) {
   const contentString =
     '<div id="content">' +
     '<div id="bodyContent">' +
+    "<p>Case Number: "+crim[3].id+"</p>" +
     "<p>Type: "+crim[1].crime+"</p>" +
     "<p>Date: "+crim[2].date+"</p>" +
+    "<button onclick=\"viewMoreInfo('"+crim[3].id+"')\">View More Information</button>" +
     "</div>" +
     "</div>";
   const infowindow = new google.maps.InfoWindow({
@@ -90,11 +94,29 @@ function removeMarkers() {
 }
 
 function addLocationMarker() {
-  locationMarker = new google.maps.Marker({
-    position: return_location,
+    const contentString =
+    '<div id="content">' +
+    '<div id="bodyContent">' +
+    "<p>Address: "+currentAddress+"</p>" +
+    "</div>" +
+    "</div>";
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  const marker = new google.maps.Marker({
+    position: returnLocation,
     map: map,
     title: "Centre",
     icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  });
+
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+      shouldFocus: false,
+    });
   });
 }
 
@@ -109,34 +131,6 @@ function getLocationZoom() {
   return map.getZoom();
 }
 
-function addInfoMarker(crime) {
-  
-
-  const contentString =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-    '<div id="bodyContent">' +
-    "<p>"+crime+"</p>" +
-    "</div>" +
-    "</div>";
-  const infowindow = new google.maps.InfoWindow({
-    content: contentString,
-  });
-
-  const marker = new google.maps.Marker({
-    position: return_location,
-    map: map,
-    title: "Centre",
-    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-  });
-
-  marker.addListener("click", () => {
-    infowindow.open({
-      anchor: marker,
-      map,
-      shouldFocus: false,
-    });
-  });
+function viewMoreInfo(crimid) {
+  app.viewInfo(crimid);
 }

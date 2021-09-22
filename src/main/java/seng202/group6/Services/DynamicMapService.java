@@ -90,7 +90,7 @@ public class DynamicMapService {
             String script = "addMarker([";
 
             DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude(),
-                    crimes.get(i).getPrimaryDescription(), crimes.get(i).getDate());
+                    crimes.get(i).getPrimaryDescription(), crimes.get(i).getReadableDate(), crimes.get(i).getCaseNumber());
             script += marker.toString();
             script += ",])";
             mapView.getEngine().executeScript(script);

@@ -2,11 +2,14 @@ package seng202.group6.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
+import seng202.group6.Services.StaticMapService;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -59,7 +62,7 @@ public class ViewController extends MasterController implements Initializable {
     private Text longitude;
 
     @FXML
-    private WebView mapView;
+    private ImageView imageView;
 
     /**
      * Method to initialize view scene, sets all the specific text fields to
@@ -71,6 +74,9 @@ public class ViewController extends MasterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         Crime viewedCrime = MasterController.currentCrime;
+        String centre = viewedCrime.getLatitude() + "," + viewedCrime.getLongitude();
+        ArrayList<Crime> crimes = new ArrayList<Crime>();
+        crimes.add(viewedCrime);
 
         caseNumber.setText(viewedCrime.getCaseNumber());
         date.setText(viewedCrime.getDate().toString());
@@ -87,6 +93,7 @@ public class ViewController extends MasterController implements Initializable {
         latitude.setText(Double.toString(viewedCrime.getLatitude()));
         longitude.setText(Double.toString(viewedCrime.getLongitude()));
 
+        imageView.setImage(StaticMapService.getStaticMap(centre, crimes, 261, 182));
     }
 
 
