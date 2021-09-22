@@ -316,7 +316,7 @@ public class DataController extends MasterController implements Initializable {
     public void clickDelete() {
         int index = tableView.getSelectionModel().getFocusedIndex();
         try {
-            SQLiteDatabase.deleteFromTable("Crimes", crimeData.get(index));
+            SQLiteDatabase.deleteFromTable(ImportController.currentTable, crimeData.get(index));
         } catch (SQLException e) {
             (new Alert(Alert.AlertType.ERROR, "Crime could not be deleted from database")).show();
         }

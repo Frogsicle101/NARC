@@ -133,10 +133,10 @@ public class EditController extends MasterController implements Initializable {
 
         try {
             if (isNewCrime) {
-                SQLiteDatabase.insertIntoTable("Crimes", MasterController.currentCrime);
+                SQLiteDatabase.insertIntoTable(ImportController.currentTable, MasterController.currentCrime);
                 crimeData.add(MasterController.currentCrime);
             } else {
-                SQLiteDatabase.updateInTable("Crimes", currentCrime);
+                SQLiteDatabase.updateInTable(ImportController.currentTable, currentCrime);
             }
 
             SQLiteDatabase.endTransaction();
