@@ -76,6 +76,7 @@
                   <Insets bottom="10.0" />
                </GridPane.margin></Button>
             <Button mnemonicParsing="false" onAction="#reloadMap" text="Reload Map" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+            <Button mnemonicParsing="false" onAction="#addFilteredMarkers" text="Apply Data Filter" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

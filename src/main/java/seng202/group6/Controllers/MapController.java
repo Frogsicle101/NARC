@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * Controller class for map screen in the user interface, associated with homeScreen.fxml.
  * Is a child class of MasterController
  */
-
+@Deprecated
 public class MapController extends MasterController implements Initializable {
 
     @FXML
@@ -150,9 +150,14 @@ public class MapController extends MasterController implements Initializable {
         mapPane.getChildren().add(mapView);
     }
 
-    /*public void addMarkers(ActionEvent event) {
-        DynamicMapService.loadMarkers(super.crimeData);
-    }*/
+    public void addFilteredMarkers(ActionEvent event) {
+        DynamicMapService.removeMarkers();
+        try {
+            DynamicMapService.loadFilteredMarkers(dataFilter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*public void addMarkers(ActionEvent event) {
         //DynamicMapService.loadMarker(crimeData);
@@ -173,6 +178,7 @@ public class MapController extends MasterController implements Initializable {
     public void removeMarkers(ActionEvent event) {
         DynamicMapService.removeMarkers();
     }
+
 
 
 

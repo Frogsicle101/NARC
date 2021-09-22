@@ -141,9 +141,9 @@ public class SQLiteDatabase {
     public static ResultSet selectLocationsFromTable(LatLng location) throws SQLException {
         Double latRight = location.lat - 0.0036;
         Double latLeft = location.lat + 0.0031;
-        Double lngUp = location.lng - 0.007;
-        Double lngDown = location.lng + 0.007;
-        String sql = "SELECT latitude, longitude FROM crimes WHERE (latitude BETWEEN "+latRight+" AND "
+        Double lngUp = location.lng - 0.0062;
+        Double lngDown = location.lng + 0.0062;
+        String sql = "SELECT * FROM crimes WHERE (latitude BETWEEN "+latRight+" AND "
                 +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         Statement statement = connection.createStatement();
         return statement.executeQuery(sql);

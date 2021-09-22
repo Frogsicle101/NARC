@@ -15,7 +15,9 @@ public class JavascriptMethods {
 
         DynamicMapService.loadSearchMarkers(latLng);
         System.out.println("dont like you");*/
-        DynamicMapService.getMapView().getEngine().executeScript("removeMarkers()");
+        DynamicMapService.removeMarkers();
+        DynamicMapService.removeLocationMarker();
+        DynamicMapService.addLocationMarker();
         DynamicMapService.loadSearchMarkers();
     }
 }
