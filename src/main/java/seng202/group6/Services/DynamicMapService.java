@@ -89,7 +89,8 @@ public class DynamicMapService {
         for (int i = 0; i < crimes.size(); i++) {
             String script = "addMarker([";
 
-            DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
+            DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude(),
+                    crimes.get(i).getPrimaryDescription(), crimes.get(i).getDate());
             script += marker.toString();
             script += ",])";
             mapView.getEngine().executeScript(script);
@@ -139,9 +140,12 @@ public class DynamicMapService {
             }
         } else {
             try {
-                ArrayList<Crime> locations = new ArrayList<Crime>();
+                /*ArrayList<Crime> locations = new ArrayList<Crime>();
                 ResultSet resultSet = SQLiteDatabase.selectLocationsFromTable(getCentre());
-                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(resultSet);
+                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(resultSet);*/
+                Filter newFilter = new Filter();
+                newFilter.setCentre(getCentre());
+                ArrayList<Crime> crimes = newFilter.applyFilter();
                 loadMarker(crimes);
             } catch (Exception e) {
                 System.out.println("Error in DynamicMapService.loadSearchMarkers: " + e);

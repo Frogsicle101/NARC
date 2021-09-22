@@ -243,7 +243,7 @@ public class DataController extends MasterController implements Initializable {
         filter.setStart(startDate.getValue());
         filter.setEnd(endDate.getValue());
 
-        Set<String> selectedTypes = new HashSet<>();
+        HashSet<String> selectedTypes = new HashSet<>();
         for (MenuItem item: crimeTypeDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             if (box.isSelected()) {
@@ -252,7 +252,7 @@ public class DataController extends MasterController implements Initializable {
         }
         filter.setTypes(selectedTypes);
 
-        Set<String> selectedLocations = new HashSet<>();
+        HashSet<String> selectedLocations = new HashSet<>();
         for (MenuItem item: locationDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             if (box.isSelected()) {
@@ -436,7 +436,7 @@ public class DataController extends MasterController implements Initializable {
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
         mapPane.getChildren().add(mapView);
     }
-
+    
 }
 
 

@@ -26,8 +26,8 @@ public class Filter {
 
     private LocalDate start;
     private LocalDate end;
-    private Set<String> types;
-    private Set<String> locations;
+    private HashSet<String> types = new HashSet<>();
+    private HashSet<String> locations = new HashSet<>();
     private Boolean arrest;
     private Boolean domestic;
     private Set<Integer> beats = new HashSet<>();
@@ -142,7 +142,7 @@ public class Filter {
      * Sets the filter to filter for crimes with their primary description (type) in types
      * @param types A set of Strings of primary descriptions.
      */
-    public void setTypes(Set<String> types) {
+    public void setTypes(HashSet<String> types) {
         this.types = types;
     }
 
@@ -150,7 +150,7 @@ public class Filter {
      * Sets the filter to filter for crimes with their location description in locations
      * @param locations A set of Strings of location descriptions
      */
-    public void setLocations(Set<String> locations) {
+    public void setLocations(HashSet<String> locations) {
         this.locations = locations;
     }
 

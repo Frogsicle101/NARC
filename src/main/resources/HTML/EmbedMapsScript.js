@@ -33,7 +33,7 @@ function initMap() {
 function onPlaceChanged() {
   const place = autocomplete.getPlace();
   map.setCenter(place.geometry.location);
-  map.setZoom(16);
+  map.setZoom(17);
   return_location = {lat: map.getCenter().lat(), lng: map.getCenter().lng()};
   callscript();
 }
@@ -53,14 +53,33 @@ function addMarkers(markers) {
   }
 }
 
-function addMarker(marker) {
-  mapMarkers.push(
-    new google.maps.Marker({
-      position: marker[0],
+function addMarker(crim) {
+  
+  const contentString =
+    '<div id="content">' +
+    '<div id="bodyContent">' +
+    "<p>Type: "+crim[1].crime+"</p>" +
+    "<p>Date: "+crim[2].date+"</p>" +
+    "</div>" +
+    "</div>";
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  const marker = new google.maps.Marker({
+      position: crim[0],
       map: map,
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-    })
-  );
+    });
+  
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+      shouldFocus: false,
+    });
+  });
+  mapMarkers.push(marker);
 }
 
 function removeMarkers() {
@@ -88,4 +107,36 @@ function removeLocationMarker() {
 
 function getLocationZoom() {
   return map.getZoom();
+}
+
+function addInfoMarker(crime) {
+  
+
+  const contentString =
+    '<div id="content">' +
+    '<div id="siteNotice">' +
+    "</div>" +
+    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+    '<div id="bodyContent">' +
+    "<p>"+crime+"</p>" +
+    "</div>" +
+    "</div>";
+  const infowindow = new google.maps.InfoWindow({
+    content: contentString,
+  });
+
+  const marker = new google.maps.Marker({
+    position: return_location,
+    map: map,
+    title: "Centre",
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  });
+
+  marker.addListener("click", () => {
+    infowindow.open({
+      anchor: marker,
+      map,
+      shouldFocus: false,
+    });
+  });
 }

@@ -138,7 +138,7 @@ public class SQLiteDatabase {
         return out;
     }
 
-    public static ResultSet selectLocationsFromTable(LatLng location) throws SQLException {
+    /*public static ResultSet selectLocationsFromTable(LatLng location) throws SQLException {
         Double latRight = location.lat - 0.0036;
         Double latLeft = location.lat + 0.0031;
         Double lngUp = location.lng - 0.0062;
@@ -147,7 +147,7 @@ public class SQLiteDatabase {
                 +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         Statement statement = connection.createStatement();
         return statement.executeQuery(sql);
-    }
+    }*/
 
     public static ResultSet executeQuery(String query) throws SQLException {
 
