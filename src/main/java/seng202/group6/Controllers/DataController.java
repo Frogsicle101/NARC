@@ -41,6 +41,9 @@ public class DataController extends MasterController implements Initializable {
     private Button mapButton;
 
     @FXML
+    private Button dataButton;
+
+    @FXML
     private Button importButton;
 
     @FXML
@@ -407,6 +410,9 @@ public class DataController extends MasterController implements Initializable {
         deleteCrime.setVisible(true);
         editCrime.setVisible(true);
         reloadMapButton.setVisible(false);
+
+        dataButton.setStyle("-fx-background-color: #575757");
+        mapButton.setStyle("-fx-background-color: #3d3d3d");
     }
 
     public void switchToMap() {
@@ -417,6 +423,11 @@ public class DataController extends MasterController implements Initializable {
         editCrime.setVisible(false);
         deleteCrime.setVisible(false);
         reloadMapButton.setVisible(true);
+
+        dataButton.setStyle("-fx-background-color: #3d3d3d");
+        mapButton.setStyle("-fx-background-color: #575757");
+
+
     }
 
     public void reloadMap(ActionEvent event) {
