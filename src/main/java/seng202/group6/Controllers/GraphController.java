@@ -61,6 +61,8 @@ public class GraphController extends MasterController implements Initializable {
 
     private boolean flag = false;
 
+    private ArrayList<CrimeFrequency> data = new ArrayList<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //lineChart.getData().clear(); //wonder whether needed anymore
@@ -225,7 +227,6 @@ public class GraphController extends MasterController implements Initializable {
 
     public void clickPie() {
         lineChart.setVisible(false);
-        ArrayList<CrimeFrequency> data = new ArrayList<>();
         if (filteredCrimeData.size() != 0) {
             data = rankedTypeList(filteredCrimeData);
         } else {
