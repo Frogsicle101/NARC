@@ -2,6 +2,7 @@ package seng202.group6.Services;
 
 import com.google.maps.model.LatLng;
 import org.apache.commons.lang3.ObjectUtils;
+import seng202.group6.Controllers.ImportController;
 import seng202.group6.Models.Crime;
 
 import java.sql.ResultSet;
@@ -40,7 +41,7 @@ public class Filter {
      * @return The query as a String
      */
     private String queryBuilder() {
-        String tableName = "Crimes";
+        String tableName = ImportController.currentTable;
         String statement = "SELECT * FROM " + tableName + " ";
         statement += "WHERE ";
 

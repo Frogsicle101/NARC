@@ -75,7 +75,7 @@ public class ImportController extends MasterController implements Initializable 
     private Label currentTableText;
 
     private ArrayList<String> tableNames = new ArrayList<>();
-    protected static String currentTable; //current table that is being viewed
+    public static String currentTable; //current table that is being viewed
 
 
     @Override
