@@ -6,43 +6,38 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import seng202.group6.Models.AreaFrequency;
-import seng202.group6.Models.Crime;
-import seng202.group6.Models.CrimeFrequency;
-import seng202.group6.Models.TimeFrequency;
+import seng202.group6.Models.FrequencyObject;
+import seng202.group6.Models.HourOfDayFrequency;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import static seng202.group6.Services.Rank.*;
 
 public class ViewTimeRankingController extends MasterController implements Initializable {
-    private ArrayList<TimeFrequency> data = new ArrayList<>();
+    private ArrayList<FrequencyObject> data = new ArrayList<FrequencyObject>();
 
 
     @FXML
-    protected TableView<TimeFrequency> tableView;
+    protected TableView<FrequencyObject> tableView;
 
     @FXML
-    private TableColumn<TimeFrequency, String> timeColumn;
+    private TableColumn<FrequencyObject, String> timeColumn;
 
     @FXML
-    private TableColumn<TimeFrequency, String> frequencyColumn;
+    private TableColumn<FrequencyObject, String> frequencyColumn;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (filteredCrimeData.size() != 0) {
-            data = rankedTimeList(filteredCrimeData);
+            data = rankedTimeList(filteredCrimeData, 0);
         } else {
-            data = rankedTimeList(crimeData);
+            data = rankedTimeList(crimeData, 0);
         }
-        timeColumn.setCellValueFactory(new PropertyValueFactory<TimeFrequency, String>("hourString"));
-        frequencyColumn.setCellValueFactory(new PropertyValueFactory<TimeFrequency, String>("frequency"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("hourString"));
+        frequencyColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
     }
 }

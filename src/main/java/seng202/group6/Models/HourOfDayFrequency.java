@@ -1,18 +1,18 @@
 package seng202.group6.Models;
-
-public class TimeFrequency {
+@Deprecated
+public class HourOfDayFrequency {
     private int hourOfTheDay;
     private int frequency = 1;
     private String hourString;
 
-    public TimeFrequency(int hourOfTheDay) {
+    public HourOfDayFrequency(int hourOfTheDay) {
         this.hourOfTheDay = hourOfTheDay;
     }
 
     @Override public boolean equals(Object other) {
         boolean equal = false;
-        if (other instanceof TimeFrequency) {
-            if (((TimeFrequency) other).hourOfTheDay == this.hourOfTheDay) {
+        if (other instanceof HourOfDayFrequency) {
+            if (((HourOfDayFrequency) other).hourOfTheDay == this.hourOfTheDay) {
                 equal = true;
             }
         }

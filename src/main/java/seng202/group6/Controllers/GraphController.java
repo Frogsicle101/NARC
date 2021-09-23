@@ -2,26 +2,25 @@ package seng202.group6.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import seng202.group6.Models.CrimeFrequency;
-import seng202.group6.Models.TimeFrequency;
+import seng202.group6.Models.DayOfWeekFrequency;
+import seng202.group6.Models.FrequencyObject;
+import seng202.group6.Models.MonthFrequency;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Time;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 import static seng202.group6.Services.Rank.rankedTimeList;
-import static seng202.group6.Services.Rank.rankedTypeList;
 
 /**
  * Controller class for Graph screen in user interface, associated with graphScreen.fxml.
@@ -47,17 +46,17 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     private LineChart<Number, Number> lineChart;
 
-    private ArrayList<TimeFrequency> data = new ArrayList<>();
+    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
 
     @FXML
     public NumberAxis xAxis;
 
+    private int typeOf = 1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lineChart.getData().clear();
-        xAxis.setUpperBound(23);
-        xAxis.setLowerBound(0);
+
         xAxis.forceZeroInRangeProperty();
         xAxis.setTickUnit(1);
         xAxis.setTickLabelGap(1);
@@ -104,7 +103,7 @@ public class GraphController extends MasterController implements Initializable {
     }
 
     /**
-     * Method to call change to data screen method in MasterController when the data button
+     * Method to call change to hourOfDayData screen method in MasterController when the hourOfDayData button
      * is clicked
      * @throws IOException
      */
@@ -117,41 +116,58 @@ public class GraphController extends MasterController implements Initializable {
      * @throws IOException
      */
     private void clickApplyChart() throws IOException {
-       if ((data.size() == 0 && crimeData.size() == 0) ||
-               (data.size() != rankedTimeList(filteredCrimeData).size() && filteredCrimeData.size() != 0) ||
-               (data.size() != rankedTimeList(crimeData).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
+        int maxValue = 0;
+        int minValue = 0;
+        switch (typeOf) {
+            case 0:
+                maxValue = 24;
+                break;
+            case 1:
+                maxValue = 8;
+                minValue = 1;
+                break;
+            case 2:
+                maxValue = 13;
+                minValue = 1;
+                break;
+        }
+        xAxis.setUpperBound(maxValue-1);
+        xAxis.setLowerBound(minValue);
+       if ((timeFrequencyData.size() == 0 && crimeData.size() == 0) ||
+               (timeFrequencyData.size() != rankedTimeList(filteredCrimeData, typeOf).size() && filteredCrimeData.size() != 0) ||
+               (timeFrequencyData.size() != rankedTimeList(crimeData, typeOf).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             lineChart.getData().clear();
             if (filteredCrimeData.size() != 0) {
-                data = rankedTimeList(filteredCrimeData); //DO we want this from filtered data or
+                timeFrequencyData = rankedTimeList(filteredCrimeData, typeOf);
             } else if (crimeData.size() != 0) {
-                data = rankedTimeList(crimeData);
+                timeFrequencyData = rankedTimeList(crimeData, typeOf);
             } else {
                 try {
-                    data = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)));
+                    timeFrequencyData = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)), typeOf);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
 
-            data.sort(Comparator.comparing(TimeFrequency::getHourOfTheDay));
-            for (int i = 0; i < 24; i++) {
+           timeFrequencyData.sort(Comparator.comparing(FrequencyObject::getTimePeriod));
+            for (int i = minValue; i < maxValue; i++) {
                 boolean found = false;
                 int index = 0;
-                for (TimeFrequency time : data) {
-                    if (time.getHourOfTheDay() == i) {
+                for (FrequencyObject time : timeFrequencyData) {
+                    if (time.getTimePeriod() == i) {
                         found = true;
-                        index = data.indexOf(time);
+                        index = timeFrequencyData.indexOf(time);
                     }
                 }
                 if (found) {
-                    series.getData().add(new XYChart.Data<>(data.get(index).getHourOfTheDay(), data.get(index).getFrequency()));
+                    series.getData().add(new XYChart.Data<>(timeFrequencyData.get(index).getTimePeriod(), timeFrequencyData.get(index).getFrequency()));
                 } else {
                     series.getData().add(new XYChart.Data<>(i, 0));
                 }
 
             }
-
+            
             series.setName("Crime Frequency Over Day");
             lineChart.getData().add(series);
 

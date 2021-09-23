@@ -1,15 +1,10 @@
 package seng202.group6.Services;
 
-import seng202.group6.Controllers.MasterController;
-import seng202.group6.Models.AreaFrequency;
-import seng202.group6.Models.Crime;
-import seng202.group6.Models.CrimeFrequency;
-import seng202.group6.Models.TimeFrequency;
+import seng202.group6.Models.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Set;
 
 /**
  * class used for ranking of crimes in terms of Area, Type of crime and Time
@@ -75,30 +70,43 @@ public class Rank{
     }
 
     /**
-     * Using the TimeFrequency class this method sorts an array of crimes into an ordered list of TimeFrequency objects and returns it
+     * Using the HourOfDayFrequency class this method sorts an array of crimes into an ordered list of HourOfDayFrequency objects and returns it
      * @param crimes An array list of Crime objects
-     * @return A sorted array list of TimeFrequency
+     * @return A sorted array list of HourOfDayFrequency
      */
-    public static ArrayList<TimeFrequency> rankedTimeList(ArrayList<Crime> crimes) {
-        ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
+    public static ArrayList<FrequencyObject> rankedTimeList(ArrayList<Crime> crimes, int typeOf) {
+        ArrayList<FrequencyObject> data = new ArrayList<FrequencyObject>();
         boolean found;
         for (Crime crime : crimes) {
             found = false;
-            TimeFrequency timeFrequency = new TimeFrequency(crime.getDate().getHour());
+            FrequencyObject frequencyObject = null;
+            switch (typeOf) {
+                case 0: frequencyObject = new FrequencyObject(crime.getDate().getHour());
+                    break;
+                case 1 : frequencyObject = new FrequencyObject(crime.getDate().getDayOfWeek().getValue());
+                    break;
+                case 2: frequencyObject = new FrequencyObject(crime.getDate().getMonthValue());
+                    break;    
+            }
+            //new FrequencyObject(crime.getDate().getHour());
             for (int i = 0; i < data.size(); i++) {
-                if (data.get(i).getHourOfTheDay() == (timeFrequency.getHourOfTheDay())) {
+                if (data.get(i).getTimePeriod() == (frequencyObject.getTimePeriod())) {
                     data.get(i).incrementFrequency();
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                data.add(timeFrequency);
+                data.add(frequencyObject);
             }
         }
-        data.sort(Comparator.comparing(TimeFrequency::getFrequency));
+        data.sort(Comparator.comparing(FrequencyObject::getFrequency));
         Collections.reverse(data);
         return data;
     }
+
+
+
+   
 
 }
