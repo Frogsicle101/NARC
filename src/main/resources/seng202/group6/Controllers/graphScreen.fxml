@@ -74,7 +74,7 @@
          <children>
             <Pane prefHeight="393.0" prefWidth="691.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <LineChart fx:id="lineChart" layoutX="14.0" layoutY="9.0" prefHeight="375.0" prefWidth="738.0" title="Crime Over Time">
+                  <LineChart fx:id="lineChart" layoutX="14.0" layoutY="9.0" legendVisible="false" prefHeight="375.0" prefWidth="738.0" title="Crime Frequency Over Time">
                     <xAxis>
                       <NumberAxis autoRanging="false" label="Time of Day" minorTickCount="0" minorTickLength="1.0" side="BOTTOM" tickLength="5.0" tickUnit="1.0" upperBound="23.0" fx:id="xAxis" />
                     </xAxis>
@@ -82,7 +82,7 @@
                       <NumberAxis label="Crime Occurrences" side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <PieChart fx:id="pieChart" layoutX="146.0" layoutY="10.0" prefHeight="374.0" prefWidth="500.0" title="Crime Frequency by Type" />
+                  <PieChart fx:id="pieChart" labelLineLength="15.0" layoutX="4.0" layoutY="10.0" legendSide="RIGHT" legendVisible="false" prefHeight="374.0" prefWidth="750.0" title="Crime Frequency by Type" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import seng202.group6.Models.CrimeFrequency;
 import seng202.group6.Models.DayOfWeekFrequency;
 import seng202.group6.Models.FrequencyObject;
 import seng202.group6.Models.MonthFrequency;
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 import static seng202.group6.Services.Rank.rankedTimeList;
+import static seng202.group6.Services.Rank.rankedTypeList;
 
 /**
  * Controller class for Graph screen in user interface, associated with graphScreen.fxml.
@@ -62,6 +64,8 @@ public class GraphController extends MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //lineChart.getData().clear(); //wonder whether needed anymore
+
+        flag = false;
 
         try {
             clickApplyChart();
@@ -174,7 +178,6 @@ public class GraphController extends MasterController implements Initializable {
 
             }
 
-            series.setName("Crime Frequency Over Day");
             lineChart.getData().add(series);
 
         }
@@ -222,10 +225,16 @@ public class GraphController extends MasterController implements Initializable {
 
     public void clickPie() {
         lineChart.setVisible(false);
-        ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList(
-                new PieChart.Data("Lucky",50),
-                new PieChart.Data("Unlucky", 50)
-                );
+        ArrayList<CrimeFrequency> data = new ArrayList<>();
+        if (filteredCrimeData.size() != 0) {
+            data = rankedTypeList(filteredCrimeData);
+        } else {
+            data = rankedTypeList(crimeData);
+        }
+        ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList();
+        for (CrimeFrequency crime : data) {
+            pcd.add(new PieChart.Data(crime.getCrime(), crime.getFrequency()));
+        }
         if (!flag) {
             pieChart.setData(pcd);
         }
