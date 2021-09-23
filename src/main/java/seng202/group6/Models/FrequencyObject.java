@@ -23,7 +23,6 @@ public class FrequencyObject {
 
     public int getFrequency() {return this.frequency;}
 
-
     public void setTimePeriod(int timePeriod) { this.timePeriod = timePeriod;}
 
     public void setFrequency(int frequency) {this.frequency = frequency;}
@@ -31,6 +30,6 @@ public class FrequencyObject {
     public void incrementFrequency() {this.frequency += 1;}
 
     @Override public String toString(){
-        return String.format("Time Period: %d. Area Frequency: %d\n", this.timePeriod, this.frequency);
+        return String.format("Time Period: %d. Frequency: %d\n", this.timePeriod, this.frequency);
     }
 }

@@ -19,12 +19,13 @@ public class Rank{
      * @return A sorted array list of CrimeFrequencies
      */
     public static ArrayList<CrimeFrequency> rankedTypeList(ArrayList<Crime> crimes) {
-        ArrayList<CrimeFrequency> data = new ArrayList<CrimeFrequency>();
+        ArrayList<CrimeFrequency> data = new ArrayList<>();
         boolean found;
         for (Crime crime : crimes) {
             found = false;
             CrimeFrequency crimeFrequency = new CrimeFrequency(crime.getPrimaryDescription());
-            for (int i = 0; i < data.size(); i++) {
+            int i;
+            for (i = 0; i < data.size(); i++) {
                 if (data.get(i).getCrime().equals(crimeFrequency.getCrime())) {
                     data.get(i).incrementFrequency();
                     found = true;
@@ -48,12 +49,13 @@ public class Rank{
      * @return A sorted array list of AreaFrequency
      */
     public static ArrayList<AreaFrequency> rankedAreaList(ArrayList<Crime> crimes) {
-        ArrayList<AreaFrequency> data = new ArrayList<AreaFrequency>();
+        ArrayList<AreaFrequency> data = new ArrayList<>();
         boolean found;
         for (Crime crime : crimes) {
             found = false;
             AreaFrequency areaFrequency = new AreaFrequency(crime.getBlock().substring(0, 3));
-            for (int i = 0; i < data.size(); i++) {
+            int i;
+            for (i = 0; i < data.size(); i++) {
                 if (data.get(i).getArea().equals(areaFrequency.getArea())) {
                     data.get(i).incrementFrequency();
                     found = true;
@@ -75,7 +77,7 @@ public class Rank{
      * @return A sorted array list of HourOfDayFrequency
      */
     public static ArrayList<FrequencyObject> rankedTimeList(ArrayList<Crime> crimes, int typeOf) {
-        ArrayList<FrequencyObject> data = new ArrayList<FrequencyObject>();
+        ArrayList<FrequencyObject> data = new ArrayList<>();
         boolean found;
         for (Crime crime : crimes) {
             found = false;
@@ -89,7 +91,8 @@ public class Rank{
                     break;    
             }
             //new FrequencyObject(crime.getDate().getHour());
-            for (int i = 0; i < data.size(); i++) {
+            int i;
+            for (i = 0; i < data.size(); i++) {
                 if (data.get(i).getTimePeriod() == (frequencyObject.getTimePeriod())) {
                     data.get(i).incrementFrequency();
                     found = true;

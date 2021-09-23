@@ -1,9 +1,13 @@
 package seng202.group6.Controllers;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import seng202.group6.Models.DayOfWeekFrequency;
@@ -41,34 +45,36 @@ public class GraphController extends MasterController implements Initializable {
     private Button importButton;
 
     @FXML
-    private Button applyChartButton;
+    private PieChart pieChart;
 
     @FXML
     private LineChart<Number, Number> lineChart;
 
-    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
-
     @FXML
     public NumberAxis xAxis;
 
-    private int typeOf = 1; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
+    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
+
+    private int typeOf = 0; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
+
+    private boolean flag = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lineChart.getData().clear();
+        //lineChart.getData().clear(); //wonder whether needed anymore
 
-        xAxis.forceZeroInRangeProperty();
-        xAxis.setTickUnit(1);
-        xAxis.setTickLabelGap(1);
         try {
             clickApplyChart();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         mapButton.setFocusTraversable(false);
         dataButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
         homeButton.setFocusTraversable(false);
+
+        pieChart.setVisible(false);
 
     }
 
@@ -172,6 +178,59 @@ public class GraphController extends MasterController implements Initializable {
             lineChart.getData().add(series);
 
         }
+    }
+
+    public void clickDay() throws IOException {
+        pieChart.setVisible(false);
+        typeOf = 0;
+        xAxis.setLabel("Time of Day");
+        clickApplyChart();
+        int i;
+        for (i = 0; i < 24; i++) {
+            //todo
+            //xAxis.setTickLabelFormatter();
+        }
+        lineChart.setVisible(true);
+
+    }
+
+    public void clickWeek() throws IOException {
+        pieChart.setVisible(false);
+        typeOf = 1;
+        xAxis.setLabel("Time of Week");
+        clickApplyChart();
+        int i;
+        for (i = 0; i < 7; i++) {
+            //todo
+            //xAxis.setTickLabelFormatter();
+        }
+        lineChart.setVisible(true);
+    }
+
+    public void clickYear() throws IOException {
+        pieChart.setVisible(false);
+        typeOf = 2;
+        xAxis.setLabel("Time of Year");
+        clickApplyChart();
+        int i;
+        for (i = 0; i < 12; i++) {
+            //todo
+            //xAxis.setTickLabelFormatter();
+        }
+        lineChart.setVisible(true);
+    }
+
+    public void clickPie() {
+        lineChart.setVisible(false);
+        ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList(
+                new PieChart.Data("Lucky",50),
+                new PieChart.Data("Unlucky", 50)
+                );
+        if (!flag) {
+            pieChart.setData(pcd);
+        }
+        pieChart.setVisible(true);
+        flag = true;
     }
 
 }
