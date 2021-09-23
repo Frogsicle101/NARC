@@ -3,6 +3,7 @@ package seng202.group6.Services;
 import com.google.maps.model.LatLng;
 import netscape.javascript.JSObject;
 import seng202.group6.Controllers.DataController;
+import seng202.group6.Controllers.ImportController;
 import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
 
@@ -29,7 +30,7 @@ public class JavascriptMethods {
     }
 
     public void viewInfo(String crimeID) {
-        String sql = "SELECT * FROM Crimes WHERE case_id = '" + crimeID +"';";
+        String sql = "SELECT * FROM " + ImportController.currentTable + " WHERE case_id = '" + crimeID +"';";
         try {
             ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.executeQuery(sql));
             MasterController.launchViewScreen(crimes.get(0));

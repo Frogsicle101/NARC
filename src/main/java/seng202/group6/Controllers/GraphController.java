@@ -47,7 +47,7 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     private LineChart<Number, Number> lineChart;
 
-    private ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
+    private ArrayList<TimeFrequency> data = new ArrayList<>();
 
     @FXML
     public NumberAxis xAxis;
@@ -117,9 +117,10 @@ public class GraphController extends MasterController implements Initializable {
      * @throws IOException
      */
     private void clickApplyChart() throws IOException {
-       if ((data.size() == 0 && crimeData.size() == 0) || (data.size() != rankedTimeList(filteredCrimeData).size() && filteredCrimeData.size() != 0) || (
-               data.size() != rankedTimeList(crimeData).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
-            XYChart.Series<Number, Number> series = new XYChart.Series<Number, Number>();
+       if ((data.size() == 0 && crimeData.size() == 0) ||
+               (data.size() != rankedTimeList(filteredCrimeData).size() && filteredCrimeData.size() != 0) ||
+               (data.size() != rankedTimeList(crimeData).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
+            XYChart.Series<Number, Number> series = new XYChart.Series<>();
             lineChart.getData().clear();
             if (filteredCrimeData.size() != 0) {
                 data = rankedTimeList(filteredCrimeData); //DO we want this from filtered data or
@@ -144,9 +145,9 @@ public class GraphController extends MasterController implements Initializable {
                     }
                 }
                 if (found) {
-                    series.getData().add(new XYChart.Data<Number, Number>(data.get(index).getHourOfTheDay(), data.get(index).getFrequency()));
+                    series.getData().add(new XYChart.Data<>(data.get(index).getHourOfTheDay(), data.get(index).getFrequency()));
                 } else {
-                    series.getData().add(new XYChart.Data<Number, Number>(i, 0));
+                    series.getData().add(new XYChart.Data<>(i, 0));
                 }
 
             }
