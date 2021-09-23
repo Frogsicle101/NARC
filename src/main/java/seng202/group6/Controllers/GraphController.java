@@ -51,7 +51,7 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
-    private int typeOf = 1;
+    private int typeOf = 1; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -167,7 +167,7 @@ public class GraphController extends MasterController implements Initializable {
                 }
 
             }
-            
+
             series.setName("Crime Frequency Over Day");
             lineChart.getData().add(series);
 
