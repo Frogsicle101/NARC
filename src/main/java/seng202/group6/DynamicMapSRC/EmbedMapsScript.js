@@ -44,19 +44,7 @@ function getLocation() {
   return returnLocation;
 }
 
-function addMarkers(markers) {
-  for (let i = 0; i < markers.length; i++) {
-    mapMarkers[i] =
-    new google.maps.Marker({
-      position: markers[i],
-      map: map,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-    });
-  }
-}
-
 function addMarker(crim) {
-  
   const contentString =
     '<div id="content">' +
     '<div id="bodyContent">' +
@@ -69,13 +57,11 @@ function addMarker(crim) {
   const infowindow = new google.maps.InfoWindow({
     content: contentString,
   });
-
   const marker = new google.maps.Marker({
       position: crim[0],
       map: map,
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
     });
-  
   marker.addListener("click", () => {
     infowindow.open({
       anchor: marker,
@@ -118,6 +104,7 @@ function addLocationMarker() {
       shouldFocus: false,
     });
   });
+  locationMarker = marker;
 }
 
 function removeLocationMarker() {
