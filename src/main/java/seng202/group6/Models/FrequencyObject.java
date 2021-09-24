@@ -23,6 +23,8 @@ public class FrequencyObject {
 
     public int getFrequency() {return this.frequency;}
 
+    public String getTimeString() { return this.timePeriod + ":00";}
+
     public void setTimePeriod(int timePeriod) { this.timePeriod = timePeriod;}
 
     public void setFrequency(int frequency) {this.frequency = frequency;}

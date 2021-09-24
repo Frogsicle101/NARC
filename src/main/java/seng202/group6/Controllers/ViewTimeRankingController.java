@@ -36,7 +36,7 @@ public class ViewTimeRankingController extends MasterController implements Initi
         } else {
             data = rankedTimeList(crimeData, 0);
         }
-        timeColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("hourString"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("timeString"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
     }
