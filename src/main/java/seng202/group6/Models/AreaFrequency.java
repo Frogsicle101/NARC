@@ -1,7 +1,5 @@
 package seng202.group6.Models;
 
-
-
 /**
  *  A class used to represent the frequency of crimes in an area
  */
@@ -32,7 +30,7 @@ public class AreaFrequency {
     @Override public boolean equals(Object other) {
         boolean equal = false;
         if (other instanceof AreaFrequency) {
-            if (((AreaFrequency) other).area == this.area) {
+            if (((AreaFrequency) other).area.equals(this.area)) {
                 equal = true;
             }
         }

@@ -1,18 +1,18 @@
 package seng202.group6.Models;
 
-public class FrequencyObject {
+public class TimeFrequency {
     private int timePeriod;
     private int frequency = 1;
 
 
-    public FrequencyObject(int timePeriod) {
+    public TimeFrequency(int timePeriod) {
         this.timePeriod = timePeriod;
     }
 
     @Override public boolean equals(Object other) {
         boolean equal = false;
-        if (other instanceof FrequencyObject) {
-            if (((FrequencyObject) other).timePeriod == this.timePeriod) {
+        if (other instanceof TimeFrequency) {
+            if (((TimeFrequency) other).timePeriod == this.timePeriod) {
                 equal = true;
             }
         }
