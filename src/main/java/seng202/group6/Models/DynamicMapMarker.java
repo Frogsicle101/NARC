@@ -14,22 +14,27 @@ public class DynamicMapMarker {
      * Longitude for a marker.
      */
     private String lng;
-
+    /**
+     * Primary description of a crime
+     */
     private String crimeType;
-
+    /**
+     * Data the crime occurred
+     */
     private String date;
+    /**
+     * Case number of the crime
+     */
     private String crimeID;
 
     /**
-     * Constructor for a DynamicMapMarker.
-     * @param lat takes a latitude as a Double.
-     * @param lng takes a longitude as a Double.
+     * Constructs a DynamicMapMarker.
+     * @param lat Latitude of the Crime
+     * @param lng Longitude of the Crime
+     * @param crimeType Primary description of the Crime
+     * @param date Date the Crime occurred
+     * @param crimeID Case number of the Crime
      */
-    public DynamicMapMarker(Double lat, Double lng) {
-        this.lat = lat.toString();
-        this.lng = lng.toString();
-    }
-
     public DynamicMapMarker(Double lat, Double lng, String crimeType, String date, String crimeID) {
         this.lat = lat.toString();
         this.lng = lng.toString();
@@ -39,8 +44,8 @@ public class DynamicMapMarker {
     }
 
     /**
-     * Formats the lat and lng into a key value pair string.
-     * @return Returns a {lat: "LAT", lng: "LNG"} key value pair, without quotes.
+     * Formats the DynamicMapMarker into JSON format.
+     * @return A String in JSON format.
      */
     public String toString() {
         if (crimeType == null) {

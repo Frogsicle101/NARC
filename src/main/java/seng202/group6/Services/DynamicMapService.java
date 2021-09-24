@@ -1,17 +1,14 @@
 package seng202.group6.Services;
 
 import com.google.maps.model.LatLng;
-import javafx.concurrent.Worker;
-import javafx.event.ActionEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.group6.Controllers.MasterController;
+import seng202.group6.DynamicMapSRC.JavascriptMethods;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.DynamicMapMarker;
-
 import java.io.File;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,116 +17,99 @@ import java.util.ArrayList;
  * which is loaded by a javafx.scene.web.WebEngine Object.
  */
 public class DynamicMapService {
+    /**
+     * Holds a javafx WebView object. Allows map stay loaded when switching scenes.
+     */
     private static WebView mapView;
+    /**
+     * Holds the window object of the html of the dynamic map. Used for adding JavascriptMethods object to
+     * dynamic maps javascipt.
+     */
     private static JSObject window;
-
+    /**
+     * Holds the JavascriptMethods object passed into the dynamic maps window object.
+     */
     private static JavascriptMethods javascript = new JavascriptMethods();
 
+    /**
+     * Initializes the javascript dynamic map. Initializes mapView to hold the EmbedMaps.html file.
+     * Initializes window to hold the dynamic maps window object. Adds a JavascriptMethods object
+     * to the window of the dynamic maps html naming the member "javascriptMethods". This allows the
+     * javascript loaded in mapView to call methods in the JavascriptMethods object.
+     */
     public static void initializeDynamicMap() {
         mapView = new WebView();
         WebEngine webEngine = mapView.getEngine();
         window = (JSObject) mapView.getEngine().executeScript("window");
-        window.setMember("app", javascript);
-        /*
-        webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                window.setMember("app", javascript);
-            }
-        });*/
-        /*webEngine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                System.out.println("Done3");
-            }
-        });*/
-        File file = new File("src/main/resources/HTML/EmbedMaps.html");
+        window.setMember("javascriptMethods", javascript);
+        File file = new File("src/main/java/seng202/group6/DynamicMapSRC/EmbedMaps.html");
         try {
             webEngine.load(file.toURI().toString());
         } catch (Exception e) {
             System.out.println("Error in initializeDynamicMap: " + e);
         }
-
-
     }
 
+    /**
+     * Gets the WebView object mapView
+     * @return mapView a WebView object
+     */
     public static WebView getMapView() {
         return mapView;
     }
 
-    public static String addDynamicMapMarkers(ArrayList<Crime> crimes) {
-        String script = "addMarkers([";
-        if (!crimes.isEmpty()) {
-            for (int i = 0; i < 50; i++) {
-                DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude());
-                script += marker.toString();
-                script += ",";
-            }
-        }
-        script += "])";
-
-        return script;
-    }
-
-
+    /**
+     * Takes an ArrayList of Crime objects and calls the javascript function addMarker in EmbedMapsScript.js
+     * on each crime. Passes the latitude, longitude, primary description, date and case number of each crime through.
+     * addMarker adds a marker on the dynamic map at the Crime object coordinates, with an on click set to show an
+     * infowindow with the Crime objects primary description, date and case number.
+     * @param crimes An ArrayList of Crime object which are to be added as markers to the dynamic map.
+     */
     public static void loadMarkers(ArrayList<Crime> crimes) {
-        ArrayList<Crime> crimes1 = new ArrayList<Crime>();
-        /* Sorry we broke your test crimes, the constructor changed
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-87.65"));
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "41.85", "-86.65"));
-        crimes1.add(new Crime("1", "11/23/2020 03:05:00 PM", "3", "4", "5", "6", "11", "Y", "Y", 10, 9, "12", "42.85", "-87.65"));
-        */
-        //System.out.println(crimes.size());
-        /*for (int i = 0; i < crimes.size(); i++) {
-            System.out.println(crimes.get(i));
-        }*/
-        String script = addDynamicMapMarkers(crimes);
-        mapView.getEngine().executeScript(script);
-    }
-
-    public static void loadMarker(ArrayList<Crime> crimes) {
         for (int i = 0; i < crimes.size(); i++) {
             String script = "addMarker([";
-
             DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude(),
                     crimes.get(i).getPrimaryDescription(), crimes.get(i).getReadableDate(), crimes.get(i).getCaseNumber());
             script += marker.toString();
             script += ",])";
             mapView.getEngine().executeScript(script);
         }
-
     }
 
-    public static void loadMarkerLocation(ArrayList<LatLng> locations) {
-        for (int i = 0; i < locations.size(); i++) {
-            String script = "addMarker([";
-
-            DynamicMapMarker marker = new DynamicMapMarker(locations.get(i).lat, locations.get(i).lng);
-            script += marker.toString();
-            script += ",])";
-            mapView.getEngine().executeScript(script);
-        }
-
-    }
-
-    public static LatLng getCentre() {
+    /**
+     * Calls the getLocation method in the dynamic map javascript. This javascript function
+     * returns the coordinates of the variable returnLocation. returnLocation holds the coordinates
+     * of the most recently searched for address in the map.
+     * @return Latitude and Longitude of the most recently searched for address in the dynamic map.
+     */
+    public static LatLng getMapCentre() {
         JSObject location = (JSObject) mapView.getEngine().executeScript("getLocation()");
         Double lat = (Double) location.getMember("lat");
         Double lng = (Double) location.getMember("lng");
         LatLng centre = new LatLng();
         centre.lat = lat;
         centre.lng = lng;
-        //System.out.println("lat: " + centre.lat);
-        //System.out.println("lng: "+ centre.lng);
         return centre;
     }
 
+    /**
+     * Calls the script to remove all the Crime markers on the dynamic map.
+     */
     public static void removeMarkers() {
         mapView.getEngine().executeScript("removeMarkers()");
     }
 
+    /**
+     * Calls the script to remove the marker for the searched address on the dynamic map
+     */
     public static void removeLocationMarker() {
         DynamicMapService.getMapView().getEngine().executeScript("removeLocationMarker()");
     }
 
+    /**
+     * Checks whether there is a filter active. Calls loadFilteredMarkers if there is or
+     * load markers if there isn't.
+     */
     public static void loadSearchMarkers() {
         Filter filter = MasterController.getFilter();
         if (filter != null) {
@@ -140,13 +120,10 @@ public class DynamicMapService {
             }
         } else {
             try {
-                /*ArrayList<Crime> locations = new ArrayList<Crime>();
-                ResultSet resultSet = SQLiteDatabase.selectLocationsFromTable(getCentre());
-                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(resultSet);*/
                 Filter newFilter = new Filter();
-                newFilter.setCentre(getCentre());
+                newFilter.setCentre(getMapCentre());
                 ArrayList<Crime> crimes = newFilter.applyFilter();
-                loadMarker(crimes);
+                loadMarkers(crimes);
             } catch (Exception e) {
                 System.out.println("Error in DynamicMapService.loadSearchMarkers: " + e);
                 e.printStackTrace();
@@ -154,26 +131,22 @@ public class DynamicMapService {
         }
     }
 
+    /**
+     * Gets an ArrayList of Crime objects from applying a filter. Calls loadMarkers on this ArrayList.
+     * @param filter Filter object to retrieve the required data from the database.
+     * @throws SQLException
+     */
     public static void loadFilteredMarkers(Filter filter) throws SQLException {
-        filter.setCentre(getCentre());
+        filter.setCentre(getMapCentre());
         ArrayList<Crime> crimes = filter.applyFilter();
-        loadMarker(crimes);
+        loadMarkers(crimes);
     }
 
+    /**
+     * Calls the dynamic map script addLocationMarker(). This script adds a marker to the dynamic map at
+     * the coordinates of the last searched address on the map.
+     */
     public static void addLocationMarker() {
         DynamicMapService.getMapView().getEngine().executeScript("addLocationMarker()");
     }
-
-    public static void main(String[] args) {
-        try {
-            SQLiteDatabase.connectToDatabase();
-        } catch (Exception e) {
-            System.out.println("Error connecting to db: " + e);
-        }
-        LatLng centre = getCentre();
-        System.out.println(centre.lat);
-        System.out.println(centre.lng);
-    }
-
-
 }

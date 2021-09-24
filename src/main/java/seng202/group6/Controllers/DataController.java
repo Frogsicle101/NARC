@@ -116,22 +116,6 @@ public class DataController extends MasterController implements Initializable {
     @FXML
     private Button deleteCrime;
 
-    //Do we need these? I don't think we do
-    @FXML
-    private Button applyButton;
-
-    @FXML
-    private Button resetButton;
-
-    @FXML
-    private Button rankTime;
-
-    @FXML
-    private Button rankArea;
-
-    @FXML
-    private Button rankCrimeType;
-
     @FXML
     private Pane mapPane;
 
@@ -140,15 +124,11 @@ public class DataController extends MasterController implements Initializable {
 
 
     /**
-     * Method to initialize data scene, checks if there has been data imported first,
-     * if there has it will show a data with all crimes in a table, and give an optional button
-     * to click to view a more detailed view of a specific crime. An error message is shown
-     * rather than the table and button if there has been no data imported
+     * Initializes data scene. Decides whether to show map or table based on which button is clicked.
+     * Initializes all buttons and dropdowns. Populates table with data in crimeData.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
@@ -193,7 +173,6 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
-
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
@@ -205,16 +184,16 @@ public class DataController extends MasterController implements Initializable {
     }
 
     /**
-     * Method to call change to map screen method in MasterController when the map button
-     * is clicked
-     * @throws IOException
+     * Switches to view the map instead of the table.
      */
-
-    public void clickMap() throws IOException {
+    public void clickMap() {
         switchToMap();
     }
 
-    public void clickData() throws IOException {
+    /**
+     * Switches to view table instead of the map.
+     */
+    public void clickData() {
         switchToTable();
     }
 
@@ -237,9 +216,12 @@ public class DataController extends MasterController implements Initializable {
         changeToGraphScreen();
     }
 
-
+    /**
+     * Takes all the filter fields from the view. Creates a filter object which is set with these fields.
+     * Applies the filter which queries the database and returns an ArrayList with the required data.
+     * Populates the table and map with this filtered data.
+     */
     public void clickApply() {
-
         Filter filter = new Filter();
         filter.setStart(startDate.getValue());
         filter.setEnd(endDate.getValue());
@@ -261,8 +243,6 @@ public class DataController extends MasterController implements Initializable {
             }
         }
         filter.setLocations(selectedLocations);
-
-
 
         if (yesArrest.isSelected()) {
             filter.setArrest(true);
@@ -324,7 +304,6 @@ public class DataController extends MasterController implements Initializable {
 
         crimeData.remove(index);
         tableView.setItems(FXCollections.observableArrayList(crimeData));
-
     }
 
     private void buildFilterSets() {
@@ -357,37 +336,30 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+    /**
+     * Resets the filter fields on the view. Resets the table and map to raw data.
+     */
     public void clickReset() {
-
         startDate.setValue(null);
         endDate.setValue(null);
-
         for (MenuItem item: crimeTypeDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             box.setSelected(false);
         }
-
         for (MenuItem item: locationDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             box.setSelected(false);
         }
-
         beatSearch.setText("");
         wardSearch.setText("");
-
         anyArrest.setSelected(true);
         anyDomestic.setSelected(true);
-
-
         filteredCrimeData = crimeData;
         tableView.setItems(FXCollections.observableArrayList(crimeData));
         dataFilter = null;
         DynamicMapService.removeMarkers();
         DynamicMapService.loadSearchMarkers();
-
-
     }
-
 
     public void clickRankArea() throws IOException {
         launchAreaRankScreen();
@@ -403,6 +375,10 @@ public class DataController extends MasterController implements Initializable {
         launchTimeRankScreen();
     }
 
+    /**
+     * Hides view components only needed for map and makes visible the components only needed for the table.
+     * Hides the map and makes the table visible.
+     */
     public void switchToTable() {
         mapPane.setVisible(false);
         tableView.setVisible(true);
@@ -411,11 +387,14 @@ public class DataController extends MasterController implements Initializable {
         deleteCrime.setVisible(true);
         editCrime.setVisible(true);
         reloadMapButton.setVisible(false);
-
         dataButton.setStyle("-fx-background-color: #575757");
         mapButton.setStyle("-fx-background-color: #3d3d3d");
     }
 
+    /**
+     * Hides the view components only needed for table and makes visible the components only needed for the map.
+     * Hides the table and makes the map visible.
+     */
     public void switchToMap() {
         mapPane.setVisible(true);
         tableView.setVisible(false);
@@ -424,14 +403,15 @@ public class DataController extends MasterController implements Initializable {
         editCrime.setVisible(false);
         deleteCrime.setVisible(false);
         reloadMapButton.setVisible(true);
-
         dataButton.setStyle("-fx-background-color: #3d3d3d");
         mapButton.setStyle("-fx-background-color: #575757");
-
-
     }
 
-    public void reloadMap(ActionEvent event) {
+    /**
+     * Reloads the dynamic map by calling its initialize method. Re adds the WebView object as a child of the pane
+     * which decides its size.
+     */
+    public void reloadMap() {
         DynamicMapService.initializeDynamicMap();
         WebView mapView = DynamicMapService.getMapView();
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
