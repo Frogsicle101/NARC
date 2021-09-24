@@ -10,6 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.CrimeFrequency;
 import seng202.group6.Models.DayOfWeekFrequency;
 import seng202.group6.Models.FrequencyObject;
@@ -81,6 +82,8 @@ public class GraphController extends MasterController implements Initializable {
         homeButton.setFocusTraversable(false);
 
         pieChart.setVisible(false);
+
+        xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
 
     }
 
@@ -193,7 +196,7 @@ public class GraphController extends MasterController implements Initializable {
         int i;
         for (i = 0; i < 24; i++) {
             //todo
-            //xAxis.setTickLabelFormatter();
+            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
         }
         lineChart.setVisible(true);
 
@@ -204,10 +207,11 @@ public class GraphController extends MasterController implements Initializable {
         typeOf = 1;
         xAxis.setLabel("Time of Week");
         clickApplyChart();
+        //String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         int i;
         for (i = 0; i < 7; i++) {
             //todo
-            //xAxis.setTickLabelFormatter();
+            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
         }
         lineChart.setVisible(true);
     }
@@ -220,7 +224,7 @@ public class GraphController extends MasterController implements Initializable {
         int i;
         for (i = 0; i < 12; i++) {
             //todo
-            //xAxis.setTickLabelFormatter();
+            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
         }
         lineChart.setVisible(true);
     }
