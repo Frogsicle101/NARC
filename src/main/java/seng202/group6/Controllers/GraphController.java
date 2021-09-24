@@ -149,13 +149,11 @@ public class GraphController extends MasterController implements Initializable {
         xAxis.setUpperBound(maxValue-1);
         xAxis.setLowerBound(minValue);
        if ((timeFrequencyData.size() == 0 && crimeData.size() == 0) ||
-               (timeFrequencyData.size() != rankedTimeList(filteredCrimeData, typeOf).size() && filteredCrimeData.size() != 0) ||
-               (timeFrequencyData.size() != rankedTimeList(crimeData, typeOf).size() && crimeData.size() != 0 && filteredCrimeData.size() == 0)) {
+               (timeFrequencyData.size() != rankedTimeList(crimeData, typeOf).size() && crimeData.size() != 0)) {
             XYChart.Series<Number, Number> series = new XYChart.Series<>();
             lineChart.getData().clear();
-            if (filteredCrimeData.size() != 0) {
-                timeFrequencyData = rankedTimeList(filteredCrimeData, typeOf);
-            } else if (crimeData.size() != 0) {
+
+            if (crimeData.size() != 0) {
                 timeFrequencyData = rankedTimeList(crimeData, typeOf);
             } else {
                 try {
@@ -231,11 +229,7 @@ public class GraphController extends MasterController implements Initializable {
 
     public void clickPie() {
         lineChart.setVisible(false);
-        if (filteredCrimeData.size() != 0) {
-            data = rankedTypeList(filteredCrimeData);
-        } else {
-            data = rankedTypeList(crimeData);
-        }
+        data = rankedTypeList(crimeData);
         ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList();
         for (CrimeFrequency crime : data) {
             pcd.add(new PieChart.Data(crime.getCrime(), crime.getFrequency()));

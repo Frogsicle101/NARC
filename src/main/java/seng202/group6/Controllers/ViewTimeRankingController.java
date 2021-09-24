@@ -31,11 +31,7 @@ public class ViewTimeRankingController extends MasterController implements Initi
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (filteredCrimeData.size() != 0) {
-            data = rankedTimeList(filteredCrimeData, 0);
-        } else {
-            data = rankedTimeList(crimeData, 0);
-        }
+        data = rankedTimeList(crimeData, 0);
         timeColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("timeString"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<FrequencyObject, String>("frequency"));
         tableView.setItems(FXCollections.observableArrayList(data));
