@@ -5,6 +5,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.group6.Controllers.MasterController;
+import seng202.group6.DynamicMapSRC.JavascriptMethods;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.DynamicMapMarker;
 import java.io.File;
@@ -24,7 +25,7 @@ public class DynamicMapService {
         mapView = new WebView();
         WebEngine webEngine = mapView.getEngine();
         window = (JSObject) mapView.getEngine().executeScript("window");
-        window.setMember("app", javascript);
+        window.setMember("javascriptMethods", javascript);
         File file = new File("src/main/java/seng202/group6/DynamicMapSRC/EmbedMaps.html");
         try {
             webEngine.load(file.toURI().toString());

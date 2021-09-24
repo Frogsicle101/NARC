@@ -1,4 +1,4 @@
-package seng202.group6.Services;
+package seng202.group6.DynamicMapSRC;
 
 import com.google.maps.model.LatLng;
 import netscape.javascript.JSObject;
@@ -6,6 +6,8 @@ import seng202.group6.Controllers.DataController;
 import seng202.group6.Controllers.ImportController;
 import seng202.group6.Controllers.MasterController;
 import seng202.group6.Models.Crime;
+import seng202.group6.Services.DynamicMapService;
+import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 
 public class JavascriptMethods {
 
-    public void callJavascript(){
+    public void addMarkersToMap(){
         /*System.out.println("Location ");
         LatLng latLng = new LatLng();
         latLng.lat = (Double) centre.getMember("lat");
