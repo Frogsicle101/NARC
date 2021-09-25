@@ -129,7 +129,6 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
-        xAxis.forceZeroInRangeProperty();
         timeType = TimeType.HOUR_OF_DAY;
         xAxis.setLabel("Time of Day");
         applyChart();
