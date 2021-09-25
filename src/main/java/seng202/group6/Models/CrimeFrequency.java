@@ -8,16 +8,6 @@ public class CrimeFrequency {
         this.crime = crime;
     }
 
-    @Override public boolean equals(Object other) {
-        boolean equal = false;
-        if (other instanceof CrimeFrequency) {
-            if (((CrimeFrequency) other).crime.equals(this.crime)) {
-                equal = true;
-            }
-        }
-        return equal;
-    }
-
     public String getCrime() {return this.crime;}
 
     public int getFrequency() {return this.frequency;}
