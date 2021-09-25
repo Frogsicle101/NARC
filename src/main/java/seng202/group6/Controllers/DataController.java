@@ -9,9 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
-import seng202.group6.Services.DynamicMapService;
-import seng202.group6.Services.Filter;
-import seng202.group6.Services.SQLiteDatabase;
+import seng202.group6.Models.TimeType;
+import seng202.group6.Services.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -395,7 +394,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankArea() throws IOException {
-        launchAreaRankScreen();
+        launchCrimeRankScreen("Block", Rank.rankedAreaList(crimeData));
 
     }
 
@@ -404,7 +403,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankCrimeType() throws IOException {
-        launchCrimeRankScreen();
+        launchCrimeRankScreen("Type", Rank.rankedTypeList(crimeData));
 
     }
 
@@ -413,7 +412,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankTime() throws IOException {
-        launchTimeRankScreen();
+        launchCrimeRankScreen("Hour", Rank.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
     }
 
     /**

@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
+import seng202.group6.Models.Frequency;
 import seng202.group6.Services.Filter;
 import seng202.group6.Services.SQLiteDatabase;
 
@@ -126,43 +127,23 @@ public class MasterController {
      * Method to launch ranking screen for crimes in the dataset currently being viewed.
      * @throws IOException Throws an error if reading from the fxml file fails.
      */
-    public void launchCrimeRankScreen() throws IOException {
+    public void launchCrimeRankScreen(String title, ArrayList<Frequency> data) throws IOException {
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Crime Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewCrimeRankingScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("viewCrimeRankingScreen.fxml"));
+
+        Parent newScreen = loader.load();
+
+        ViewRankingController controller = loader.getController();
+        controller.initialize(title, data);
+
         Scene newScene = new Scene(newScreen, 700, 500);
         viewStage.setScene(newScene);
         viewStage.show();
     }
 
-    /**
-     * Method to launch ranking screen for crimes in the dataset currently being viewed.
-     * @throws IOException Throws an error if reading from the fxml file fails.
-     */
-    public void launchAreaRankScreen() throws IOException {
 
-        Stage viewStage = new Stage();
-        viewStage.setTitle("Area Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewAreaRankingScreen.fxml"));
-        Scene newScene = new Scene(newScreen, 700, 500);
-        viewStage.setScene(newScene);
-        viewStage.show();
-    }
-
-    /**
-     * Method to launch ranking screen for crimes in the dataset currently being viewed.
-     * @throws IOException Throws an error if reading from the fxml file fails.
-     */
-    public void launchTimeRankScreen() throws IOException {
-
-        Stage viewStage = new Stage();
-        viewStage.setTitle("Hour of the Day Ranking");
-        Parent newScreen = FXMLLoader.load(getClass().getResource("viewTimeRankingScreen.fxml")); //Causing problems
-        Scene newScene = new Scene(newScreen, 700, 500);
-        viewStage.setScene(newScene);
-        viewStage.show();
-    }
 
     /**
      * Method to launch edit screen.

@@ -1,6 +1,5 @@
 package seng202.group6.Controllers;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,25 +9,17 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.PropertyValueFactory;
-import seng202.group6.Models.CrimeFrequency;
 
-import seng202.group6.Models.TimeFrequency;
-
-import seng202.group6.Models.TimeFrequency;
-import seng202.group6.Services.SQLiteDatabase;
+import seng202.group6.Models.Frequency;
+import seng202.group6.Models.TimeType;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 import static seng202.group6.Services.GraphService.*;
-import static seng202.group6.Services.Rank.rankedTimeList;
 import static seng202.group6.Services.Rank.rankedTypeList;
 
 /**
@@ -58,13 +49,9 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
-    private ArrayList<TimeFrequency> timeFrequencyData = new ArrayList<TimeFrequency>();
-
-    private int typeOf = 0; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
+    private TimeType timeType = TimeType.HOUR_OF_DAY;
 
     private boolean flag = false;
-
-    private ArrayList<CrimeFrequency> data = new ArrayList<>();
 
     private XYChart.Series<Number, Number> oldData = null;
 
@@ -77,7 +64,7 @@ public class GraphController extends MasterController implements Initializable {
         flag = false;
 
         try {
-            clickApplyChart();
+            applyChart();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,8 +112,8 @@ public class GraphController extends MasterController implements Initializable {
      * Method to make a line chart be created on the graph, it checks if the chart it is being requested to make has
      * already been made and if so it doesn't make it
      */
-    private void clickApplyChart() throws IOException {
-        XYChart.Series<Number, Number> series = getChartData(typeOf, crimeData);
+    private void applyChart() throws IOException {
+        XYChart.Series<Number, Number> series = getChartData(timeType, crimeData);
         if (oldData == null || series.getData().size() != oldData.getData().size()) {
             oldData = series;
             lineChart.getData().clear();
@@ -143,9 +130,9 @@ public class GraphController extends MasterController implements Initializable {
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
         xAxis.forceZeroInRangeProperty();
-        typeOf = 0;
+        timeType = TimeType.HOUR_OF_DAY;
         xAxis.setLabel("Time of Day");
-        clickApplyChart();
+        applyChart();
         if (dataUpdate) {
             int i;
             for (i = 0; i < 24; i++) {
@@ -164,9 +151,9 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickWeek() throws IOException {
         pieChart.setVisible(false);
-        typeOf = 1;
+        timeType = TimeType.DAY_OF_WEEK;
         xAxis.setLabel("Time of Week");
-        clickApplyChart();
+        applyChart();
         if (dataUpdate) {
             String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
             int i;
@@ -186,9 +173,9 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickYear() throws IOException {
         pieChart.setVisible(false);
-        typeOf = 2;
+        timeType = TimeType.MONTH_OF_YEAR;
         xAxis.setLabel("Time of Year");
-        clickApplyChart();
+        applyChart();
         if (dataUpdate) {
 
             int i;
@@ -208,10 +195,10 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickPie() {
         lineChart.setVisible(false);
-        data = rankedTypeList(crimeData);
+        ArrayList<Frequency> data = rankedTypeList(crimeData);
         ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList();
-        for (CrimeFrequency crime : data) {
-            pcd.add(new PieChart.Data(crime.getCrime(), crime.getFrequency()));
+        for (Frequency crimeType : data) {
+            pcd.add(new PieChart.Data(crimeType.getValue(), crimeType.getCount()));
         }
         if (!flag) {
             pieChart.setData(pcd);
