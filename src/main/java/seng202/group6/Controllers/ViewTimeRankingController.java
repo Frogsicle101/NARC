@@ -14,6 +14,10 @@ import java.util.ResourceBundle;
 
 import static seng202.group6.Services.Rank.*;
 
+/**
+ * Controller is for viewing the ranking of crimes per hour of the day
+ */
+
 public class ViewTimeRankingController extends MasterController implements Initializable {
     private ArrayList<TimeFrequency> data = new ArrayList<TimeFrequency>();
 
@@ -27,7 +31,9 @@ public class ViewTimeRankingController extends MasterController implements Initi
     @FXML
     private TableColumn<TimeFrequency, String> frequencyColumn;
 
-
+    /**
+     * Method initializes the table to be viewed and feed's it the data needed after naming the columns appropriately
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = rankedTimeList(crimeData, 0);
