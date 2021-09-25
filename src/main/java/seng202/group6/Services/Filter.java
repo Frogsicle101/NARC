@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 /**
  * The filter class is used to filter an arraylist of crimes by specific characteristics.
  * You first create a filter object, then call the setter methods to set the parameters of the filter.
- * Finally, applyFilter can be called with the arraylist to be filtered.
+ * Finally, applyFilter can be called, querying the database and returning a string.
  */
 
 public class Filter {
@@ -125,8 +125,10 @@ public class Filter {
     }
 
 
-
-
+    /**
+     * Gets an arraylist of crimes from the database based on the properties set
+     * @return An arraylist of Crimes
+     */
     public ArrayList<Crime> applyFilter() throws SQLException {
         ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
         return SQLiteDatabase.convertResultSet(result);
