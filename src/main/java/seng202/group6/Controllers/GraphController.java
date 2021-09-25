@@ -13,8 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.CrimeFrequency;
 import seng202.group6.Models.DayOfWeekFrequency;
-import seng202.group6.Models.FrequencyObject;
+import seng202.group6.Models.TimeFrequency;
 import seng202.group6.Models.MonthFrequency;
+import seng202.group6.Models.TimeFrequency;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
-    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
+    private ArrayList<TimeFrequency> timeFrequencyData = new ArrayList<TimeFrequency>();
 
     private int typeOf = 0; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
 
@@ -163,11 +164,11 @@ public class GraphController extends MasterController implements Initializable {
                 }
             }
 
-           timeFrequencyData.sort(Comparator.comparing(FrequencyObject::getTimePeriod));
+           timeFrequencyData.sort(Comparator.comparing(TimeFrequency::getTimePeriod));
             for (int i = minValue; i < maxValue; i++) {
                 boolean found = false;
                 int index = 0;
-                for (FrequencyObject time : timeFrequencyData) {
+                for (TimeFrequency time : timeFrequencyData) {
                     if (time.getTimePeriod() == i) {
                         found = true;
                         index = timeFrequencyData.indexOf(time);
