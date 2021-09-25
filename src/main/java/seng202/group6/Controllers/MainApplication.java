@@ -27,7 +27,7 @@ public class MainApplication extends Application {
         primaryStage.setMinWidth(1200);
         primaryStage.show();
         MasterController.stage = primaryStage;
-        SQLiteDatabase.connectToDatabase();
+        SQLiteDatabase.connectToDatabase(SQLiteDatabase.getJdbcUrl());
         DynamicMapService.initializeDynamicMap();
         try {
             String tableName = ImportController.getFirstTable();

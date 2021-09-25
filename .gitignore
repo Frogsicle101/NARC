@@ -8,8 +8,9 @@ target/
 # CMake
 cmake-build-*/
 
-# Persistent database file
+# Persistent database files
 crimes.db
+test.db
 
 # File-based project format
 *.iws
