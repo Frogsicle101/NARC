@@ -9,16 +9,6 @@ public class TimeFrequency {
         this.timePeriod = timePeriod;
     }
 
-    @Override public boolean equals(Object other) {
-        boolean equal = false;
-        if (other instanceof TimeFrequency) {
-            if (((TimeFrequency) other).timePeriod == this.timePeriod) {
-                equal = true;
-            }
-        }
-        return equal;
-    }
-
     public int getTimePeriod() {return this.timePeriod;}
 
     public int getFrequency() {return this.frequency;}
