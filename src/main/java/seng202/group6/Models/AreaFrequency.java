@@ -22,22 +22,6 @@ public class AreaFrequency {
     }
 
     /**
-     * Overriding the inbuilt equals object so it can be checked in lists and sorted easier
-     * @param other The object this object shall be compared to
-     * @return a boolean indicating if the two objects are equal, for them to be equal other must be of type AreaFrequency and have the same area code
-     */
-
-    @Override public boolean equals(Object other) {
-        boolean equal = false;
-        if (other instanceof AreaFrequency) {
-            if (((AreaFrequency) other).area.equals(this.area)) {
-                equal = true;
-            }
-        }
-        return equal;
-    }
-
-    /**
      * Returns the area string of this object
      * @return the area string consisting of the first 3 digits of the area code
      */

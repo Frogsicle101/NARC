@@ -26,6 +26,7 @@ public class GraphService {
         XYChart.Series<Number, Number> series = null;
         switch (typeOf) {
             case 0:
+                minValue = 0;
                 maxValue = 24;
                 break;
             case 1:
@@ -57,7 +58,6 @@ public class GraphService {
             }
 
             }
-
 
         return series;
     }

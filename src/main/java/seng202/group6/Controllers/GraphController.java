@@ -150,6 +150,7 @@ public class GraphController extends MasterController implements Initializable {
 
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
+        xAxis.forceZeroInRangeProperty();
         typeOf = 0;
         xAxis.setLabel("Time of Day");
         clickApplyChart();
@@ -159,8 +160,9 @@ public class GraphController extends MasterController implements Initializable {
                 //todo
                 xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
             }
-            lineChart.setVisible(true);
+
         }
+        lineChart.setVisible(true);
         dataUpdate = false;
 
     }
@@ -177,8 +179,9 @@ public class GraphController extends MasterController implements Initializable {
                 //todo
                 xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
             }
-            lineChart.setVisible(true);
+
         }
+        lineChart.setVisible(true);
         dataUpdate = false;
     }
 
@@ -194,9 +197,10 @@ public class GraphController extends MasterController implements Initializable {
                 //todo
                 xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
             }
-            lineChart.setVisible(true);
+
         }
         dataUpdate = false;
+        lineChart.setVisible(true);
     }
 
     public void clickPie() {
