@@ -132,7 +132,6 @@ public class Filter {
     public ArrayList<Crime> applyFilter() throws SQLException {
         ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
         return SQLiteDatabase.convertResultSet(result);
-
     }
 
 

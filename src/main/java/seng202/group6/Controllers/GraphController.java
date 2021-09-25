@@ -133,7 +133,8 @@ public class GraphController extends MasterController implements Initializable {
     }
 
     /**
-     * Method to make a line chart be created on the graph
+     * Method to make a line chart be created on the graph, it checks if the chart it is being requested to make has
+     * already been made and if so it doesn't make it
      * @throws IOException
      */
     private void clickApplyChart() throws IOException {
@@ -148,6 +149,10 @@ public class GraphController extends MasterController implements Initializable {
         }
     }
 
+    /**
+     * Set's the displayed graph to show crimes by hour of the day
+     *
+     */
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
         xAxis.forceZeroInRangeProperty();
@@ -167,6 +172,10 @@ public class GraphController extends MasterController implements Initializable {
 
     }
 
+    /**
+     * Method which shows the graph of the frequency of crimes by day of week
+     * @throws IOException
+     */
     public void clickWeek() throws IOException {
         pieChart.setVisible(false);
         typeOf = 1;
@@ -185,6 +194,10 @@ public class GraphController extends MasterController implements Initializable {
         dataUpdate = false;
     }
 
+
+    /**
+     * Method which shows the graph of frequency of crime per month of year
+     */
     public void clickYear() throws IOException {
         pieChart.setVisible(false);
         typeOf = 2;
@@ -203,6 +216,10 @@ public class GraphController extends MasterController implements Initializable {
         lineChart.setVisible(true);
     }
 
+
+    /**
+     * Method which causes the graph screen to display a pie chart showing the breakdown of crimes by type of crime
+     */
     public void clickPie() {
         lineChart.setVisible(false);
         data = rankedTypeList(crimeData);

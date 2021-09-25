@@ -32,7 +32,9 @@ public class ViewAreaRankingController extends MasterController implements Initi
     @FXML
     private TableColumn<AreaFrequency, String> frequencyColumn;
 
-
+    /**
+     * Method initializes the table to be viewed and feed's it the data needed after naming the columns appropriately
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = rankedAreaList(crimeData);

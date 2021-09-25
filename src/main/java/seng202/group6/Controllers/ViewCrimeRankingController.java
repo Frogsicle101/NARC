@@ -30,10 +30,11 @@ public class ViewCrimeRankingController extends MasterController implements Init
     @FXML
     private TableColumn<CrimeFrequency, String> frequencyColumn;
 
-
+    /**
+     * Method initializes the table to be viewed and feed's it the data needed after naming the columns appropriately
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //assume not null (fix later?)
         data = rankedTypeList(crimeData);
         typeCrimeColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("crime"));
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<CrimeFrequency, String>("frequency"));
