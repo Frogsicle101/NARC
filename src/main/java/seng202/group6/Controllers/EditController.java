@@ -68,10 +68,14 @@ public class EditController extends MasterController implements Initializable {
     @FXML
     private TextField longitude;
 
-    @FXML
-    private Button applyButton;
-
-
+    /**
+     * Method to override initialise method from Initializable interface. If the crime associated
+     * with the window is a new crime, i.e the crime is being created and added, all fields of a
+     * crime are set to empty and the user is able to fill in all fields. If the crime is not a new
+     * crime, i.e the crime is being edited, all fields of the crime are set to the current values,
+     * and the case number of a crime is set to uneditable as this is not able to be changed by the
+     * user.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -100,6 +104,19 @@ public class EditController extends MasterController implements Initializable {
 
     }
 
+    /**
+     * Method to apply the changes or additions the user has made when the apply button is clicked.
+     * First checks if the inputted values for beat and ward are valid, i.e they are integer numbers.
+     * If they are not, the user is given an error message and the changes are not added to the
+     * database. If they are, all values for the crime are set to the inputted values for each
+     * of the respective fields. Then the crime is checked if it is a new or edited crime, if it is
+     * a new crime, then the system attempts to add the crime to the database. If it is not a new crime,
+     * the system attempts to update the current crime in the database. If an error occurs during either
+     * of these processes, the user is shown an error saying the crime was unable to be saved to the
+     * database, and the crime is not added or updated in the database.
+     * @param event Button click event used to get and close the edit crime window
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
     public void clickApply(ActionEvent event) throws IOException {
 
         int beatNum;
@@ -147,12 +164,5 @@ public class EditController extends MasterController implements Initializable {
             (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database")).show();
         }
 
-
-
-
-
     }
-
-
-
 }

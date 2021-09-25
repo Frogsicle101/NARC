@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebView;
 import seng202.group6.Models.Crime;
 import seng202.group6.Services.StaticMapService;
 
@@ -65,11 +64,11 @@ public class ViewController extends MasterController implements Initializable {
     private ImageView imageView;
 
     /**
-     * Method to initialize view scene, sets all the specific text fields to
-     * their correlating values in the specific crime given. Specific crime is
-     * taken from crimeToView in MasterController class.
+     * Method to initialize view scene, overrides initialize method from Initializable
+     * interface. Sets all the specific text fields to their correlating values in the
+     * specific crime given. Specific crime is taken from crimeToView in MasterController
+     * class.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

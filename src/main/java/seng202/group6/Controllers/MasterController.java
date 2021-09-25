@@ -27,6 +27,11 @@ public class MasterController {
     protected static boolean choseMap = false;
 
 
+    /**
+     * Method to read from database and populate the crimeData array in order
+     * to populate map and table view.
+     * @param tableName Name of the table in the database to read from
+     */
     public static void populateCrimeArray(String tableName) {
         //Populates crimeData arraylist from database
         try {
@@ -38,7 +43,7 @@ public class MasterController {
     /**
      * Method to change between scenes in the current window
      * @param screen A string telling the method with screen to switch to
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails
      */
     public void changeScreen(String screen) throws IOException {
 
@@ -50,7 +55,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the home screen
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails
      */
 
     public void changeToHomeScreen() throws IOException {
@@ -60,7 +65,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails.
      */
 
     public void changeToMapScreen() throws IOException {
@@ -71,7 +76,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the data screen
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails.
      */
 
     public void changeToDataScreen() throws IOException {
@@ -82,7 +87,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails.
      */
 
     public void changeToImportScreen() throws IOException {
@@ -92,7 +97,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the graph screen
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from the fxml file fails.
      */
 
     public void changeToGraphScreen() throws IOException {
@@ -117,8 +122,11 @@ public class MasterController {
 
     }
 
+    /**
+     * Method to launch ranking screen for crimes in the dataset currently being viewed.
+     * @throws IOException Throws an error if reading from the fxml file fails.
+     */
     public void launchCrimeRankScreen() throws IOException {
-
 
         Stage viewStage = new Stage();
         viewStage.setTitle("Crime Ranking");
@@ -128,6 +136,10 @@ public class MasterController {
         viewStage.show();
     }
 
+    /**
+     * Method to launch ranking screen for crimes in the dataset currently being viewed.
+     * @throws IOException Throws an error if reading from the fxml file fails.
+     */
     public void launchAreaRankScreen() throws IOException {
 
         Stage viewStage = new Stage();
@@ -138,6 +150,10 @@ public class MasterController {
         viewStage.show();
     }
 
+    /**
+     * Method to launch ranking screen for crimes in the dataset currently being viewed.
+     * @throws IOException Throws an error if reading from the fxml file fails.
+     */
     public void launchTimeRankScreen() throws IOException {
 
         Stage viewStage = new Stage();
@@ -148,9 +164,11 @@ public class MasterController {
         viewStage.show();
     }
 
-
-
-
+    /**
+     * Method to launch edit screen.
+     * @param crime Specific crime that has been selected or created to edit/add to data.
+     * @throws IOException Throws an error if reading from the fxml file fails.
+     */
     public void launchEditScreen(Crime crime) throws IOException {
 
         currentCrime = crime;
@@ -163,9 +181,12 @@ public class MasterController {
 
     }
 
+    /**
+     * Method to get current filters applied to dataset
+     * @return Filter object of the currently applied filters
+     */
     public static Filter getFilter() {
         return dataFilter;
     }
-
 
 }
