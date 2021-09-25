@@ -15,10 +15,18 @@ public class SQLiteDatabase {
     /**
      * Creates a connection to the database, and creates it if it doesn't exist
      */
-    public static void connectToDatabase() throws SQLException {
+    public static void connectToDatabase(String jdbcUrl) throws SQLException {
         connection = DriverManager.getConnection(jdbcUrl);
         connection.setAutoCommit(false);
 
+    }
+
+    public static String getJdbcUrl() {
+        return jdbcUrl;
+    }
+
+    public static Connection getConnection() {
+        return connection;
     }
 
     /**
@@ -109,8 +117,6 @@ public class SQLiteDatabase {
     public static void endTransaction() throws SQLException {
         connection.commit();
     }
-
-
 
     /**
      * Select all data from a table
