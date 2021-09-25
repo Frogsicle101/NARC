@@ -1,6 +1,7 @@
 package seng202.group6.ServiceTests;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import seng202.group6.Models.Crime;
@@ -11,8 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SQLiteDatabaseTest {
     public static String tableName;
@@ -58,7 +58,6 @@ public class SQLiteDatabaseTest {
 
     @Test
     public void insertIntoTableTest() {
-        String sql = "SELECT COUNT(*) FROM " + tableName + ";";   //SQL Query to get the number of rows in a table
         Crime testCrime1 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
@@ -72,19 +71,21 @@ public class SQLiteDatabaseTest {
         try {
             SQLiteDatabase.insertIntoTable(tableName, testCrime1);
             SQLiteDatabase.insertIntoTable(tableName, testCrime2);
-            result = SQLiteDatabase.executeQuery(sql);
+            result = SQLiteDatabase.selectAllFromTable(tableName);
+
             while(result.next()) {
-                numCrimes = Integer.parseInt(result.getString(1));
+                numCrimes++;
             }
             result.close();
             SQLiteDatabase.endTransaction();
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         assertEquals(2, numCrimes);
     }
-/*
+
     @Test
-    public void insertDuplicateCrimeTest() {
-        String sql = "SELECT COUNT(*) FROM " + tableName + ";";   //SQL Query to get the number of rows in a table
+    public void insertDuplicateCrimeTest() throws SQLException {
         Crime testCrime1 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
@@ -93,18 +94,9 @@ public class SQLiteDatabaseTest {
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
                 "STREET", 41.748486365, -87.602675062);
-        ResultSet result;
-        int numCrimes = 0;
-        try {
-            SQLiteDatabase.insertIntoTable(tableName, testCrime1);
+        SQLiteDatabase.insertIntoTable(tableName, testCrime1);
+        assertThrows(SQLException.class, ()-> {
             SQLiteDatabase.insertIntoTable(tableName, testCrime2);
-            result = SQLiteDatabase.executeQuery(sql);
-            while(result.next()) {
-                numCrimes = Integer.parseInt(result.getString(1));
-            }
-            result.close();
-        } catch (SQLException e) {}
-        assertEquals(1, numCrimes);
+        });
     }
-*/
 }
