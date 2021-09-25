@@ -78,7 +78,6 @@ public class EditController extends MasterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         Crime viewedCrime = MasterController.currentCrime;
 
         if (!isNewCrime) {
@@ -118,7 +117,6 @@ public class EditController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickApply(ActionEvent event) throws IOException {
-
         int beatNum;
         int wardNum;
         try {

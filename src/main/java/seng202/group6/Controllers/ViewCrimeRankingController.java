@@ -31,7 +31,7 @@ public class ViewCrimeRankingController extends MasterController implements Init
     private TableColumn<CrimeFrequency, String> frequencyColumn;
 
     /**
-     * Method initializes the table to be viewed and feed's it the data needed after naming the columns appropriately
+     * Method initializes the table to be viewed and feeds it the data needed after naming the columns appropriately
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

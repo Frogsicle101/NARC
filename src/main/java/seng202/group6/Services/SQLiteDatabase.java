@@ -17,7 +17,7 @@ import seng202.group6.Models.Crime;
 
 public class SQLiteDatabase {
 
-    private static final String jdbcUrl = "jdbc:sqlite:crimes.db";  //Constant that stores path to database file
+    private static final String jdbcUrl = "jdbc:sqlite:crimes.db";  //Constant that stores the path to the database file
     private static Connection connection;   //Stores database connection. Initialised by connectToDatabase()
 
     /**
@@ -26,8 +26,7 @@ public class SQLiteDatabase {
      */
     public static void connectToDatabase(String jdbcUrl) throws SQLException {
         connection = DriverManager.getConnection(jdbcUrl);
-        connection.setAutoCommit(false);
-
+        connection.setAutoCommit(false);    //Allows SQL statements to be batched, rather than executing one at a time
     }
 
 
@@ -67,13 +66,12 @@ public class SQLiteDatabase {
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
-
     }
 
     /**
-     * Updates a crime object in a particular table
-     * @param tableName The name of the table
-     * @param crime The new object
+     * Updates a crime record in a particular table with the same case_id as the given crime
+     * @param tableName The name of the table to update in
+     * @param crime The new crime object to set in the table
      */
     public static void updateInTable(String tableName, Crime crime) throws SQLException{
         String sql = "UPDATE " + tableName + " " +
@@ -96,12 +94,10 @@ public class SQLiteDatabase {
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
-
     }
 
     /**
-     * Deletes a crime from a particular table
-     * More precisely, this method deletes the record that has the same crime_id as the given Crime
+     * Deletes a crime record from a particular table with the same case_id as the given crimeme
      * @param tableName The name of the table to delete from
      * @param crime The crime to delete
      */
@@ -120,22 +116,21 @@ public class SQLiteDatabase {
      * @return The ResultSet, which should be closed after usage
      */
     public static ResultSet getTableNames() throws SQLException {
-
         String sql = "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite%';";
         Statement statement = connection.createStatement();
         return statement.executeQuery(sql);
-
     }
 
     /**
-     * Ends an SQL transaction and commits the results to file. Call after every change to the database
+     * Ends an SQL transaction and commits the results to file
+     * Should be called after every change to the database
      */
     public static void endTransaction() throws SQLException {
         connection.commit();
     }
 
     /**
-     * Select all data from a table
+     * Selects all crime records from a table
      * @param tableName The name of the table to select from
      */
     public static ResultSet selectAllFromTable(String tableName) throws SQLException {
@@ -153,9 +148,9 @@ public class SQLiteDatabase {
      * @throws SQLException If called on a ResultSet that does not contain crimes
      */
     public static ArrayList<Crime> convertResultSet(ResultSet data) throws SQLException {
-        ArrayList<Crime> out = new ArrayList<>();
+        ArrayList<Crime> out = new ArrayList<>();   //Arraylist to be returned at the end of the method
 
-        while (data.next()) {
+        while (data.next()) {   //For each value in the ResultSet, builds a Crime object from its fields
             Crime newCrime = new Crime(data.getString("case_id"),
                     LocalDateTime.parse(data.getString("occurrence_date")),
                     data.getString("block"),
@@ -172,32 +167,27 @@ public class SQLiteDatabase {
                     data.getDouble("longitude"));
             out.add(newCrime);
         }
-
-        data.close();
-
+        data.close();   //Closes the ResultSet to locking the database
         return out;
     }
 
     /**
      * Executes the given SQL query on the database
-     * @param query The Query
+     * @param query The SQL query to execute
      * @return A ResultSet from the database
      * @throws SQLException If the query is erroneous
      */
     public static ResultSet executeQuery(String query) throws SQLException {
-
         Statement statement = connection.createStatement();
         return statement.executeQuery(query);
     }
 
     /**
-     * Drops a table
+     * Drops a table in the database
      * @param tableName The name of the table to drop
-     * @throws SQLException If the table does not exist
      */
     public static void dropTable(String tableName) throws SQLException {
-
-        String sql = "DROP TABLE IF EXISTS" + tableName + ";";
+        String sql = "DROP TABLE IF EXISTS " + tableName + ";";
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);

@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
 /**
  * The filter class is used to filter an arraylist of crimes by specific characteristics.
  * You first create a filter object, then call the setter methods to set the parameters of the filter.
@@ -65,7 +64,6 @@ public class Filter {
             statement += "AND ";
         }
 
-
         if (!locations.isEmpty()) {
             anyFilter = true;
             statement += "location IN ('" + String.join("', '", locations) + "') ";
@@ -83,7 +81,6 @@ public class Filter {
             statement += "domestic = " + domestic + " ";
             statement += "AND ";
         }
-
 
         if (!beats.isEmpty()) {
             anyFilter = true;
@@ -124,7 +121,6 @@ public class Filter {
 
     }
 
-
     /**
      * Gets an arraylist of crimes from the database based on the properties set
      * @return An arraylist of Crimes
@@ -133,7 +129,6 @@ public class Filter {
         ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
         return SQLiteDatabase.convertResultSet(result);
     }
-
 
     /**
      * Sets the filter to filter from a specific start date

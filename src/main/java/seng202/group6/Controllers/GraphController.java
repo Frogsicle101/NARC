@@ -94,39 +94,28 @@ public class GraphController extends MasterController implements Initializable {
     }
 
     /**
-     * Method to call change to home screen method in MasterController when the home button
-     * is clicked
-     * @throws IOException
+     * Changes to home screen using method in MasterController when the home button is clicked
      */
-
     public void clickHome() throws IOException {
         changeToHomeScreen();
     }
 
     /**
-     * Method to call change to map screen method in MasterController when the map button
-     * is clicked
-     * @throws IOException
+     * Changes to map screen using method in MasterController when the map button is clicked
      */
-
     public void clickMap() throws IOException {
         changeToMapScreen();
     }
 
     /**
-     * Method to call change to import screen method in MasterController when the import button
-     * is clicked
-     * @throws IOException
+     * Changes to import screen using method in MasterController when the import button is clicked
      */
-
     public void clickImport() throws IOException {
         changeToImportScreen();
     }
 
     /**
-     * Method to call change to hourOfDayData screen method in MasterController when the hourOfDayData button
-     * is clicked
-     * @throws IOException
+     * Change to data screen using method in MasterController when the data button is clicked
      */
     public void clickData() throws IOException {
         changeToDataScreen();
@@ -135,7 +124,6 @@ public class GraphController extends MasterController implements Initializable {
     /**
      * Method to make a line chart be created on the graph, it checks if the chart it is being requested to make has
      * already been made and if so it doesn't make it
-     * @throws IOException
      */
     private void clickApplyChart() throws IOException {
         XYChart.Series<Number, Number> series = getChartData(typeOf, crimeData);
@@ -151,7 +139,6 @@ public class GraphController extends MasterController implements Initializable {
 
     /**
      * Set's the displayed graph to show crimes by hour of the day
-     *
      */
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
@@ -173,8 +160,7 @@ public class GraphController extends MasterController implements Initializable {
     }
 
     /**
-     * Method which shows the graph of the frequency of crimes by day of week
-     * @throws IOException
+     * Displays a graph of the frequency of crimes by day of the week
      */
     public void clickWeek() throws IOException {
         pieChart.setVisible(false);
@@ -196,7 +182,7 @@ public class GraphController extends MasterController implements Initializable {
 
 
     /**
-     * Method which shows the graph of frequency of crime per month of year
+     * Displays a graph of frequency of crime per month of the year
      */
     public void clickYear() throws IOException {
         pieChart.setVisible(false);
@@ -218,7 +204,7 @@ public class GraphController extends MasterController implements Initializable {
 
 
     /**
-     * Method which causes the graph screen to display a pie chart showing the breakdown of crimes by type of crime
+     * Causes the graph screen to display a pie chart showing the breakdown of crimes by type of crime
      */
     public void clickPie() {
         lineChart.setVisible(false);

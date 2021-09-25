@@ -131,7 +131,6 @@ public class DataController extends MasterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
@@ -180,7 +179,6 @@ public class DataController extends MasterController implements Initializable {
      * is clicked
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
-
     public void clickHome() throws IOException {
         changeToHomeScreen();
     }
@@ -204,7 +202,6 @@ public class DataController extends MasterController implements Initializable {
      * is clicked
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
-
     public void clickImport() throws IOException {
         changeToImportScreen();
     }
