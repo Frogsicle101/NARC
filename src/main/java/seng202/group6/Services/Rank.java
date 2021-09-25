@@ -76,34 +76,34 @@ public class Rank{
      * @param crimes An array list of Crime objects
      * @return A sorted array list of HourOfDayFrequency
      */
-    public static ArrayList<FrequencyObject> rankedTimeList(ArrayList<Crime> crimes, int typeOf) {
-        ArrayList<FrequencyObject> data = new ArrayList<>();
+    public static ArrayList<TimeFrequency> rankedTimeList(ArrayList<Crime> crimes, int typeOf) {
+        ArrayList<TimeFrequency> data = new ArrayList<>();
         boolean found;
         for (Crime crime : crimes) {
             found = false;
-            FrequencyObject frequencyObject = null;
+            TimeFrequency TimeFrequency = null;
             switch (typeOf) {
-                case 0: frequencyObject = new FrequencyObject(crime.getDate().getHour());
+                case 0: TimeFrequency = new TimeFrequency(crime.getDate().getHour());
                     break;
-                case 1 : frequencyObject = new FrequencyObject(crime.getDate().getDayOfWeek().getValue());
+                case 1 : TimeFrequency = new TimeFrequency(crime.getDate().getDayOfWeek().getValue());
                     break;
-                case 2: frequencyObject = new FrequencyObject(crime.getDate().getMonthValue());
+                case 2: TimeFrequency = new TimeFrequency(crime.getDate().getMonthValue());
                     break;    
             }
             //new FrequencyObject(crime.getDate().getHour());
             int i;
             for (i = 0; i < data.size(); i++) {
-                if (data.get(i).getTimePeriod() == (frequencyObject.getTimePeriod())) {
+                if (data.get(i).getTimePeriod() == (TimeFrequency.getTimePeriod())) {
                     data.get(i).incrementFrequency();
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                data.add(frequencyObject);
+                data.add(TimeFrequency);
             }
         }
-        data.sort(Comparator.comparing(FrequencyObject::getFrequency));
+        data.sort(Comparator.comparing(TimeFrequency::getFrequency));
         Collections.reverse(data);
         return data;
     }

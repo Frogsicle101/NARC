@@ -12,9 +12,10 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.CrimeFrequency;
-import seng202.group6.Models.DayOfWeekFrequency;
-import seng202.group6.Models.FrequencyObject;
-import seng202.group6.Models.MonthFrequency;
+
+import seng202.group6.Models.TimeFrequency;
+
+import seng202.group6.Models.TimeFrequency;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
+import static seng202.group6.Services.GraphService.*;
 import static seng202.group6.Services.Rank.rankedTimeList;
 import static seng202.group6.Services.Rank.rankedTypeList;
 
@@ -56,13 +58,17 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
-    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
+    private ArrayList<TimeFrequency> timeFrequencyData = new ArrayList<TimeFrequency>();
 
     private int typeOf = 0; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
 
     private boolean flag = false;
 
     private ArrayList<CrimeFrequency> data = new ArrayList<>();
+
+    private XYChart.Series<Number, Number> oldData = null;
+
+    private boolean dataUpdate = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -131,58 +137,14 @@ public class GraphController extends MasterController implements Initializable {
      * @throws IOException
      */
     private void clickApplyChart() throws IOException {
-        int maxValue = 0;
-        int minValue = 0;
-        switch (typeOf) {
-            case 0:
-                maxValue = 24;
-                break;
-            case 1:
-                maxValue = 8;
-                minValue = 1;
-                break;
-            case 2:
-                maxValue = 13;
-                minValue = 1;
-                break;
-        }
-        xAxis.setUpperBound(maxValue-1);
-        xAxis.setLowerBound(minValue);
-       if ((timeFrequencyData.size() == 0 && crimeData.size() == 0) ||
-               (timeFrequencyData.size() != rankedTimeList(crimeData, typeOf).size() && crimeData.size() != 0)) {
-            XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        XYChart.Series<Number, Number> series = getChartData(typeOf, crimeData);
+        if (oldData == null || series.getData().size() != oldData.getData().size()) {
+            oldData = series;
             lineChart.getData().clear();
-
-            if (crimeData.size() != 0) {
-                timeFrequencyData = rankedTimeList(crimeData, typeOf);
-            } else {
-                try {
-                    timeFrequencyData = rankedTimeList(SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(ImportController.currentTable)), typeOf);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-           timeFrequencyData.sort(Comparator.comparing(FrequencyObject::getTimePeriod));
-            for (int i = minValue; i < maxValue; i++) {
-                boolean found = false;
-                int index = 0;
-                for (FrequencyObject time : timeFrequencyData) {
-                    if (time.getTimePeriod() == i) {
-                        found = true;
-                        index = timeFrequencyData.indexOf(time);
-                    }
-                }
-                if (found) {
-                    series.getData().add(new XYChart.Data<>(timeFrequencyData.get(index).getTimePeriod(), timeFrequencyData.get(index).getFrequency()));
-                } else {
-                    series.getData().add(new XYChart.Data<>(i, 0));
-                }
-
-            }
-
             lineChart.getData().add(series);
-
+            xAxis.setUpperBound(maxValue -1);
+            xAxis.setLowerBound(minValue);
+            dataUpdate = true;
         }
     }
 
@@ -191,12 +153,15 @@ public class GraphController extends MasterController implements Initializable {
         typeOf = 0;
         xAxis.setLabel("Time of Day");
         clickApplyChart();
-        int i;
-        for (i = 0; i < 24; i++) {
-            //todo
-            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
+        if (dataUpdate) {
+            int i;
+            for (i = 0; i < 24; i++) {
+                //todo
+                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
+            }
+            lineChart.setVisible(true);
         }
-        lineChart.setVisible(true);
+        dataUpdate = false;
 
     }
 
@@ -205,13 +170,16 @@ public class GraphController extends MasterController implements Initializable {
         typeOf = 1;
         xAxis.setLabel("Time of Week");
         clickApplyChart();
-        //String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        int i;
-        for (i = 0; i < 7; i++) {
-            //todo
-            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
+        if (dataUpdate) {
+            String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+            int i;
+            for (i = 0; i < 7; i++) {
+                //todo
+                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
+            }
+            lineChart.setVisible(true);
         }
-        lineChart.setVisible(true);
+        dataUpdate = false;
     }
 
     public void clickYear() throws IOException {
@@ -219,12 +187,16 @@ public class GraphController extends MasterController implements Initializable {
         typeOf = 2;
         xAxis.setLabel("Time of Year");
         clickApplyChart();
-        int i;
-        for (i = 0; i < 12; i++) {
-            //todo
-            xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
+        if (dataUpdate) {
+
+            int i;
+            for (i = 0; i < 12; i++) {
+                //todo
+                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
+            }
+            lineChart.setVisible(true);
         }
-        lineChart.setVisible(true);
+        dataUpdate = false;
     }
 
     public void clickPie() {

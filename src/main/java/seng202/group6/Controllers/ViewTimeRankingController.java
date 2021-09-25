@@ -7,7 +7,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.FrequencyObject;
-import seng202.group6.Models.HourOfDayFrequency;
 
 import java.net.URL;
 import java.util.ArrayList;
