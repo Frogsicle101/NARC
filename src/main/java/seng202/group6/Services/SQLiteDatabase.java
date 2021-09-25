@@ -155,17 +155,6 @@ public class SQLiteDatabase {
         return out;
     }
 
-    /*public static ResultSet selectLocationsFromTable(LatLng location) throws SQLException {
-        Double latRight = location.lat - 0.0036;
-        Double latLeft = location.lat + 0.0031;
-        Double lngUp = location.lng - 0.0062;
-        Double lngDown = location.lng + 0.0062;
-        String sql = "SELECT * FROM crimes WHERE (latitude BETWEEN "+latRight+" AND "
-                +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(sql);
-    }*/
-
     public static ResultSet executeQuery(String query) throws SQLException {
 
         Statement statement = connection.createStatement();
@@ -174,7 +163,7 @@ public class SQLiteDatabase {
 
     public static void dropTable(String tableName) throws SQLException {
 
-        String sql = "DROP TABLE " + tableName + ";";
+        String sql = "DROP TABLE IF EXISTS" + tableName + ";";
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);

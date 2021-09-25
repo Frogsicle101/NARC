@@ -93,7 +93,6 @@ public class FilterTest {
 
         assertEquals(testCrime2, result.get(0));
 
-        SQLiteDatabase.endTransaction();
         String sql = "DELETE FROM " + ImportController.currentTable + ";";    //Clear all rows from table
         Statement statement = SQLiteDatabase.getConnection().createStatement();
         statement.executeUpdate(sql);

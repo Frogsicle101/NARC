@@ -18,25 +18,21 @@ public class SQLiteDatabaseTest {
     public static String tableName;
 
     @BeforeAll
-    public static void setUp() {
+    public static void setUp() throws SQLException {
         String jdbcUrl = "jdbc:sqlite:test.db";
         tableName = "test";
-        try {
-            SQLiteDatabase.connectToDatabase(jdbcUrl);
-        } catch (SQLException e) {}
+        SQLiteDatabase.connectToDatabase(jdbcUrl);
     }
 
     @AfterEach
-    public void clearDatabase() {
-        try {
-            SQLiteDatabase.endTransaction();
+    public void clearDatabase() throws SQLException {
+        SQLiteDatabase.endTransaction();
 
-            String sql = "DELETE FROM " + tableName + ";";    //Clear all rows from table
-            Statement statement = SQLiteDatabase.getConnection().createStatement();
-            statement.executeUpdate(sql);
+        String sql = "DELETE FROM " + tableName + ";";    //Clear all rows from table
+        Statement statement = SQLiteDatabase.getConnection().createStatement();
+        statement.executeUpdate(sql);
 
-            SQLiteDatabase.endTransaction();
-        } catch (SQLException e) {}
+        SQLiteDatabase.endTransaction();
     }
 
     @Test
@@ -47,13 +43,10 @@ public class SQLiteDatabaseTest {
     @Test
     public void createTableTest() throws SQLException {
         ResultSet tableNames = null;
-        try {
-            SQLiteDatabase.createTable("test");
-            tableNames = SQLiteDatabase.getTableNames();
-        } catch (SQLException e) {
-
-        }
+        SQLiteDatabase.createTable("test");
+        tableNames = SQLiteDatabase.getTableNames();
         assertEquals("test", tableNames.getString(1));
+        tableNames.close();
     }
 
     @Test
@@ -114,8 +107,8 @@ public class SQLiteDatabaseTest {
         SQLiteDatabase.updateInTable(tableName, testCrime2);
         SQLiteDatabase.endTransaction();
         ResultSet result = SQLiteDatabase.selectAllFromTable(tableName);
-
         assertEquals(testCrime2, SQLiteDatabase.convertResultSet(result).get(0));
+        result.close();
     }
 
 }
