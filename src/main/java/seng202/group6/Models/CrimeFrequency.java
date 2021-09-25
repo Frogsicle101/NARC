@@ -1,7 +1,5 @@
 package seng202.group6.Models;
 
-import java.util.ArrayList;
-
 public class CrimeFrequency {
     private String crime;
     private int frequency = 1;
@@ -13,7 +11,7 @@ public class CrimeFrequency {
     @Override public boolean equals(Object other) {
         boolean equal = false;
         if (other instanceof CrimeFrequency) {
-            if (((CrimeFrequency) other).crime == this.crime) {
+            if (((CrimeFrequency) other).crime.equals(this.crime)) {
                 equal = true;
             }
         }
@@ -34,14 +32,4 @@ public class CrimeFrequency {
         return String.format("Crime Type: %s. Crime Frequency: %d\n", this.crime, this.frequency);
     }
 
-
-
-    public static void main(String[] args) {
-        CrimeFrequency crim1 = new CrimeFrequency("ABC");
-        CrimeFrequency crim2 = new CrimeFrequency("ABC");
-        ArrayList<CrimeFrequency> testList = new ArrayList<>();
-        testList.add(crim1);
-        System.out.println(testList.contains(crim2));
-
-    }
 }

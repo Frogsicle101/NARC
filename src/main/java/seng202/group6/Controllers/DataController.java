@@ -164,7 +164,7 @@ public class DataController extends MasterController implements Initializable {
      * from the data table and returns error message if not. Calls function from MasterController
      * if a crime has been selected
      * @param event Button click event when view more info button is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public void selectCrime(ActionEvent event) throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
@@ -176,7 +176,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void clickHome() throws IOException {
@@ -200,7 +200,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to import screen method in MasterController when the import button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void clickImport() throws IOException {
@@ -210,7 +210,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to graph screen method in MasterController when the graph button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public void clickGraph() throws IOException {
         changeToGraphScreen();
@@ -263,13 +263,13 @@ public class DataController extends MasterController implements Initializable {
         dataFilter = filter; //added to allow map to use data filter
 
         try {
-            filteredCrimeData = filter.applyFilter();
+            crimeData = filter.applyFilter();
         } catch (SQLException e) {
             (new Alert(Alert.AlertType.ERROR, "SQL Query Failed: " + e)).show();
             e.printStackTrace();
         }
 
-        tableView.setItems(FXCollections.observableArrayList(filteredCrimeData));
+        tableView.setItems(FXCollections.observableArrayList(crimeData));
 
         DynamicMapService.removeMarkers();
         try {
@@ -354,8 +354,11 @@ public class DataController extends MasterController implements Initializable {
         wardSearch.setText("");
         anyArrest.setSelected(true);
         anyDomestic.setSelected(true);
-        filteredCrimeData = crimeData;
+
+
+        MasterController.populateCrimeArray(ImportController.currentTable);
         tableView.setItems(FXCollections.observableArrayList(crimeData));
+
         dataFilter = null;
         DynamicMapService.removeMarkers();
         DynamicMapService.loadSearchMarkers();

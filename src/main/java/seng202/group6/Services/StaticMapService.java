@@ -12,16 +12,13 @@ import java.io.*;
 import java.util.ArrayList;
 
 import javafx.embed.swing.SwingFXUtils;
+import seng202.group6.DynamicMapSRC.ApiKey;
 import seng202.group6.Models.Crime;
 
 /**
  * Service for creating a static map image with markers.
  */
 public class StaticMapService {
-    /**
-     * Google Maps API Key
-     */
-    private static final String apiKey = "AIzaSyBZgxE6A5nvnM7aYqg49wDdK_SPKXqdLiE";
 
     /**
      * Provides implementation for getting a static map image from the Google Maps API using an HTTP request.
@@ -34,7 +31,7 @@ public class StaticMapService {
      */
     public static Image getStaticMap(String centre, ArrayList<Crime> crimeData, int width, int height) {
         try {
-            GeoApiContext context = new GeoApiContext.Builder().apiKey(apiKey).build();
+            GeoApiContext context = new GeoApiContext.Builder().apiKey(ApiKey.getApiKey()).build();
             GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
             LatLng centreLatLng = geocodingResult[0].geometry.location;
             Size size = new Size(width, height);

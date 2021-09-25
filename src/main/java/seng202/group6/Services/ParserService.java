@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,21 +22,25 @@ public class ParserService {
      * @throws IOException
      * @throws CsvValidationException
      */
-    public static int csvToDatabase(File file, String tableName) throws IOException, CsvValidationException, SQLException {
+    public static int[] csvToDatabase(File file, String tableName) throws IOException, CsvValidationException, SQLException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
-        int counter = 0;
+        int duplicatedCounter = 0;
+        int invalidCounter = 0;
         while(reader.peek() != null) {
             String[] fields = reader.readNext();
 
-            Crime crime = buildCrimeFromFields(fields);
+
             try {
+                Crime crime = buildCrimeFromFields(fields);
                 SQLiteDatabase.insertIntoTable(tableName, crime);   //Populates "Crimes" table in database
             } catch (SQLException e) {
-                counter++;
+                duplicatedCounter++;
+            } catch (NumberFormatException  | DateTimeException | StringIndexOutOfBoundsException| ArrayIndexOutOfBoundsException e) {
+                invalidCounter++;
             }
         }
         SQLiteDatabase.endTransaction();
-        return counter;
+        return new int[] {duplicatedCounter, invalidCounter};
     }
 
     /**
@@ -43,7 +48,7 @@ public class ParserService {
      * @param fields A String[] with the data from the CSV
      * @return The crime
      */
-    private static Crime buildCrimeFromFields(String[] fields) {
+    public static Crime buildCrimeFromFields(String[] fields) {
         Crime crime = new Crime (
                 fields[0], //Case Num
                 parseDateString(fields[1]), //Date
@@ -69,7 +74,7 @@ public class ParserService {
      * @param date A string representing a date of format MM/DD/YYYY Hour/Minute/Second AM/PM
      * @return Returns a LocalDateTime object representing the date-time passed to it as a string.
      */
-    private static LocalDateTime parseDateString(String date) {
+    public static LocalDateTime parseDateString(String date) {
         int second = Integer.parseInt(date.substring(17, 19));
         int minute = Integer.parseInt(date.substring(14, 16));
         int hour = Integer.parseInt(date.substring(11, 13));
