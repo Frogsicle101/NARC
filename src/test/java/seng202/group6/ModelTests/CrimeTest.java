@@ -1,4 +1,4 @@
-package ModelTest;
+package seng202.group6.ModelTests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

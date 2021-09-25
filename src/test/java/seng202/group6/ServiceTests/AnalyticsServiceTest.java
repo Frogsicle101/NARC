@@ -1,4 +1,4 @@
-package ServicesTest;
+package seng202.group6.ServiceTests;
 
 import org.junit.jupiter.api.Test;
 import seng202.group6.Models.Crime;
