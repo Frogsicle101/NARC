@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seng202.group6.Models.Crime;
+
 import seng202.group6.Services.DynamicMapService;
 import seng202.group6.Services.SQLiteDatabase;
 
@@ -18,6 +18,16 @@ import java.sql.SQLException;
  */
 
 public class MainApplication extends Application {
+
+    /**
+     * Method to launch the application. Overrides start method in the Application class.
+     * Sets all values for the application stage, connects to database, and loads map.
+     * Also tries to populate dataset with the first table created in the database. An
+     * error occurs if no tables have been created and the data is left as empty.
+     * @param primaryStage Main stage to launch application
+     * @throws IOException Throws an error if reading from the fxml file fails
+     * @throws SQLException Throws an error if system cannot connect to database
+     */
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
         Parent homeScreen = FXMLLoader.load(getClass().getResource("homeScreen.fxml"));

@@ -99,4 +99,23 @@ public class SQLiteDatabaseTest {
             SQLiteDatabase.insertIntoTable(tableName, testCrime2);
         });
     }
+
+    @Test
+    public void updateCrimeTest() throws SQLException {
+        Crime testCrime1 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
+                "080XX S DREXEL AVE", "820", "THEFT",
+                "$500 AND UNDER", false, false, 631, 8, "6",
+                "STREET", 41.748486365, -87.602675062);
+        Crime testCrime2 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
+                "080XX S DREXEL AVE", "820", "HOMICIDE",
+                "FIRST DEGREE MURDER", false, false, 631, 8, "6",
+                "STREET", 41.748486365, -87.602675062);
+        SQLiteDatabase.insertIntoTable(tableName, testCrime1);
+        SQLiteDatabase.updateInTable(tableName, testCrime2);
+        SQLiteDatabase.endTransaction();
+        ResultSet result = SQLiteDatabase.selectAllFromTable(tableName);
+
+        assertEquals(testCrime2, SQLiteDatabase.convertResultSet(result).get(0));
+    }
+
 }

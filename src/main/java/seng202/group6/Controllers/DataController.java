@@ -1,7 +1,6 @@
 package seng202.group6.Controllers;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -124,11 +123,15 @@ public class DataController extends MasterController implements Initializable {
 
 
     /**
-     * Initializes data scene. Decides whether to show map or table based on which button is clicked.
-     * Initializes all buttons and dropdowns. Populates table with data in crimeData.
+     * Method to override initialise method from Initializable interface. Decides whether
+     * to show map or table based on which button is clicked. Initializes all buttons and
+     * dropdowns. Populates table with data in crimeData. Sets all buttons
+     * to not be traversable so they cannot be clicked by pressing tab + enter or arrow keys
+     * + enter while on the application.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
@@ -163,10 +166,9 @@ public class DataController extends MasterController implements Initializable {
      * Method to view detailed description of a specific crime, checks if a crime is selected
      * from the data table and returns error message if not. Calls function from MasterController
      * if a crime has been selected
-     * @param event Button click event when view more info button is clicked
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
-    public void selectCrime(ActionEvent event) throws IOException {
+    public void selectCrime() throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
         if (crime != null) {
             launchViewScreen(crime);
@@ -176,7 +178,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
 
     public void clickHome() throws IOException {
@@ -200,7 +202,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to import screen method in MasterController when the import button
      * is clicked
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
 
     public void clickImport() throws IOException {
@@ -210,7 +212,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to graph screen method in MasterController when the graph button
      * is clicked
-     * @throws IOException ioexception
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickGraph() throws IOException {
         changeToGraphScreen();
@@ -279,6 +281,12 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+    /**
+     * Method called when add crime button is clicked, sets isNewCrime value to true to tell edit
+     * controller that the crime is a new crime to be added and not an edited crime. Launches edit
+     * screen to prompt user for fields
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
 
     public void clickAdd() throws IOException {
         Crime crime = new Crime();
@@ -286,7 +294,13 @@ public class DataController extends MasterController implements Initializable {
         launchEditScreen(crime);
     }
 
-    public void clickEdit(ActionEvent event) throws IOException {
+    /**
+     * Method called when edit crime button is clicked, sets isNewCrime variable to false to tell edit
+     * controller that the crime is an existing crime being edited. Checks to see if a crime has been
+     * selected, if it has the launch edit screen is launched.
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
+    public void clickEdit() throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
         if (crime != null) {
             EditController.isNewCrime = false;
@@ -294,18 +308,29 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+    /**
+     * Method called when delete crime button is clicked, checks to see if crime has been selected, if a
+     * crime has been selected. It calls a method in SQLiteDatabase to delete that specific crime from the
+     * database, if this is successful, the crime is deleted from the dataset and the table is updated. If
+     * it is not, an error message is shown to the user and the crime is not deleted.
+     */
     public void clickDelete() {
-        int index = tableView.getSelectionModel().getFocusedIndex();
-        try {
-            SQLiteDatabase.deleteFromTable(ImportController.currentTable, crimeData.get(index));
-        } catch (SQLException e) {
-            (new Alert(Alert.AlertType.ERROR, "Crime could not be deleted from database")).show();
+        Crime selectedCrime = tableView.getSelectionModel().getSelectedItem();
+        if (selectedCrime != null) {
+            try {
+                SQLiteDatabase.deleteFromTable(ImportController.currentTable, selectedCrime);
+                crimeData.remove(selectedCrime);
+                tableView.setItems(FXCollections.observableArrayList(crimeData));
+            } catch (SQLException e) {
+                (new Alert(Alert.AlertType.ERROR, "Crime could not be deleted from database")).show();
+            }
         }
-
-        crimeData.remove(index);
-        tableView.setItems(FXCollections.observableArrayList(crimeData));
     }
 
+    /**
+     * Method to build two sets of different primary and location descriptions respectively, these
+     * sets are then used to populate the filter dropdown menu for their corresponding fields.
+     */
     private void buildFilterSets() {
         for (Crime crime :crimeData) {
             types.add(crime.getPrimaryDescription());
@@ -313,6 +338,10 @@ public class DataController extends MasterController implements Initializable {
         }
     }
 
+    /**
+     * Method to populate the filter dropdown menus for location and primary descriptions of the
+     * crime dataset. The sets are looped through and each item is added to the dropdown menu.
+     */
     private void buildDropdowns() {
         for (String type: types.stream().sorted().collect(Collectors.toList())) {
             if (type.equals("")) {
@@ -337,7 +366,8 @@ public class DataController extends MasterController implements Initializable {
     }
 
     /**
-     * Resets the filter fields on the view. Resets the table and map to raw data.
+     * Resets the filter fields on the view. Resets the table and map to the raw dataset that was originally
+     * imported and selected for viewing.
      */
     public void clickReset() {
         startDate.setValue(null);
@@ -355,7 +385,6 @@ public class DataController extends MasterController implements Initializable {
         anyArrest.setSelected(true);
         anyDomestic.setSelected(true);
 
-
         MasterController.populateCrimeArray(ImportController.currentTable);
         tableView.setItems(FXCollections.observableArrayList(crimeData));
 
@@ -364,16 +393,28 @@ public class DataController extends MasterController implements Initializable {
         DynamicMapService.loadSearchMarkers();
     }
 
+    /**
+     * Method to launch a window to rank the current data by most densely populated areas of crime
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
     public void clickRankArea() throws IOException {
         launchAreaRankScreen();
 
     }
 
+    /**
+     * Method to launch a window to rank the current data by different types of crime
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
     public void clickRankCrimeType() throws IOException {
         launchCrimeRankScreen();
 
     }
 
+    /**
+     * Method to launch a window to rank the current data by the time a crime occurred.
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
     public void clickRankTime() throws IOException {
         launchTimeRankScreen();
     }

@@ -89,18 +89,25 @@ public class Crime {
      */
     @Override
     public boolean equals(Object other) {
-        boolean equal = false;
-        if (other instanceof Crime) {
-            equal = (this.arrest == ((Crime) other).getArrest() && this.caseNumber == ((Crime) other).getCaseNumber()
-            && this.domestic == ((Crime) other).getDomestic() && this.date.equals(((Crime) other).getDate()) &&
-                    this.longitude == ((Crime) other).getLongitude() && this.beat == ((Crime) other).getBeat() &&
-                    this.block == ((Crime) other).getBlock() && this.FBI == ((Crime) other).getFBI() &&
-                    this.iucr == ((Crime) other).getIucr() && this.latitude == ((Crime) other).getLatitude() &&
-                    this.locationDescription == ((Crime) other).getLocationDescription() && this.primaryDescription
-            == ((Crime) other).getPrimaryDescription() && this.secondaryDescription == ((Crime) other).getSecondaryDescription()
-            && this.ward == ((Crime) other).getWard());
+        if (other instanceof Crime){
+            Crime otherCrime = (Crime) other;
+            return (this.caseNumber.equals(otherCrime.getCaseNumber()) &&
+                    this.date.equals(otherCrime.getDate()) &&
+                    this.block.equals(otherCrime.getBlock()) &&
+                    this.iucr.equals(otherCrime.getIucr()) &&
+                    this.primaryDescription.equals(otherCrime.getPrimaryDescription()) &&
+                    this.secondaryDescription.equals(otherCrime.getSecondaryDescription()) &&
+                    this.arrest == otherCrime.getArrest() &&
+                    this.domestic == otherCrime.getDomestic() &&
+                    this.beat == otherCrime.getBeat() &&
+                    this.ward == otherCrime.getWard() &&
+                    this.FBI.equals(otherCrime.getFBI()) &&
+                    this.locationDescription.equals(otherCrime.getLocationDescription()) &&
+                    this.latitude == otherCrime.getLatitude() &&
+                    this.longitude == otherCrime.getLongitude());
+        } else {
+            return false;
         }
-        return equal;
     }
 
     /**

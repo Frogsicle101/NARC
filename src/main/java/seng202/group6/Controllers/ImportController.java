@@ -3,24 +3,15 @@ package seng202.group6.Controllers;
 import com.opencsv.exceptions.CsvValidationException;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import seng202.group6.Controllers.DataController;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import seng202.group6.Models.Crime;
 import seng202.group6.Services.ParserService;
 import seng202.group6.Services.SQLiteDatabase;
 
-import javax.xml.crypto.Data;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,21 +39,6 @@ public class ImportController extends MasterController implements Initializable 
     private Button graphButton;
 
     @FXML
-    private Button importNew;
-
-    @FXML
-    private Button addToTable;
-
-    @FXML
-    private Button deleteTable;
-
-    @FXML
-    private Button changeDataSet;
-
-    @FXML
-    private Button exportData;
-
-    @FXML
     private Label noDataSelected;
 
     @FXML
@@ -77,7 +53,14 @@ public class ImportController extends MasterController implements Initializable 
     private ArrayList<String> tableNames = new ArrayList<>();
     public static String currentTable; //current table that is being viewed
 
-
+    /**
+     * Method to override initialise method from Initializable interface. Sets all buttons
+     * to not be traversable so they cannot be clicked by pressing tab + enter or arrow keys
+     * + enter while on the application. Sets the message to show user what table they are
+     * currently viewing. Attempts to read all table names from the database and populate
+     * list of tables in the ListView. If there are no tables in the database, an error is
+     * caught and the ListView is left empty.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -102,6 +85,12 @@ public class ImportController extends MasterController implements Initializable 
 
     }
 
+    /**
+     * Method to get the first table created in the database.
+     * @return String of the name of the first table in the database
+     * @throws SQLException Error occurs if no tables have been added to the database,
+     * this is caught by higher methods.
+     */
     public static String getFirstTable() throws SQLException {
 
         ResultSet tableNames = SQLiteDatabase.getTableNames();
@@ -115,7 +104,7 @@ public class ImportController extends MasterController implements Initializable 
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @throws IOException
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     
     public void clickHome() throws IOException {
@@ -125,7 +114,7 @@ public class ImportController extends MasterController implements Initializable 
     /**
      * Method to call change to map screen method in MasterController when the map button
      * is clicked
-     * @throws IOException
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     
     public void clickMap() throws IOException {
@@ -135,7 +124,7 @@ public class ImportController extends MasterController implements Initializable 
     /**
      * Method to call change to data screen method in MasterController when the data button
      * is clicked
-     * @throws IOException
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
 
     public void clickData() throws IOException {
@@ -145,12 +134,25 @@ public class ImportController extends MasterController implements Initializable 
     /**
      * Method to call change to graph screen method in MasterController when the graph button
      * is clicked
-     * @throws IOException
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickGraph() throws IOException {
         changeToGraphScreen();
     }
 
+
+    /**
+     * Method used to upload a file into the system. First creates a new FileChooser instance
+     * which prompts the user to select a file from their local computer. If the user does select
+     * a valid file to upload, the file is sent to ParserService to read and receives the number of rows
+     * in the file that were omitted. The dataset is populated after the file has been read and
+     * added to the database, a message is shown to the user showing how many rows were omitted
+     * and the current table view is set to the uploaded file
+     * @param tableName String input for the name of the table that is in the database.
+     * @throws CsvValidationException Throws an error caused when reading the csv file
+     * @throws SQLException Throws an error caused when adding data into the database from the file
+     * @throws IOException Throws an error if reading from fxml when changing screens fails
+     */
     public void uploadFile(String tableName) throws CsvValidationException, SQLException, IOException {
 
         FileChooser fileChooser = new FileChooser();
@@ -164,8 +166,6 @@ public class ImportController extends MasterController implements Initializable 
             //Creating new tables and giving them a name should be done here
 
             recordsOmitted = ParserService.csvToDatabase(crimeFile, tableName); //TODO: deal with thrown exceptions
-
-            //filteredCrimeData = crimeData;
 
             // need to make method to check if file is csv format and if they actually selected a file
             // also need to get checks for correct format in parser
@@ -183,7 +183,12 @@ public class ImportController extends MasterController implements Initializable 
         }
     }
 
-
+    /**
+     * Method called when create new table button is clicked. User is prompted to enter
+     * a name for the table to be created. If the name is valid, the table is created
+     * in the database and the uploadFile method is called passing in the name of the
+     * table.
+     */
     public void clickImportNew()  {
 
         TextInputDialog txtDlg = new TextInputDialog();
@@ -213,10 +218,14 @@ public class ImportController extends MasterController implements Initializable 
                 }
             }
         }
-
     }
 
-
+    /**
+     * Method called when add to existing table button is clicked. If a table has been
+     * selected from the list view, uploadFile method is called passing the name of the
+     * table from the selection. Otherwise, an error message is shown to the user prompting
+     * them to select a table.
+     */
     public void clickAddData()  {
 
         String tableName = (String) tableList.getSelectionModel().getSelectedItem();
@@ -235,6 +244,14 @@ public class ImportController extends MasterController implements Initializable 
         }
     }
 
+    /**
+     * Method called when delete data table button is clicked. If a table has been selected
+     * from the ListView. The system attempts to drop the table from the database, if this fails,
+     * an error message is shown to the user. If this is successful, system attempts to set the
+     * table to view to the first table created in the database, if this is unsuccessful, there
+     * are no data tables in the database and so there is no data to view, so the data is set to
+     * be empty.
+     */
     public void clickDeleteTable() {
 
         String tableName = (String) tableList.getSelectionModel().getSelectedItem();
@@ -266,6 +283,12 @@ public class ImportController extends MasterController implements Initializable 
 
     }
 
+    /**
+     * Method called when view this data button is clicked. If a table has been selected
+     * from the ListView, the table selected is shown in the data table and the map screen,
+     * and the current table viewing message is updated. If there is no table selected, the
+     * user is prompted to select a table and nothing changes.
+     */
     public void clickChangeData() {
         String tableName = (String) tableList.getSelectionModel().getSelectedItem();
         if (tableName != null) {
