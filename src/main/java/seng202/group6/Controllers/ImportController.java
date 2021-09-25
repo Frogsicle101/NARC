@@ -155,7 +155,7 @@ public class ImportController extends MasterController implements Initializable 
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
-        int recordsOmitted = 0;
+        int[] recordsOmitted = {};
         boolean validUpload = true;
         File crimeFile = fileChooser.showOpenDialog(stage);
         if (crimeFile == null) {
@@ -174,7 +174,9 @@ public class ImportController extends MasterController implements Initializable 
         MasterController.populateCrimeArray(tableName);
 
         if (validUpload) {
-            uploadSuccess.setText("File uploaded successfully. " + recordsOmitted + " records omitted.");
+            uploadSuccess.setText("File uploaded successfully. " + recordsOmitted[0] +
+                    " records omitted due to database error and " + recordsOmitted[1] +
+                    " records omitted due to invalid fields.");
             uploadSuccess.setVisible(true);
             currentTable = tableName;
             currentTableText.setText("You are currently viewing: " + currentTable);

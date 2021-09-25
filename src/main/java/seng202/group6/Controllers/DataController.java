@@ -164,7 +164,7 @@ public class DataController extends MasterController implements Initializable {
      * from the data table and returns error message if not. Calls function from MasterController
      * if a crime has been selected
      * @param event Button click event when view more info button is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public void selectCrime(ActionEvent event) throws IOException {
         Crime crime = tableView.getSelectionModel().getSelectedItem();
@@ -176,7 +176,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to home screen method in MasterController when the home button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void clickHome() throws IOException {
@@ -200,7 +200,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to import screen method in MasterController when the import button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void clickImport() throws IOException {
@@ -210,7 +210,7 @@ public class DataController extends MasterController implements Initializable {
     /**
      * Method to call change to graph screen method in MasterController when the graph button
      * is clicked
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public void clickGraph() throws IOException {
         changeToGraphScreen();
