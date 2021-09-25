@@ -74,7 +74,7 @@
          <children>
             <Pane prefHeight="393.0" prefWidth="691.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <LineChart fx:id="lineChart" layoutX="14.0" layoutY="9.0" legendVisible="false" prefHeight="375.0" prefWidth="738.0" title="Crime Frequency Over Time">
+                  <LineChart fx:id="lineChart" animated="false" layoutX="14.0" layoutY="9.0" legendVisible="false" prefHeight="375.0" prefWidth="738.0" title="Crime Frequency Over Time">
                     <xAxis>
                       <NumberAxis autoRanging="false" label="Time of Day" minorTickCount="0" minorTickLength="1.0" minorTickVisible="false" side="BOTTOM" tickLength="5.0" tickUnit="1.0" upperBound="23.0" fx:id="xAxis" />
                     </xAxis>
