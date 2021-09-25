@@ -13,7 +13,7 @@ import java.util.function.Function;
  */
 
 
-public class Rank{
+public class RankService {
 
 
 

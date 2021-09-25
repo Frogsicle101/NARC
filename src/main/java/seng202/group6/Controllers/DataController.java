@@ -394,7 +394,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankArea() throws IOException {
-        launchCrimeRankScreen("Block", Rank.rankedAreaList(crimeData));
+        launchCrimeRankScreen("Block", RankService.rankedAreaList(crimeData));
 
     }
 
@@ -403,7 +403,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankCrimeType() throws IOException {
-        launchCrimeRankScreen("Type", Rank.rankedTypeList(crimeData));
+        launchCrimeRankScreen("Type", RankService.rankedTypeList(crimeData));
 
     }
 
@@ -412,7 +412,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankTime() throws IOException {
-        launchCrimeRankScreen("Hour", Rank.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
+        launchCrimeRankScreen("Hour", RankService.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
     }
 
     /**
