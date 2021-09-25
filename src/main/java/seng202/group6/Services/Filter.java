@@ -40,44 +40,53 @@ public class Filter {
      * Builds an SQL query from the different filter settings
      * @return The query as a String
      */
-    private String queryBuilder() {
+    public String queryBuilder() {
         String tableName = ImportController.currentTable;
         String statement = "SELECT * FROM " + tableName + " ";
         statement += "WHERE ";
 
+        boolean anyFilter = false;
+
         if (start != null) {
+            anyFilter = true;
             statement += "occurrence_date >= '" + LocalDateTime.of(start, LocalTime.MIDNIGHT) + "' ";
             statement += "AND ";
         }
 
         if (end != null) {
+            anyFilter = true;
             statement += "occurrence_date < '" + LocalDateTime.of(end, LocalTime.MIDNIGHT) + "' ";
             statement += "AND ";
         }
 
         if (!types.isEmpty()) {
+            anyFilter = true;
             statement += "primary_description IN ('" + String.join("', '", types) + "') ";
             statement += "AND ";
         }
 
 
         if (!locations.isEmpty()) {
+            anyFilter = true;
             statement += "location IN ('" + String.join("', '", locations) + "') ";
             statement += "AND ";
         }
 
         if (arrest != null) {
+            anyFilter = true;
             statement += "arrest = " + arrest + " ";
             statement += "AND ";
         }
 
         if (domestic != null) {
+            anyFilter = true;
             statement += "domestic = " + domestic + " ";
             statement += "AND ";
         }
 
 
         if (!beats.isEmpty()) {
+            anyFilter = true;
             statement += "beat IN (" + String.join(", ", beats.stream()
                     .map(String::valueOf)
                     .collect(Collectors.toSet()))
@@ -86,6 +95,7 @@ public class Filter {
         }
 
         if (!wards.isEmpty()) {
+            anyFilter = true;
             statement += "ward IN (" + String.join(", ", wards.stream()
                     .map(String::valueOf)
                     .collect(Collectors.toSet()))
@@ -93,18 +103,22 @@ public class Filter {
             statement += "AND ";
         }
         if (centre != null){
-            Double latRight = centre.lat - 0.0036;
-            Double latLeft = centre.lat + 0.0031;
-            Double lngUp = centre.lng - 0.0062;
-            Double lngDown = centre.lng + 0.0062;
+            anyFilter = true;
+            double latRight = centre.lat - 0.0036;
+            double latLeft = centre.lat + 0.0031;
+            double lngUp = centre.lng - 0.0062;
+            double lngDown = centre.lng + 0.0062;
             statement += "(latitude BETWEEN "+latRight+" AND "
                     +latLeft+") AND (longitude BETWEEN "+lngUp +" AND "+lngDown+")";
         } else {
-            statement = statement.substring(0, statement.length() - 4); //Get rid of trailing AND
+            statement = statement.substring(0, statement.length() - 5); //Get rid of trailing AND
+        }
+
+        if (!anyFilter) { //Makes sure blank filters work
+            statement = "SELECT * FROM " + tableName;
         }
 
         statement += ";";
-
 
         return statement;
 
@@ -115,9 +129,8 @@ public class Filter {
 
     public ArrayList<Crime> applyFilter() throws SQLException {
         ResultSet result = SQLiteDatabase.executeQuery(queryBuilder());
-        ArrayList<Crime> out = SQLiteDatabase.convertResultSet(result);
-
-        return out;
+        return SQLiteDatabase.convertResultSet(result);
+        
     }
 
 
@@ -194,7 +207,7 @@ public class Filter {
      */
     public void setWards(String wardString) {
         if (!wardString.isEmpty()) {
-            for (String ward : wardString.split(",")) {
+            for (String ward : wardString.split(",\\s*")) {
                 wards.add(Integer.parseInt(ward));
             }
         }
