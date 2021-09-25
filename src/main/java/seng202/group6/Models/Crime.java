@@ -50,8 +50,21 @@ public class Crime {
      * @param latitude The latitudinal coordinates of the crime
      * @param longitude The longitudinal coordinates of the crime
      */
-     public Crime(String case_id, LocalDateTime occurrence_date, String block, String iucr, String primary_description, String secondary_description,
-                  boolean arrest, boolean domestic, int beat, int ward, String fbi, String location, double latitude, double longitude) {
+     public Crime(String case_id,
+                  LocalDateTime occurrence_date,
+                  String block,
+                  String iucr,
+                  String primary_description,
+                  String secondary_description,
+                  boolean arrest,
+                  boolean domestic,
+                  int beat,
+                  int ward,
+                  String fbi,
+                  String location,
+                  double latitude,
+                  double longitude) {
+
          this.caseNumber = case_id;
          this.date = occurrence_date;
          this.block = block;
