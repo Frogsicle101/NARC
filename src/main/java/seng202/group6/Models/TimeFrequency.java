@@ -9,6 +9,15 @@ public class TimeFrequency {
         this.timePeriod = timePeriod;
     }
 
+    public boolean equals(Object other) {
+        if (other instanceof TimeFrequency) {
+            TimeFrequency otherFreq = (TimeFrequency) other;
+            return this.timePeriod == otherFreq.getTimePeriod() && this.frequency == otherFreq.getFrequency();
+        } else {
+            return false;
+        }
+    }
+
     public int getTimePeriod() {return this.timePeriod;}
 
     public int getFrequency() {return this.frequency;}
