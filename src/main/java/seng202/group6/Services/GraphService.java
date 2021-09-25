@@ -4,7 +4,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import seng202.group6.Controllers.ImportController;
 import seng202.group6.Models.Crime;
-import seng202.group6.Models.FrequencyObject;
+import seng202.group6.Models.TimeFrequency;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ public class GraphService {
 
 
     public static XYChart.Series<Number, Number> getChartData(int typeOf,  ArrayList<Crime> crimeData) {
-        ArrayList<FrequencyObject> timeFrequencyData;
+        ArrayList<TimeFrequency> timeFrequencyData;
         XYChart.Series<Number, Number> series = null;
         switch (typeOf) {
             case 0:
@@ -40,11 +40,11 @@ public class GraphService {
         series = new XYChart.Series<>();
         timeFrequencyData = rankedTimeList(crimeData, typeOf);
 
-        timeFrequencyData.sort(Comparator.comparing(FrequencyObject::getTimePeriod));
+        timeFrequencyData.sort(Comparator.comparing(TimeFrequency::getTimePeriod));
         for (int i = minValue; i < maxValue; i++) {
             boolean found = false;
             int index = 0;
-            for (FrequencyObject time : timeFrequencyData) {
+            for (TimeFrequency time : timeFrequencyData) {
                 if (time.getTimePeriod() == i) {
                     found = true;
                     index = timeFrequencyData.indexOf(time);
