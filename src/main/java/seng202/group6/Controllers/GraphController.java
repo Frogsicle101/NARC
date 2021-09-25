@@ -13,8 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import seng202.group6.Models.CrimeFrequency;
 
-import seng202.group6.Models.FrequencyObject;
+import seng202.group6.Models.TimeFrequency;
 
+import seng202.group6.Models.TimeFrequency;
 import seng202.group6.Services.SQLiteDatabase;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class GraphController extends MasterController implements Initializable {
     @FXML
     public NumberAxis xAxis;
 
-    private ArrayList<FrequencyObject> timeFrequencyData = new ArrayList<FrequencyObject>();
+    private ArrayList<TimeFrequency> timeFrequencyData = new ArrayList<TimeFrequency>();
 
     private int typeOf = 0; //0 for HourOfDay, 1 for DayOfWeek, 2 for MonthOfYear
 
