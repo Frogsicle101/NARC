@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng202.group6.Models.Crime;
-import seng202.group6.Models.CrimeFrequency;
 import seng202.group6.Services.Filter;
 import seng202.group6.Services.SQLiteDatabase;
 
@@ -39,7 +38,7 @@ public class MasterController {
     /**
      * Method to change between scenes in the current window
      * @param screen A string telling the method with screen to switch to
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public void changeScreen(String screen) throws IOException {
 
@@ -51,7 +50,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the home screen
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void changeToHomeScreen() throws IOException {
@@ -61,7 +60,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void changeToMapScreen() throws IOException {
@@ -72,7 +71,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the data screen
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void changeToDataScreen() throws IOException {
@@ -83,7 +82,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the map screen
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void changeToImportScreen() throws IOException {
@@ -93,7 +92,7 @@ public class MasterController {
     /**
      * Method to call change screen method with parameter screen to
      * change current scene to the graph screen
-     * @throws IOException
+     * @throws IOException ioexception
      */
 
     public void changeToGraphScreen() throws IOException {
