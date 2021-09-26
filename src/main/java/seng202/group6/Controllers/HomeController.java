@@ -29,9 +29,6 @@ public class HomeController extends MasterController implements Initializable {
     @FXML
     private Button graphButton;
 
-    @FXML
-    private Text welcomeText;
-
 
     /**
      * Method to override initialise method from Initializable interface. Sets all buttons
@@ -45,6 +42,7 @@ public class HomeController extends MasterController implements Initializable {
         dataButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
         graphButton.setFocusTraversable(false);
+
     }
 
     /**

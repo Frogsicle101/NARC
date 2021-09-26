@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.HomeController">
+<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.HomeController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -56,14 +56,14 @@
       </Pane>
    </left>
    <top>
-      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
    </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="463.0" minWidth="10.0" prefWidth="53.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="809.0" minWidth="10.0" prefWidth="803.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="97.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="463.0" minWidth="10.0" prefWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="1000.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="281.0" minHeight="1.0" prefHeight="84.0" vgrow="SOMETIMES" />
@@ -71,19 +71,17 @@
             <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neighbourhood Analysis and Records of Crime" GridPane.columnIndex="1">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Neighbourhood Analysis and Records of Crime" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
-                  <Font size="25.0" />
+                  <Font size="38.0" />
                </font>
             </Text>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="94.0" prefWidth="776.0" text="In many areas, it can be difficult for people looking for a place to live to find out what the crime rates are like in the area. Neighbourhood Analysis and Records of Crime (NARC) is designed to analyse crime data, so users can see exactly how much crime there is, and what types of crime there are in their area of interest." wrapText="true" />
-                  <Label layoutY="147.0" prefHeight="53.0" prefWidth="776.0" text="In our app you can analyse crime through the &quot;Map&quot; tab to view markers of where crimes exist on a map. To use this functionality search an address in the search bar at the top of the map. " wrapText="true" />
-                  <Label layoutY="200.0" prefHeight="53.0" prefWidth="776.0" text="You can also see the raw data that was imported in table format in the &quot;Data&quot; tab" wrapText="true" />
-                  <Label layoutY="253.0" prefHeight="53.0" prefWidth="776.0" text="Both of theses functionalities allow filtering of data to suit specific needs. To do this use the buttons on the right of either map or data to filter data in or out" wrapText="true" />
-                  <Label layoutY="73.0" prefHeight="83.0" prefWidth="776.0" text="To start out, go to the &quot;Import&quot; tab on left to import crime data. Click &quot;Create new data table&quot; and give it a name. This will now bring you to select a csv formatted file to import into our app" wrapText="true" />
-                  <Label layoutY="318.0" prefHeight="53.0" prefWidth="776.0" text="Lastly you can rank these crimes by crime type, the area of crime, or the time of crime. These rankings will show the frequency of crimes in regards to those specifications. These rankings will work over the filtered data as well. A graph can also be displayed to visually see the frequency of crimes over the time of day." wrapText="true" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="379.0" prefWidth="1079.0" text="In many areas, it can be difficult for people looking for a place to live to find out what the crime rates are like in the area. Neighbourhood Analysis and Records of Crime (NARC) is designed to analyse crime data, so users can see exactly how much crime there is, and what types of crime there are in their area of interest.&#10;&#10;To start out, go to the &quot;Import&quot; tab on left to import crime data. Click &quot;Create new data table&quot; and give it a name. This will now bring you to select a csv formatted file to import into our app&#10;&#10;In our app you can analyse crime through the &quot;Map&quot; tab to view markers of where crimes exist on a map. To use this functionality search an address in the search bar at the top of the map. &#10;&#10;You can also see the raw data that was imported in table format in the &quot;Data&quot; tab&#10;&#10;Both of theses functionalities allow filtering of data to suit specific needs. To do this use the buttons on the right of either map or data to filter data in or out&#10;&#10;Lastly you can rank these crimes by crime type, the area of crime, or the time of crime. These rankings will show the frequency of crimes in regards to those specifications. These rankings will work over the filtered data as well. A graph can also be displayed to visually see the frequency of crimes over the time of day.&#10;&#10;" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                </children>
             </Pane>
          </children>

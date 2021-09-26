@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
+<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -68,46 +68,58 @@
    <center>
       <GridPane BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="24.0" minWidth="1.0" prefWidth="24.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="653.0" minWidth="10.0" prefWidth="651.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="276.0" prefWidth="278.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="920.0" minWidth="50.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="920.0" minWidth="10.0" prefWidth="920.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="250.0" prefWidth="250.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
             <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="500.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="550.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TableView fx:id="tableView" maxWidth="642.0" prefHeight="448.0" prefWidth="645.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TableView fx:id="tableView" maxWidth="920.0" prefHeight="515.0" prefWidth="920.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <columns>
-                  <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="131.0" text="Case Number" />
-                  <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="158.0" text="Primary Description" />
-                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="152.0" text="Location" />
-                  <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="185.0" text="Date" />
+                  <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="95.0" text="Case Number" />
+                  <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="121.66668701171875" text="Date" />
+                  <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="133.33331298828125" text="Primary Description" />
+                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="252.0" text="Location" />
+                  <TableColumn fx:id="beatColumn" prefWidth="75.0" text="Beat" />
+                  <TableColumn fx:id="wardColumn" prefWidth="75.0" text="Ward" />
+                  <TableColumn fx:id="arrestColumn" prefWidth="75.0" text="Arrest" />
+                  <TableColumn fx:id="domesticColumn" prefWidth="75.0" text="Domestic" />
                </columns>
             </TableView>
             <Button fx:id="addCrime" mnemonicParsing="false" onAction="#clickAdd" text="Add Crime" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="175.0" />
+                  <Insets left="280.0" />
                </GridPane.margin>
             </Button>
             <Button fx:id="editCrime" mnemonicParsing="false" onAction="#clickEdit" text="Edit Crime" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="340.0" />
+                  <Insets left="540.0" />
                </GridPane.margin>
             </Button>
             <Button fx:id="deleteCrime" mnemonicParsing="false" onAction="#clickDelete" text="Delete Crime" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets left="30.0" />
                </GridPane.margin>
             </Button>
             <Button fx:id="viewCrime" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets left="500.0" />
+                  <Insets left="790.0" />
                </GridPane.margin>
             </Button>
-            <VBox fx:id="filterBox" prefHeight="448.0" prefWidth="177.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button fx:id="reloadMapButton" mnemonicParsing="false" onAction="#reloadMap" text="Reload Map" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin></Button>
+            <Pane fx:id="mapPane" prefHeight="550.0" prefWidth="920.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin></Pane>
+            <VBox fx:id="filterBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="523.0" prefWidth="254.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter By:" wrappingWidth="143.759765625">
                      <font>
@@ -231,7 +243,8 @@
                         <Button mnemonicParsing="false" onAction="#clickRankArea" prefHeight="26.0" prefWidth="58.0" text="Area">
                            <HBox.margin>
                               <Insets right="10.0" />
-                           </HBox.margin></Button>
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="rankTime" mnemonicParsing="false" onAction="#clickRankTime" prefHeight="26.0" prefWidth="58.0" text="Time" />
                      </children>
                      <VBox.margin>
@@ -244,16 +257,17 @@
                      </VBox.margin>
                   </Button>
                </children>
-               <GridPane.margin>
-                  <Insets left="20.0" right="50.0" />
-               </GridPane.margin>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </VBox>
-            <Button fx:id="reloadMapButton" mnemonicParsing="false" onAction="#reloadMap" text="Reload Map" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Pane fx:id="mapPane" prefHeight="453.0" prefWidth="630.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </center>
    <top>
-      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

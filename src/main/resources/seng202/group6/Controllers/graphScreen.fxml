@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.GraphController">
+<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.GraphController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -57,24 +57,24 @@
       </Pane>
    </left>
    <top>
-      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
    </top>
-   <right>
-      <GridPane prefHeight="526.0" prefWidth="938.0" BorderPane.alignment="CENTER">
+   <center>
+      <GridPane prefHeight="646.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="0.0" prefWidth="39.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="785.0" minWidth="10.0" prefWidth="758.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="25.0" prefWidth="39.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="900.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="10.0" prefWidth="132.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="189.0" minHeight="2.0" prefHeight="72.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="472.0" minHeight="10.0" prefHeight="393.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="75.0" prefHeight="75.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="450.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="88.0" minHeight="125.0" prefHeight="88.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Pane prefHeight="393.0" prefWidth="691.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <LineChart fx:id="lineChart" animated="false" layoutX="14.0" layoutY="9.0" legendVisible="false" prefHeight="375.0" prefWidth="738.0" title="Crime Frequency Over Time">
+                  <LineChart fx:id="lineChart" animated="false" layoutX="14.0" layoutY="9.0" legendVisible="false" prefHeight="450.0" prefWidth="900.0" title="Crime Frequency Over Time">
                     <xAxis>
                       <NumberAxis autoRanging="false" label="Time of Day" minorTickCount="0" minorTickLength="1.0" minorTickVisible="false" side="BOTTOM" tickLength="5.0" tickUnit="1.0" upperBound="23.0" fx:id="xAxis" />
                     </xAxis>
@@ -82,17 +82,17 @@
                       <NumberAxis label="Crime Occurrences" side="LEFT" />
                     </yAxis>
                   </LineChart>
-                  <PieChart fx:id="pieChart" labelLineLength="15.0" layoutX="4.0" layoutY="10.0" legendSide="RIGHT" legendVisible="false" prefHeight="374.0" prefWidth="750.0" title="Crime Frequency by Type" />
+                  <PieChart fx:id="pieChart" labelLineLength="15.0" layoutX="4.0" layoutY="10.0" legendSide="RIGHT" legendVisible="false" prefHeight="450.0" prefWidth="900.0" title="Crime Frequency by Type" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="timeOfDayApply" layoutX="109.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickDay" text="Time of Day" />
-                  <Button fx:id="timeOfWeekApply" layoutX="263.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickWeek" text="Time of Week" />
-                  <Button fx:id="timeOfYearApply" layoutX="432.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickYear" text="Time of year" />
-                  <Button fx:id="pieChartApply" layoutX="598.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickPie" text="Pie chart" />
+                  <Button fx:id="timeOfDayApply" alignment="TOP_LEFT" layoutX="109.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickDay" text="Time of Day" />
+                  <Button fx:id="timeOfWeekApply" layoutX="327.0" layoutY="33.0" mnemonicParsing="false" onAction="#clickWeek" text="Time of Week" />
+                  <Button fx:id="timeOfYearApply" layoutX="547.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickYear" text="Time of year" />
+                  <Button fx:id="pieChartApply" layoutX="786.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickPie" text="Pie chart" />
                </children></Pane>
          </children>
       </GridPane>
-   </right>
+   </center>
 </BorderPane>

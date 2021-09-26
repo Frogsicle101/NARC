@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
+<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -56,23 +56,23 @@
       </Pane>
    </left>
    <top>
-      <Pane prefHeight="147.0" prefWidth="1197.0" style="-fx-background-color: #000;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
    </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="10.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="202.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="202.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="1.7976931348623157E308" minHeight="5.0" prefHeight="600.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="138.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="tableList" prefHeight="500.0" prefWidth="369.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ListView fx:id="tableList" prefHeight="523.0" prefWidth="574.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="currentTableText" wrapText="true">
@@ -140,6 +140,14 @@
                   </Label>
                </children>
             </VBox>
+            <Label text="Current Tables:" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="20.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
    </center>

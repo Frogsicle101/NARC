@@ -49,7 +49,7 @@ public class MasterController {
     public void changeScreen(String screen) throws IOException {
 
         Parent newScreen = FXMLLoader.load(getClass().getResource(screen));
-        Scene newScene = new Scene(newScreen, 1200, 700);
+        Scene newScene = new Scene(newScreen, stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(newScene);
     }
 

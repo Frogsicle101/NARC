@@ -63,6 +63,18 @@ public class DataController extends MasterController implements Initializable {
     private TableColumn<Crime, LocalDateTime> dateColumn;
 
     @FXML
+    private TableColumn<Crime, LocalDateTime> beatColumn;
+
+    @FXML
+    private TableColumn<Crime, LocalDateTime> wardColumn;
+
+    @FXML
+    private TableColumn<Crime, LocalDateTime> arrestColumn;
+
+    @FXML
+    private TableColumn<Crime, LocalDateTime> domesticColumn;
+
+    @FXML
     private Button viewCrime;
 
     @FXML
@@ -130,6 +142,7 @@ public class DataController extends MasterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         homeButton.setFocusTraversable(false);
         mapButton.setFocusTraversable(false);
         importButton.setFocusTraversable(false);
@@ -149,6 +162,11 @@ public class DataController extends MasterController implements Initializable {
         primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
+        wardColumn.setCellValueFactory(new PropertyValueFactory<>("ward"));
+        beatColumn.setCellValueFactory(new PropertyValueFactory<>("beat"));
+        arrestColumn.setCellValueFactory(new PropertyValueFactory<>("arrest"));
+        domesticColumn.setCellValueFactory(new PropertyValueFactory<>("domestic"));
+
 
         tableView.setItems(FXCollections.observableArrayList(crimeData));
 
