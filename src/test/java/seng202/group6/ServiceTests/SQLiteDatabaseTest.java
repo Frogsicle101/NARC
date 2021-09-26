@@ -42,15 +42,18 @@ public class SQLiteDatabaseTest {
 
     @Test
     public void createTableTest() throws SQLException {
-        ResultSet tableNames = null;
-        SQLiteDatabase.createTable("test");
-        tableNames = SQLiteDatabase.getTableNames();
-        assertEquals("test", tableNames.getString(1));
-        tableNames.close();
+        ResultSet tableNames;
+        SQLiteDatabase.createTable(tableName);
+
+        String sql = "SELECT name FROM sqlite_master WHERE type ='table' AND name = '" + tableName + "';";
+        ResultSet result = SQLiteDatabase.executeQuery(sql);
+        SQLiteDatabase.endTransaction();
+        assertEquals(result.getString(1), tableName);
+        result.close();
     }
 
     @Test
-    public void insertIntoTableTest() {
+    public void insertIntoTableTest() throws SQLException {
         Crime testCrime1 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
@@ -61,29 +64,27 @@ public class SQLiteDatabaseTest {
                 "RESIDENCE - PORCH / HALLWAY", 41.684663397, -87.628870501);
         ResultSet result;
         int numCrimes = 0;
-        try {
-            SQLiteDatabase.insertIntoTable(tableName, testCrime1);
-            SQLiteDatabase.insertIntoTable(tableName, testCrime2);
-            result = SQLiteDatabase.selectAllFromTable(tableName);
 
-            while(result.next()) {
-                numCrimes++;
-            }
-            result.close();
-            SQLiteDatabase.endTransaction();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        SQLiteDatabase.insertIntoTable(tableName, testCrime1);
+        SQLiteDatabase.insertIntoTable(tableName, testCrime2);
+        result = SQLiteDatabase.selectAllFromTable(tableName);
+
+        while(result.next()) {
+            numCrimes++;
         }
+        result.close();
+        SQLiteDatabase.endTransaction();
+
         assertEquals(2, numCrimes);
     }
 
     @Test
     public void insertDuplicateCrimeTest() throws SQLException {
-        Crime testCrime1 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
+        Crime testCrime1 = new Crime("JE277728", LocalDateTime.parse("2021-06-15T09:30"),
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
                 "STREET", 41.748486365, -87.602675062);
-        Crime testCrime2 = new Crime("JE266628", LocalDateTime.parse("2021-06-15T09:30"),
+        Crime testCrime2 = new Crime("JE277728", LocalDateTime.parse("2021-06-15T09:30"),
                 "080XX S DREXEL AVE", "820", "THEFT",
                 "$500 AND UNDER", false, false, 631, 8, "6",
                 "STREET", 41.748486365, -87.602675062);
