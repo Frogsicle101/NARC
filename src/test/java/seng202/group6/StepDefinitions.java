@@ -8,14 +8,11 @@ import org.junit.Assert;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Frequency;
 import seng202.group6.Models.TimeType;
-import seng202.group6.Services.Filter;
-import seng202.group6.Services.RankService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seng202.group6.Services.RankService.*;
 
 
