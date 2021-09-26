@@ -138,7 +138,7 @@ public class MasterController {
         ViewRankingController controller = loader.getController();
         controller.initialize(title, data);
 
-        Scene newScene = new Scene(newScreen, 700, 500);
+        Scene newScene = new Scene(newScreen, 600, 550);
         viewStage.setScene(newScene);
         viewStage.show();
     }

@@ -25,7 +25,7 @@ public class ViewRankingController {
      */
     public void initialize(String title, ArrayList<Frequency> data) {
 
-
+        tableView.setFocusTraversable(false);
         valueColumn.setText(title);
 
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
