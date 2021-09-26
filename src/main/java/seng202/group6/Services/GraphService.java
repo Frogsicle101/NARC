@@ -10,7 +10,7 @@ import java.util.Comparator;
 
 
 
-import static seng202.group6.Services.Rank.rankedTimeList;
+import static seng202.group6.Services.RankService.rankedTimeList;
 
 public class GraphService {
 

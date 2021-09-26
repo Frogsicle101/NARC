@@ -9,6 +9,22 @@ public class Frequency {
         this.count = count;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Frequency) {
+            Frequency otherFrequency = (Frequency) other;
+            return otherFrequency.getValue().equals(value) && otherFrequency.getCount() == count;
+        } else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return value + ": " + count;
+    }
+
     public String getValue() {
         return value;
     }

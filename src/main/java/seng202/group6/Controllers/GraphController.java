@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 import static seng202.group6.Services.GraphService.*;
-import static seng202.group6.Services.Rank.rankedTypeList;
+import static seng202.group6.Services.RankService.rankedTypeList;
 
 /**
  * Controller class for Graph screen in user interface, associated with graphScreen.fxml.
@@ -129,7 +129,6 @@ public class GraphController extends MasterController implements Initializable {
      */
     public void clickDay() throws IOException {
         pieChart.setVisible(false);
-        xAxis.forceZeroInRangeProperty();
         timeType = TimeType.HOUR_OF_DAY;
         xAxis.setLabel("Time of Day");
         applyChart();
