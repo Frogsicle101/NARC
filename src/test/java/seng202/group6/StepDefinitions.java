@@ -19,19 +19,7 @@ import static seng202.group6.Services.RankService.*;
 
 public class StepDefinitions {
 
-    int number;
-
-    @Given("my favourite number is {int}")
-    public void my_favourite_number_is(Integer number) {
-        this.number = number;
-    }
-
-    @Then("the number is {int}")
-    public void the_number_is(Integer number) {
-        assertEquals(this.number, number);
-    }
-
-    //First cucumber test for ranking a crime by crime type??
+    //First cucumber test for ranking a crime by crime type
     ArrayList<Crime> crimeArrayList = new ArrayList<>();
     ArrayList<Frequency> expectedCrimeList = new ArrayList<>();
 
