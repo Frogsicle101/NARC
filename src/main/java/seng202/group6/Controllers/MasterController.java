@@ -22,7 +22,7 @@ public class MasterController {
 
 
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
-    protected static ArrayList<Crime> unfilteredData;
+    protected static ArrayList<Crime> unfilteredData = new ArrayList<>();
     protected static Crime currentCrime;
     protected static Stage stage;
     protected static Filter dataFilter;
