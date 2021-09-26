@@ -22,6 +22,7 @@ public class MasterController {
 
 
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
+    protected static ArrayList<Crime> unfilteredData;
     protected static Crime currentCrime;
     protected static Stage stage;
     protected static Filter dataFilter;
@@ -37,6 +38,7 @@ public class MasterController {
         //Populates crimeData arraylist from database
         try {
             crimeData = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
+            unfilteredData = crimeData;
         } catch (SQLException e) {
             System.out.println("Error in MasterController.populateCrimeArray" + e);
         }
