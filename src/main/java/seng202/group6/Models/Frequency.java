@@ -20,6 +20,8 @@ public class Frequency {
 
     }
 
+    public String getTime() {return value + ":00";}
+
     @Override
     public String toString() {
         return value + ": " + count;
