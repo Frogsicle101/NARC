@@ -32,6 +32,7 @@ public class DataController extends MasterController implements Initializable {
     private Set<String> locations = new HashSet<>();
 
 
+
     @FXML
     private Button homeButton;
 
@@ -346,7 +347,7 @@ public class DataController extends MasterController implements Initializable {
      * sets are then used to populate the filter dropdown menu for their corresponding fields.
      */
     private void buildFilterSets() {
-        for (Crime crime :crimeData) {
+        for (Crime crime : unfilteredData) {
             types.add(crime.getPrimaryDescription());
             locations.add(crime.getLocationDescription());
         }
