@@ -6,14 +6,12 @@ import com.opencsv.exceptions.CsvValidationException;
 import seng202.group6.Models.Crime;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class ParserService {
     /**

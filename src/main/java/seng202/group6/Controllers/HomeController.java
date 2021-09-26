@@ -3,7 +3,6 @@ package seng202.group6.Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;

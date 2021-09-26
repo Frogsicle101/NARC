@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static java.lang.String.valueOf;
 import static seng202.group6.Services.GraphService.*;
 import static seng202.group6.Services.RankService.rankedTypeList;
 
