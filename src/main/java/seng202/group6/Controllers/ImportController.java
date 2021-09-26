@@ -211,10 +211,8 @@ public class ImportController extends MasterController implements Initializable 
                 } catch (SQLException e) {
                     (new Alert(Alert.AlertType.ERROR, "Unable to add to database")).show();
                     e.printStackTrace();
-                } catch (CsvValidationException e) {
+                } catch (CsvValidationException | IOException e) {
                     (new Alert(Alert.AlertType.ERROR, "Unable to read file")).show();
-                } catch (IOException e) {
-                    (new Alert(Alert.AlertType.ERROR, "File not found")).show();
                 }
             }
         }
@@ -234,10 +232,8 @@ public class ImportController extends MasterController implements Initializable 
                 uploadFile(tableName);
             } catch (SQLException e) {
                 (new Alert(Alert.AlertType.ERROR, "Unable to add to database")).show();
-            } catch (CsvValidationException e) {
+            } catch (CsvValidationException | IOException e) {
                 (new Alert(Alert.AlertType.ERROR, "Unable to read file")).show();
-            } catch (IOException e) {
-                (new Alert(Alert.AlertType.ERROR, "File not found")).show();
             }
         } else {
             noDataSelected.setVisible(true);
