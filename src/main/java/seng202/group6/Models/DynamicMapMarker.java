@@ -1,7 +1,5 @@
 package seng202.group6.Models;
 
-import java.time.LocalDateTime;
-
 /**
  * Model for dynamic map markers which allow easily forming JSON.
  */

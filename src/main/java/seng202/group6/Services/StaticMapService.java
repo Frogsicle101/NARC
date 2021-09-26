@@ -1,14 +1,23 @@
 package seng202.group6.Services;
 
-import com.google.maps.*;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.ImageResult;
+import com.google.maps.StaticMapsApi;
+import com.google.maps.StaticMapsRequest;
+import com.google.maps.StaticMapsRequest.Markers;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.*;
-import com.google.maps.StaticMapsRequest.*;
+import com.google.maps.model.AddressComponent;
+import com.google.maps.model.AddressComponentType;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
+import com.google.maps.model.Size;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.embed.swing.SwingFXUtils;

@@ -28,7 +28,12 @@ public class ViewRankingController {
         tableView.setFocusTraversable(false);
         valueColumn.setText(title);
 
-        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+        if (title.equals("Hour")) {
+            valueColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        } else {
+            valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+        }
+
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<>("count"));
         tableView.setItems(FXCollections.observableArrayList(data));
 

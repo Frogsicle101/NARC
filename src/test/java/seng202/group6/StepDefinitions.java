@@ -1,5 +1,6 @@
 package seng202.group6;
 
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,19 +8,17 @@ import org.junit.Assert;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.Frequency;
 import seng202.group6.Models.TimeType;
-import seng202.group6.Services.RankService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seng202.group6.Services.RankService.*;
 
 
 public class StepDefinitions {
 
-    //First cucumber test for ranking a crime by crime type
+    //Ranking 1: by crime type
     ArrayList<Crime> crimeArrayList = new ArrayList<>();
     ArrayList<Frequency> expectedCrimeList = new ArrayList<>();
 
@@ -41,7 +40,7 @@ public class StepDefinitions {
         assert(expectedCrimeList.get(0).equals(freq));
     }
 
-    //second test crime by area
+    //Ranking 2: crime by area
     ArrayList<Crime> crimeAreaArrayList = new ArrayList<>();
     ArrayList<Frequency> expectedAreaCrimeList = new ArrayList<>();
 
@@ -69,7 +68,7 @@ public class StepDefinitions {
         assert(expectedAreaCrimeList.get(1).equals(freq2));
     }
 
-    //third ranking of crimes by time
+    //Ranking 3: crimes by time
     ArrayList<Crime> crimeTimeArrayList = new ArrayList<>();
     ArrayList<Frequency> expectedTimeCrimeList = new ArrayList<>();
 

@@ -2,7 +2,6 @@ package seng202.group6.Models;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-//TODO put analytical stuff into services as static methods
 /**
  * Crime is a model class, used to model each class that is fed into the database.
  * It stores all attributes of the crime it represents
