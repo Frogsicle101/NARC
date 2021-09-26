@@ -87,10 +87,22 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="timeOfDayApply" alignment="TOP_LEFT" layoutX="109.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickDay" text="Time of Day" />
-                  <Button fx:id="timeOfWeekApply" layoutX="327.0" layoutY="33.0" mnemonicParsing="false" onAction="#clickWeek" text="Time of Week" />
-                  <Button fx:id="timeOfYearApply" layoutX="547.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickYear" text="Time of year" />
-                  <Button fx:id="pieChartApply" layoutX="786.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickPie" text="Pie chart" />
+                  <Button fx:id="timeOfDayApply" alignment="TOP_LEFT" layoutX="109.0" layoutY="31.0" mnemonicParsing="false" onAction="#clickDay" text="Time of Day">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="timeOfWeekApply" layoutX="327.0" layoutY="33.0" mnemonicParsing="false" onAction="#clickWeek" text="Time of Week">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="timeOfYearApply" layoutX="547.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickYear" text="Time of year">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="pieChartApply" layoutX="786.0" layoutY="32.0" mnemonicParsing="false" onAction="#clickPie" text="Pie chart">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children></Pane>
          </children>
       </GridPane>

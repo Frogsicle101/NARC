@@ -25,7 +25,7 @@
                   <Font size="35.0" />
                </font>
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
             <Button fx:id="dataButton" layoutY="158.0" mnemonicParsing="false" onAction="#clickData" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Data" textFill="WHITE">

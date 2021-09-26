@@ -45,6 +45,9 @@
                <font>
                   <Font size="35.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="importButton" layoutY="237.0" mnemonicParsing="false" onAction="#clickImport" prefHeight="79.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" text="Import" textFill="WHITE">
                <font>
@@ -95,26 +98,41 @@
                <GridPane.margin>
                   <Insets left="280.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="editCrime" mnemonicParsing="false" onAction="#clickEdit" text="Edit Crime" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="540.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="deleteCrime" mnemonicParsing="false" onAction="#clickDelete" text="Delete Crime" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="30.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="viewCrime" mnemonicParsing="false" onAction="#selectCrime" text="View More Info" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="790.0" />
                </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="reloadMapButton" mnemonicParsing="false" onAction="#reloadMap" text="Reload Map" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="50.0" />
-               </GridPane.margin></Button>
+               </GridPane.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
             <Pane fx:id="mapPane" prefHeight="550.0" prefWidth="920.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="50.0" />
@@ -227,6 +245,9 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Label prefHeight="17.0" prefWidth="174.0" text="Rank By:">
                      <VBox.margin>
@@ -239,13 +260,23 @@
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#clickRankArea" prefHeight="26.0" prefWidth="58.0" text="Area">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
-                        <Button fx:id="rankTime" mnemonicParsing="false" onAction="#clickRankTime" prefHeight="26.0" prefWidth="58.0" text="Time" />
+                        <Button fx:id="rankTime" mnemonicParsing="false" onAction="#clickRankTime" prefHeight="26.0" prefWidth="58.0" text="Time">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets top="5.0" />
@@ -255,6 +286,9 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <padding>
