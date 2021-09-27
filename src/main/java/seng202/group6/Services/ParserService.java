@@ -79,15 +79,12 @@ public class ParserService {
         int day = Integer.parseInt(date.substring(3, 5));
         int month = Integer.parseInt(date.substring(0, 2));
         int year = Integer.parseInt(date.substring(6, 10));
-        if (date.endsWith("PM")){
+        if (date.endsWith("PM") && hour != 12){
             hour += 12;
-            if(hour == 24){
-                hour = 0;
-            }
+        }else if(date.endsWith("AM") && hour == 12){
+            hour = 0;
         }
 
-        LocalDateTime dateTime = LocalDateTime.of(year, month, day, hour, minute, second);
-
-        return dateTime;
+        return LocalDateTime.of(year, month, day, hour, minute, second);
     }
 }
