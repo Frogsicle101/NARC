@@ -33,4 +33,4 @@ fabric.properties
 
 # Files which hold the api key for Google Maps Api
 src/main/java/seng202/group6/DynamicMapSRC/ApiKey.java
-src/main/java/seng202/group6/DynamicMapSRC/JavascriptConfig.js
+src/main/resources/seng202/group6/HTML/JavascriptConfig.js

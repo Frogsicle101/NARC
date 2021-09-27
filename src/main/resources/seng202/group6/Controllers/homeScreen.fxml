@@ -56,7 +56,7 @@
       </Pane>
    </left>
    <top>
-      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="1500.0" style="-fx-background-image: url('file:src/main/resources/seng202/group6/Images/banner.png'); -fx-background-position: center;" BorderPane.alignment="CENTER" />
    </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">

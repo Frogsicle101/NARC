@@ -42,9 +42,8 @@ public class DynamicMapService {
         WebEngine webEngine = mapView.getEngine();
         window = (JSObject) mapView.getEngine().executeScript("window");
         window.setMember("javascriptMethods", javascript);
-        File file = new File("src/main/java/seng202/group6/DynamicMapSRC/EmbedMaps.html");
         try {
-            webEngine.load(file.toURI().toString());
+            webEngine.load(DynamicMapService.class.getResource("/seng202/group6/HTML/EmbedMaps.html").toExternalForm());
         } catch (Exception e) {
             System.out.println("Error in initializeDynamicMap: " + e);
         }
