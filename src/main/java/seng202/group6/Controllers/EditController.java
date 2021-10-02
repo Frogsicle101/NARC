@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -117,34 +118,66 @@ public class EditController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickApply(ActionEvent event) throws IOException {
-        int beatNum;
-        int wardNum;
-        try {
-            beatNum = Integer.parseInt(beat.getText());
-            wardNum = Integer.parseInt(ward.getText());
+        Crime editedCrime = new Crime();
 
+        try {
+            if (beat.getText() == null || beat.getText().equals("")) {
+                editedCrime.setBeat(0);
+            } else {
+                editedCrime.setBeat(Integer.parseInt(beat.getText()));
+            }
         } catch (NumberFormatException e) {
-            (new Alert(Alert.AlertType.ERROR, "Beat or Ward formatted incorrectly")).show();
+            (new Alert(Alert.AlertType.ERROR, "Beat formatted incorrectly")).show();
+            return;
+        }
+
+        try {
+            if (ward.getText() == null || ward.getText().equals("")) {
+                editedCrime.setWard(0);
+            }  else {
+                editedCrime.setWard(Integer.parseInt(ward.getText()));
+            }
+        } catch (NumberFormatException e) {
+            (new Alert(Alert.AlertType.ERROR, "Ward formatted incorrectly")).show();
+            return;
+        }
+
+        try {
+            if (latitude.getText() == null || latitude.getText().equals("")) {
+                editedCrime.setLatitude(0);
+            }  else {
+                editedCrime.setLatitude(Double.parseDouble(latitude.getText()));
+            }
+        } catch (NumberFormatException e){
+            (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly")).show();
+            return;
+        }
+
+        try {
+            if (longitude.getText() == null || longitude.getText().equals("")) {
+                editedCrime.setLongitude(0);
+            }  else {
+                editedCrime.setLongitude(Double.parseDouble(longitude.getText()));
+            }
+        } catch (NumberFormatException e){
+            (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly")).show();
             return;
         }
 
         currentCrime.setDate(LocalDateTime.of(date.getValue(), LocalTime.MIDNIGHT));
-        MasterController.currentCrime.setBeat(Integer.parseInt(beat.getText()));
-        MasterController.currentCrime.setWard(Integer.parseInt(ward.getText()));
-        MasterController.currentCrime.setCaseNumber(caseNumber.getText());
-        MasterController.currentCrime.setBlock(block.getText());
-        MasterController.currentCrime.setIucr(IUCR.getText());
-        MasterController.currentCrime.setPrimaryDescription(primaryDescription.getText());
-        MasterController.currentCrime.setSecondaryDescription(secondaryDescription.getText());
-        MasterController.currentCrime.setLocationDescription(location.getText());
-        MasterController.currentCrime.setArrest(arrest.isSelected());
-        MasterController.currentCrime.setDomestic(domestic.isSelected());
-        MasterController.currentCrime.setFBI(fbiCD.getText());
-        MasterController.currentCrime.setBeat(beatNum);
-        MasterController.currentCrime.setWard(wardNum);
-        MasterController.currentCrime.setLatitude(Double.parseDouble(latitude.getText()));
-        MasterController.currentCrime.setLongitude(Double.parseDouble(longitude.getText()));
-
+        currentCrime.setCaseNumber(caseNumber.getText());
+        currentCrime.setBlock(block.getText());
+        currentCrime.setIucr(IUCR.getText());
+        currentCrime.setPrimaryDescription(primaryDescription.getText());
+        currentCrime.setSecondaryDescription(secondaryDescription.getText());
+        currentCrime.setLocationDescription(location.getText());
+        currentCrime.setArrest(arrest.isSelected());
+        currentCrime.setDomestic(domestic.isSelected());
+        currentCrime.setFBI(fbiCD.getText());
+        currentCrime.setWard(editedCrime.getWard());
+        currentCrime.setBeat(editedCrime.getBeat());
+        currentCrime.setLatitude(editedCrime.getLatitude());
+        currentCrime.setLongitude(editedCrime.getLongitude());
 
         try {
             if (isNewCrime) {
@@ -157,9 +190,11 @@ public class EditController extends MasterController implements Initializable {
             SQLiteDatabase.endTransaction();
 
             changeToDataScreen();
+
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
         } catch (SQLException e) {
             (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database")).show();
+            e.printStackTrace();
         }
 
     }

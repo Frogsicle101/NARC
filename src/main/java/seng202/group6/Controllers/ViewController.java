@@ -78,19 +78,19 @@ public class ViewController extends MasterController implements Initializable {
         crimes.add(viewedCrime);
 
         caseNumber.setText(viewedCrime.getCaseNumber());
-        date.setText(viewedCrime.getDate().toString());
+        date.setText(viewedCrime.getReadableDate());
         block.setText(viewedCrime.getBlock());
         IUCR.setText(viewedCrime.getIucr());
         primaryDescription.setText(viewedCrime.getPrimaryDescription());
         secondaryDescription.setText(viewedCrime.getSecondaryDescription());
         location.setText(viewedCrime.getLocationDescription());
-        arrest.setText(Boolean.toString(viewedCrime.isArrest()));
-        domestic.setText(Boolean.toString(viewedCrime.isDomestic()));
-        beat.setText(Integer.toString(viewedCrime.getBeat()));
-        ward.setText(Integer.toString(viewedCrime.getWard()));
+        arrest.setText(viewedCrime.isArrest() == true ? "YES" : "NO");
+        domestic.setText(viewedCrime.isArrest() == true ? "YES" : "NO");
+        beat.setText(viewedCrime.getReadableBeat());
+        ward.setText(viewedCrime.getReadableWard());
         fbiCD.setText(viewedCrime.getFBI());
-        latitude.setText(Double.toString(viewedCrime.getLatitude()));
-        longitude.setText(Double.toString(viewedCrime.getLongitude()));
+        latitude.setText(viewedCrime.getReadableLatitude());
+        longitude.setText(viewedCrime.getReadableLongitude());
 
         imageView.setImage(StaticMapService.getStaticMap(centre, crimes, 261, 182));
     }

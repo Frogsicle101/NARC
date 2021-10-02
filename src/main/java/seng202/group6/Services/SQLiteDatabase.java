@@ -42,16 +42,16 @@ public class SQLiteDatabase {
         String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ " (" +
                 "case_id CHAR(8) PRIMARY KEY," +
                 "occurrence_date VARCHAR(21) NOT NULL, " +
-                "block VARCHAR(50) NOT NULL," +
-                "iucr CHAR(4) NOT NULL," +
+                "block VARCHAR(50)," +
+                "iucr CHAR(4)," +
                 "primary_description VARCHAR(50) NOT NULL," +
-                "secondary_description VARCHAR(50) NOT NULL," +
+                "secondary_description VARCHAR(50)," +
                 "location VARCHAR(50)," +
-                "arrest BOOL NOT NULL," +
-                "domestic  BOOL NOT NULL," +
-                "beat INT NOT NULL," +
-                "ward INT NOT NULL," +
-                "fbi_cd VARCHAR(3) NOT NULL," +
+                "arrest BOOL," +
+                "domestic  BOOL," +
+                "beat INT," +
+                "ward INT," +
+                "fbi_cd VARCHAR(3)," +
                 "latitude DECIMAL," +
                 "longitude DECIMAL" +
                 ")";
@@ -86,8 +86,8 @@ public class SQLiteDatabase {
                 "secondary_description = '" + crime.getSecondaryDescription() + "', " +
                 "arrest = " + crime.isArrest() + ", " +
                 "domestic = " + crime.isDomestic() + ", " +
-                "beat = " + crime.getBeat() + ", " +
-                "ward = " + crime.getWard() + ", " +
+                "beat = " + (crime.getBeat() == (-1) ? "NULL" : crime.getBeat()) + ", " +
+                "ward = " + (crime.getWard() == (-1) ? "NULL" : crime.getWard()) + ", " +
                 "fbi_cd = '" + crime.getFBI() + "', " +
                 "block = '" + crime.getBlock() + "', " +
                 "iucr = '" + crime.getIucr() + "', " +

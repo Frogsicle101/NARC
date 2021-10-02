@@ -163,12 +163,13 @@ public class DataController extends MasterController implements Initializable {
         primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("readableLocation"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
-        wardColumn.setCellValueFactory(new PropertyValueFactory<>("ward"));
-        beatColumn.setCellValueFactory(new PropertyValueFactory<>("beat"));
+        wardColumn.setCellValueFactory(new PropertyValueFactory<>("readableWard"));
+        beatColumn.setCellValueFactory(new PropertyValueFactory<>("readableBeat"));
         arrestColumn.setCellValueFactory(new PropertyValueFactory<>("readableArrest"));
         domesticColumn.setCellValueFactory(new PropertyValueFactory<>("readableDomestic"));
-
-
+        try {
+            System.out.println(currentCrime.getWard());
+        } catch (Exception e){}
         tableView.setItems(FXCollections.observableArrayList(crimeData));
 
         if (!choseMap) {

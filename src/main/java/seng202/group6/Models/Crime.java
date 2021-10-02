@@ -180,8 +180,16 @@ public class Crime {
         return beat;
     }
 
+    public String getReadableBeat() {
+        return beat == (0) ? "NOT GIVEN" : Integer.toString(beat);
+    }
+
     public int getWard() {
         return ward;
+    }
+
+    public String getReadableWard() {
+        return ward == (0) ? "NOT GIVEN" : Integer.toString(ward);
     }
 
     public String getLocationDescription() {
@@ -196,8 +204,16 @@ public class Crime {
         return latitude;
     }
 
+    public String getReadableLatitude() {
+        return latitude == (0) ? "NOT GIVEN" : Double.toString(latitude);
+    }
+
     public double getLongitude() {
         return longitude;
+    }
+
+    public String getReadableLongitude() {
+        return longitude == (0) ? "NOT GIVEN" : Double.toString(longitude);
     }
 
     public void setCaseNumber(String caseNumber) {
