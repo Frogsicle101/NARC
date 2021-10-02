@@ -161,7 +161,7 @@ public class DataController extends MasterController implements Initializable {
         filterBox.setVisible(true);
         caseNumColumn.setCellValueFactory(new PropertyValueFactory<>("caseNumber"));
         primaryDescColumn.setCellValueFactory(new PropertyValueFactory<>("primaryDescription"));
-        locationColumn.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("readableLocation"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("readableDate"));
         wardColumn.setCellValueFactory(new PropertyValueFactory<>("ward"));
         beatColumn.setCellValueFactory(new PropertyValueFactory<>("beat"));
