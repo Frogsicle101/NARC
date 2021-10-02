@@ -135,7 +135,15 @@ public class Crime {
 
     public boolean getArrest() { return this.arrest;}
 
+    public String getReadableArrest() {
+        return this.arrest == true ? "YES" : "NO";
+    }
+
     public boolean getDomestic() {return this.domestic;}
+
+    public String getReadableDomestic() {
+        return this.domestic == true ? "YES" : "NO";
+    }
 
     public String getCaseNumber() {return caseNumber;}
 
