@@ -197,7 +197,7 @@ public class Crime {
     }
 
     public String getReadableLocation() {
-        return locationDescription.equals("NULL") ? "NO LOCATION GIVEN" : locationDescription;
+        return locationDescription.equals("NULL") || locationDescription.equals("") ? "NO LOCATION GIVEN" : locationDescription;
     }
 
     public double getLatitude() {

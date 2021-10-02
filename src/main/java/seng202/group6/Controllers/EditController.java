@@ -118,6 +118,7 @@ public class EditController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickApply(ActionEvent event) throws IOException {
+
         Crime editedCrime = new Crime();
 
         try {
@@ -161,6 +162,11 @@ public class EditController extends MasterController implements Initializable {
             }
         } catch (NumberFormatException e){
             (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly")).show();
+            return;
+        }
+
+        if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
+            (new Alert(Alert.AlertType.ERROR, "Case number formatted incorrectly")).show();
             return;
         }
 
