@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 
 import seng202.group6.Models.Frequency;
@@ -15,6 +12,7 @@ import seng202.group6.Models.TimeType;
 
 import java.io.IOException;
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -43,22 +41,17 @@ public class GraphController extends MasterController implements Initializable {
     private PieChart pieChart;
 
     @FXML
-    private LineChart<Number, Number> lineChart;
+    private LineChart<String, Number> lineChart;
 
     @FXML
-    public NumberAxis xAxis;
+    public CategoryAxis xAxis;
 
     private TimeType timeType = TimeType.HOUR_OF_DAY;
 
     private boolean flag = false;
 
-    private XYChart.Series<Number, Number> oldData = null;
-
-    private boolean dataUpdate = false;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //lineChart.getData().clear(); //wonder whether needed anymore
 
         flag = false;
 
@@ -74,8 +67,6 @@ public class GraphController extends MasterController implements Initializable {
         homeButton.setFocusTraversable(false);
 
         pieChart.setVisible(false);
-
-        xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
 
     }
 
@@ -112,15 +103,9 @@ public class GraphController extends MasterController implements Initializable {
      * already been made and if so it doesn't make it
      */
     private void applyChart() throws IOException {
-        XYChart.Series<Number, Number> series = getChartData(timeType, crimeData);
-        if (oldData == null || series.getData().size() != oldData.getData().size()) {
-            oldData = series;
-            lineChart.getData().clear();
-            lineChart.getData().add(series);
-            xAxis.setUpperBound(maxValue -1);
-            xAxis.setLowerBound(minValue);
-            dataUpdate = true;
-        }
+        XYChart.Series<String, Number> series = getChartData(timeType, crimeData);
+        lineChart.getData().clear();
+        lineChart.getData().add(series);
     }
 
     /**
@@ -131,16 +116,7 @@ public class GraphController extends MasterController implements Initializable {
         timeType = TimeType.HOUR_OF_DAY;
         xAxis.setLabel("Time of Day");
         applyChart();
-        if (dataUpdate) {
-            int i;
-            for (i = 0; i < 24; i++) {
-                //todo
-                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, ":00"));
-            }
-
-        }
         lineChart.setVisible(true);
-        dataUpdate = false;
 
     }
 
@@ -150,19 +126,9 @@ public class GraphController extends MasterController implements Initializable {
     public void clickWeek() throws IOException {
         pieChart.setVisible(false);
         timeType = TimeType.DAY_OF_WEEK;
-        xAxis.setLabel("Time of Week");
+        xAxis.setLabel("Day of Week");
         applyChart();
-        if (dataUpdate) {
-            String[] days = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-            int i;
-            for (i = 0; i < 7; i++) {
-                //todo
-                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
-            }
-
-        }
         lineChart.setVisible(true);
-        dataUpdate = false;
     }
 
 
@@ -172,18 +138,8 @@ public class GraphController extends MasterController implements Initializable {
     public void clickYear() throws IOException {
         pieChart.setVisible(false);
         timeType = TimeType.MONTH_OF_YEAR;
-        xAxis.setLabel("Time of Year");
+        xAxis.setLabel("Month of Year");
         applyChart();
-        if (dataUpdate) {
-
-            int i;
-            for (i = 0; i < 12; i++) {
-                //todo
-                xAxis.setTickLabelFormatter(new NumberAxis.DefaultFormatter(xAxis, null, null));
-            }
-
-        }
-        dataUpdate = false;
         lineChart.setVisible(true);
     }
 
@@ -198,6 +154,7 @@ public class GraphController extends MasterController implements Initializable {
         for (Frequency crimeType : data) {
             pcd.add(new PieChart.Data(crimeType.getValue(), crimeType.getCount()));
         }
+
         if (!flag) {
             pieChart.setData(pcd);
         }
