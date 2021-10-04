@@ -15,7 +15,9 @@ import seng202.group6.Services.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -241,7 +243,7 @@ public class DataController extends MasterController implements Initializable {
      */
     public void clickApply() {
         Filter filter = new Filter();
-        filter.setStart(startDate.getValue());
+        filter.setStart(startDate.getValue()); // need to fix this shit with a try exception
         filter.setEnd(endDate.getValue());
 
         HashSet<String> selectedTypes = new HashSet<>();

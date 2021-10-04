@@ -190,7 +190,8 @@ public class Filter {
     public void setBeats(String beatString) {
         if (!beatString.isEmpty()) {
             for (String beat : beatString.split(",\\s*")) {
-                beats.add(Integer.parseInt(beat));
+                if (beat.matches("[0-9]+")){
+                    beats.add(Integer.parseInt(beat));}
             }
         }
     }
@@ -202,7 +203,9 @@ public class Filter {
     public void setWards(String wardString) {
         if (!wardString.isEmpty()) {
             for (String ward : wardString.split(",\\s*")) {
-                wards.add(Integer.parseInt(ward));
+                if (ward.matches("[0-9]+")) {
+                    wards.add(Integer.parseInt(ward));
+                }
             }
         }
 
