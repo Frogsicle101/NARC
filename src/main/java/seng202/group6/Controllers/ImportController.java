@@ -198,11 +198,20 @@ public class ImportController extends MasterController implements Initializable 
 
         // returns String optional
         Optional<String> tableName = txtDlg.showAndWait();
+        boolean validName = true;
 
-        if (!tableName.isEmpty()) {
-            if (tableName.equals("")) {
-                (new Alert(Alert.AlertType.ERROR, "Invalid table name: cannot be empty")).show();
-            } else {
+        if (tableName.isPresent()) {
+            if (tableName.get().equals("")) {
+                (new Alert(Alert.AlertType.ERROR, "Invalid table name: Cannot be empty")).show();
+                validName = false;
+            } else if (tableName.get().contains(" ")) {
+                (new Alert(Alert.AlertType.ERROR, "Invalid table name: Cannot contain spaces")).show();
+                validName = false;
+            } else if (!Character.isLetter(tableName.get().charAt(0))) {
+                (new Alert(Alert.AlertType.ERROR, "Invalid table name: Must start with an alphabetical letter")).show();
+                validName = false;
+            }
+            if (validName) {
                 try {
                     SQLiteDatabase.createTable(tableName.get());
                     uploadFile(tableName.get());
@@ -216,6 +225,7 @@ public class ImportController extends MasterController implements Initializable 
                 }
             }
         }
+
     }
 
     /**
@@ -261,9 +271,11 @@ public class ImportController extends MasterController implements Initializable 
                 tableList.setItems(FXCollections.observableArrayList(tableNames));
 
                 try {
-                    MasterController.populateCrimeArray(getFirstTable());
+                    currentTable = getFirstTable();
+                    MasterController.populateCrimeArray(currentTable);
                     currentTableText.setText("You are currently viewing: " + getFirstTable());
                 } catch (SQLException e) {
+                    currentTableText.setText("You are currently viewing: No table selected");
                     crimeData = new ArrayList<>(); //if there is no more tables in database, sets data to empty list
                 }
 

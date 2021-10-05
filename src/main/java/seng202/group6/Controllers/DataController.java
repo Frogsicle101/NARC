@@ -63,19 +63,19 @@ public class DataController extends MasterController implements Initializable {
     private TableColumn<Crime, String> locationColumn;
 
     @FXML
-    private TableColumn<Crime, LocalDateTime> dateColumn;
+    private TableColumn<Crime, String> dateColumn;
 
     @FXML
-    private TableColumn<Crime, LocalDateTime> beatColumn;
+    private TableColumn<Crime, String> beatColumn;
 
     @FXML
-    private TableColumn<Crime, LocalDateTime> wardColumn;
+    private TableColumn<Crime, String> wardColumn;
 
     @FXML
-    private TableColumn<Crime, LocalDateTime> arrestColumn;
+    private TableColumn<Crime, String> arrestColumn;
 
     @FXML
-    private TableColumn<Crime, LocalDateTime> domesticColumn;
+    private TableColumn<Crime, String> domesticColumn;
 
     @FXML
     private Button viewCrime;

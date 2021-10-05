@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -21,8 +23,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.DataController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
@@ -307,7 +307,7 @@
       <Pane prefHeight="200.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="200.0" fitWidth="1500.0">
-               <Image url="@../Images/banner.png"></Image>
+               <Image url="@../Images/banner.png" />
             </ImageView>
          </children>
       </Pane>
