@@ -296,7 +296,33 @@ public class ImportController extends MasterController implements Initializable 
         }
     }
 
+    /**
+     * Method called when export button is clicked. Opens a file save dialog to save the currently
+     * selected table as a CSV. If no table is selected, shows the prompt to select the table.
+     */
     public void clickExport() {
+
+        String tableName = (String) tableList.getSelectionModel().getSelectedItem();
+
+        if (tableName != null) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save file");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+            fileChooser.setInitialFileName(tableName + ".csv");
+            File saveFile = fileChooser.showSaveDialog(stage);
+
+
+            try {
+                ParserService.databaseToCSV(saveFile, tableName);
+            } catch (IOException e) {
+                (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
+            } catch (SQLException e) {
+                (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+            }
+        } else {
+            noDataSelected.setVisible(true);
+        }
+
 
     }
 
