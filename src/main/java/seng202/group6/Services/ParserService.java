@@ -2,23 +2,28 @@ package seng202.group6.Services;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.exceptions.CsvValidationException;
 import seng202.group6.Models.Crime;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 
 public class ParserService {
     /**
      * Gets the data from the given file and converts it into an arraylist.
      * @param file A file object in CSV form, containing a list of crimes
-     * @throws IOException
-     * @throws CsvValidationException
+     * @throws IOException If the file cannot be read
+     * @throws CsvValidationException If the CSV is formatted incorrectly
      */
     public static int[] csvToDatabase(File file, String tableName) throws IOException, CsvValidationException, SQLException {
         CSVReader reader = new CSVReaderBuilder(new FileReader(file)).withSkipLines(1).build();
@@ -38,7 +43,42 @@ public class ParserService {
             }
         }
         SQLiteDatabase.endTransaction();
+        reader.close();
         return new int[] {duplicatedCounter, invalidCounter};
+    }
+
+    /**
+     * Using methods in SQLDatabase, gets the data from a table and saves it as a CSV
+     * @param file A file object (either empty or to be overwritten)
+     * @param tableName The name of the table to read from
+     * @throws IOException When writing the file fails
+     * @throws SQLException When reading the database fails
+     */
+    public static void databaseToCSV(File file, String tableName) throws IOException, SQLException {
+        CSVWriter writer = new CSVWriter(new FileWriter(file));
+        String[] header = {"CASE#", "DATE OF OCCURRENCE", "BLOCK", "IUCR", "PRIMARY DESCRIPTION", "SECONDARY DESCRIPTION",
+                "LOCATION DESCRIPTION", "ARREST", "DOMESTIC", "BEAT", "WARD", "FBI CD", "X COORDINATE", "Y COORDINATE",
+                "LATITUDE", "LONGITUDE", "LOCATION"};
+
+        writer.writeNext(header);
+
+        ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
+
+        ArrayList<String[]> strings = new ArrayList<>(crimes.size());
+        for (Crime crime: crimes) {
+            strings.add(buildFieldsFromCrime(crime));
+        }
+
+        writer.writeAll(strings);
+
+        writer.close();
+
+
+
+
+
+
+
     }
 
     /**
@@ -47,7 +87,7 @@ public class ParserService {
      * @return The crime
      */
     public static Crime buildCrimeFromFields(String[] fields) {
-        Crime crime = new Crime (
+        return new Crime (
                 fields[0], //Case Num
                 parseDateString(fields[1]), //Date
                 fields[2], //Block
@@ -63,7 +103,42 @@ public class ParserService {
                 fields[14].equals("") ? 0.0 : Double.parseDouble(fields[14]), //Latitude
                 fields[15].equals("") ? 0.0 : Double.parseDouble(fields[15]) //Longitude
         );
-        return crime;
+    }
+
+    /**
+     * Creates a list of strings from a crime object, ready for writing to the CSV
+     * @param crime The crime object to be converted
+     * @return A list of strings with fields in the same order as the supplied CSVs
+     */
+    public static String[] buildFieldsFromCrime(Crime crime) {
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
+        String date = crime.getDate().format(format).toUpperCase(); //AM and PM should be uppercase as in original data
+
+        String arrest = crime.getArrest() ? "Y" : "N";
+        String domestic = crime.getDomestic() ? "Y" : "N";
+        String lat = String.valueOf(crime.getLatitude());
+        String lon = String.valueOf(crime.getLongitude());
+
+        return new String[] {crime.getCaseNumber(),
+                date,
+                crime.getBlock(),
+                crime.getIucr(),
+                crime.getPrimaryDescription(),
+                crime.getSecondaryDescription(),
+                crime.getLocationDescription(),
+                arrest,
+                domestic,
+                String.valueOf(crime.getBeat()),
+                String.valueOf(crime.getWard()),
+                crime.getFBI(),
+                "", // X-coordinate and Y-coo
+                "", //
+                lat,
+                lon,
+                String.format("(%s, %s)", lat, lon)
+        };
+
     }
 
     /**
