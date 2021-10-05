@@ -209,7 +209,8 @@ public class EditController extends MasterController implements Initializable {
 
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
         } catch (SQLException e) {
-            (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database")).show();
+            (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database. This is possibly due to" +
+                    "using a pre-existing case number")).show();
             e.printStackTrace();
         }
 
