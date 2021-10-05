@@ -91,11 +91,11 @@ public class EditController extends MasterController implements Initializable {
             location.setText(viewedCrime.getLocationDescription());
             arrest.setSelected(viewedCrime.isArrest());
             domestic.setSelected(viewedCrime.isDomestic());
-            beat.setText(Integer.toString(viewedCrime.getBeat()));
-            ward.setText(Integer.toString(viewedCrime.getWard()));
+            beat.setText(viewedCrime.getBeat() == -1 ? "" : Integer.toString(viewedCrime.getBeat()));
+            ward.setText(viewedCrime.getWard() == -1 ? "" : Integer.toString(viewedCrime.getWard()));
             fbiCD.setText(viewedCrime.getFBI());
-            latitude.setText(Double.toString(viewedCrime.getLatitude()));
-            longitude.setText(Double.toString(viewedCrime.getLongitude()));
+            latitude.setText(viewedCrime.getLatitude() == -1.0 ? "" : Double.toString(viewedCrime.getLatitude()));
+            longitude.setText(viewedCrime.getLongitude() == -1.0 ? "" : Double.toString(viewedCrime.getLongitude()));
         } else {
             caseNumber.setDisable(false);
             caseNumber.setEditable(true);
@@ -123,7 +123,7 @@ public class EditController extends MasterController implements Initializable {
 
         try {
             if (beat.getText() == null || beat.getText().equals("")) {
-                editedCrime.setBeat(0);
+                editedCrime.setBeat(-1);
             } else {
                 editedCrime.setBeat(Integer.parseInt(beat.getText()));
             }
@@ -134,7 +134,7 @@ public class EditController extends MasterController implements Initializable {
 
         try {
             if (ward.getText() == null || ward.getText().equals("")) {
-                editedCrime.setWard(0);
+                editedCrime.setWard(-1);
             }  else {
                 editedCrime.setWard(Integer.parseInt(ward.getText()));
             }
@@ -145,7 +145,7 @@ public class EditController extends MasterController implements Initializable {
 
         try {
             if (latitude.getText() == null || latitude.getText().equals("")) {
-                editedCrime.setLatitude(0);
+                editedCrime.setLatitude(-1);
             }  else {
                 editedCrime.setLatitude(Double.parseDouble(latitude.getText()));
             }
@@ -156,7 +156,7 @@ public class EditController extends MasterController implements Initializable {
 
         try {
             if (longitude.getText() == null || longitude.getText().equals("")) {
-                editedCrime.setLongitude(0);
+                editedCrime.setLongitude(-1);
             }  else {
                 editedCrime.setLongitude(Double.parseDouble(longitude.getText()));
             }

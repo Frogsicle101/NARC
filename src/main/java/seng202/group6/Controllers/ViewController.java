@@ -91,8 +91,10 @@ public class ViewController extends MasterController implements Initializable {
         fbiCD.setText(viewedCrime.getFBI());
         latitude.setText(viewedCrime.getReadableLatitude());
         longitude.setText(viewedCrime.getReadableLongitude());
-
-        imageView.setImage(StaticMapService.getStaticMap(centre, crimes, 261, 182));
+        if (!viewedCrime.getReadableDate().equals("NOT GIVEN") &&
+                !viewedCrime.getReadableLatitude().equals("NOT GIVEN")) {
+            imageView.setImage(StaticMapService.getStaticMap(centre, crimes, 261, 182));
+        }
     }
 
 

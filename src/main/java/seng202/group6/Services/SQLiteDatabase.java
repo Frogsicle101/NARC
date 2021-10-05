@@ -91,10 +91,9 @@ public class SQLiteDatabase {
                 "fbi_cd = '" + crime.getFBI() + "', " +
                 "block = '" + crime.getBlock() + "', " +
                 "iucr = '" + crime.getIucr() + "', " +
-                "latitude = " + crime.getLatitude() + ", " +
-                "longitude = " + crime.getLongitude() + " " +
+                "latitude = " + (crime.getLatitude() == (-1.0) ? "NULL" : crime.getLatitude()) + ", " +
+                "longitude = " + (crime.getLongitude() == (-1.0) ? "NULL" : crime.getLongitude()) + " " +
                 "WHERE case_id LIKE '" + crime.getCaseNumber() + "';";
-
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
@@ -163,12 +162,12 @@ public class SQLiteDatabase {
                     data.getString("secondary_description"),
                     data.getInt("arrest") == 1,
                     data.getInt("domestic") == 1,
-                    data.getInt("beat"),
-                    data.getInt("ward"),
+                    data.getString("beat") == null ? -1 : data.getInt("beat"),
+                    data.getString("ward") == null ? -1 : data.getInt("ward"),
                     data.getString("fbi_cd"),
                     data.getString("location"),
-                    data.getDouble("latitude"),
-                    data.getDouble("longitude"));
+                    data.getString("latitude") == null ? -1 : data.getDouble("latitude"),
+                    data.getString("longitude") == null ? -1 : data.getDouble("longitude"));
             out.add(newCrime);
         }
         data.close();   //Closes the ResultSet to locking the database

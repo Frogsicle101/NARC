@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.embed.swing.SwingFXUtils;
+import seng202.group6.Controllers.MasterController;
 import seng202.group6.DynamicMapSRC.ApiKey;
 import seng202.group6.Models.Crime;
 
@@ -179,7 +180,7 @@ public class StaticMapService {
             image = SwingFXUtils.toFXImage(final_buffered_image, null);
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error in producing map image: " + e);
         }
 
         return image;

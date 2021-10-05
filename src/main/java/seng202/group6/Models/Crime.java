@@ -141,9 +141,7 @@ public class Crime {
 
     public boolean getDomestic() {return this.domestic;}
 
-    public String getReadableDomestic() {
-        return this.domestic == true ? "YES" : "NO";
-    }
+    public String getReadableDomestic() {return this.domestic == true ? "YES" : "NO";}
 
     public String getCaseNumber() {return caseNumber;}
 
@@ -180,32 +178,26 @@ public class Crime {
         return beat;
     }
 
-    public String getReadableBeat() {
-        return beat == (0) ? "NOT GIVEN" : Integer.toString(beat);
-    }
+    public String getReadableBeat() {return beat == (-1) ? "NOT GIVEN" : Integer.toString(beat);}
 
     public int getWard() {
         return ward;
     }
 
-    public String getReadableWard() {
-        return ward == (0) ? "NOT GIVEN" : Integer.toString(ward);
-    }
+    public String getReadableWard() {return ward == (-1) ? "NOT GIVEN" : Integer.toString(ward);}
 
     public String getLocationDescription() {
         return locationDescription;
     }
 
-    public String getReadableLocation() {
-        return locationDescription.equals("NULL") || locationDescription.equals("") ? "NO LOCATION GIVEN" : locationDescription;
-    }
+    public String getReadableLocation() {return locationDescription.equals("NULL") || locationDescription.equals("") ? "NO LOCATION GIVEN" : locationDescription;}
 
     public double getLatitude() {
         return latitude;
     }
 
     public String getReadableLatitude() {
-        return latitude == (0) ? "NOT GIVEN" : Double.toString(latitude);
+        return latitude == (-1) ? "NOT GIVEN" : Double.toString(latitude);
     }
 
     public double getLongitude() {
@@ -213,7 +205,7 @@ public class Crime {
     }
 
     public String getReadableLongitude() {
-        return longitude == (0) ? "NOT GIVEN" : Double.toString(longitude);
+        return longitude == (-1) ? "NOT GIVEN" : Double.toString(longitude);
     }
 
     public void setCaseNumber(String caseNumber) {
@@ -236,9 +228,7 @@ public class Crime {
         this.primaryDescription = primaryDescription;
     }
 
-    public void setSecondaryDescription(String secondaryDescription) {
-        this.secondaryDescription = secondaryDescription;
-    }
+    public void setSecondaryDescription(String secondaryDescription) {this.secondaryDescription = secondaryDescription;}
 
     public void setLocationDescription(String locationDescription) {
         this.locationDescription = locationDescription;
