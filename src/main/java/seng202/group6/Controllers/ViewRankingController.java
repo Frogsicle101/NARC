@@ -73,7 +73,7 @@ public class ViewRankingController extends MasterController {
      * Method switches table to day of week and frequency
      */
     public void changeToDayTable() {
-        valueColumn.setText("Day of Year");
+        valueColumn.setText("Day of Week");
         ArrayList<Frequency> data = new ArrayList<>(RankService.rankedTimeList(crimeData, TimeType.DAY_OF_WEEK));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
         tableView.setItems(FXCollections.observableArrayList(data));

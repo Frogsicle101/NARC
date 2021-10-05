@@ -137,6 +137,19 @@ public class EditController extends MasterController implements Initializable {
         }
 
         try {
+            Integer.parseInt(block.getText().substring(0,3));
+        } catch (NumberFormatException e) {
+            (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. First three characters " +
+                    "need to be integers.")).show();
+            return;
+        } catch (StringIndexOutOfBoundsException e) {
+            (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. Needs to be longer than 3 characters " +
+                    "and the first three characters " +
+                    "need to be integers.")).show();
+            return;
+        }
+
+        try {
             if (beat.getText() == null || beat.getText().equals("")) {
                 editedCrime.setBeat(-1);
             } else {
