@@ -154,7 +154,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <DatePicker fx:id="startDate">
+                  <DatePicker fx:id="startDate" editable="false">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
@@ -164,7 +164,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <DatePicker fx:id="endDate">
+                  <DatePicker fx:id="endDate" editable="false">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
