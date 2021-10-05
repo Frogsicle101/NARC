@@ -66,6 +66,7 @@ public class ViewRankingController extends MasterController {
         ArrayList<Frequency> data = new ArrayList<>(RankService.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         tableView.setItems(FXCollections.observableArrayList(data));
+        //test
 
     }
 
