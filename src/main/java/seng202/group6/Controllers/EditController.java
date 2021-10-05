@@ -13,9 +13,12 @@ import seng202.group6.Services.SQLiteDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+
+import static seng202.group6.Services.ParserService.parseDateString;
 
 /**
  * Controller class for editing the details of or adding a new crime, associated with
@@ -121,6 +124,18 @@ public class EditController extends MasterController implements Initializable {
 
         Crime editedCrime = new Crime();
 
+        if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
+            (new Alert(Alert.AlertType.ERROR, "Case number formatted incorrectly. Needs to be not null")).show();
+            return;
+        }
+
+        try {
+            editedCrime.setDate(date.getValue().atStartOfDay());
+        } catch(Exception e) {
+            (new Alert(Alert.AlertType.ERROR, "Date formatted incorrectly. dd/mm/yyyy needed")).show();
+            return;
+        }
+
         try {
             if (beat.getText() == null || beat.getText().equals("")) {
                 editedCrime.setBeat(-1);
@@ -128,7 +143,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setBeat(Integer.parseInt(beat.getText()));
             }
         } catch (NumberFormatException e) {
-            (new Alert(Alert.AlertType.ERROR, "Beat formatted incorrectly")).show();
+            (new Alert(Alert.AlertType.ERROR, "Beat formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
 
@@ -139,7 +154,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setWard(Integer.parseInt(ward.getText()));
             }
         } catch (NumberFormatException e) {
-            (new Alert(Alert.AlertType.ERROR, "Ward formatted incorrectly")).show();
+            (new Alert(Alert.AlertType.ERROR, "Ward formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
 
@@ -150,7 +165,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLatitude(Double.parseDouble(latitude.getText()));
             }
         } catch (NumberFormatException e){
-            (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly")).show();
+            (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly. Needs to be a double.")).show();
             return;
         }
 
@@ -161,16 +176,11 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLongitude(Double.parseDouble(longitude.getText()));
             }
         } catch (NumberFormatException e){
-            (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly")).show();
+            (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly. Needs to be a double.")).show();
             return;
         }
 
-        if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
-            (new Alert(Alert.AlertType.ERROR, "Case number formatted incorrectly")).show();
-            return;
-        }
-
-        currentCrime.setDate(LocalDateTime.of(date.getValue(), LocalTime.MIDNIGHT));
+        currentCrime.setDate(date.getValue().atStartOfDay());
         currentCrime.setCaseNumber(caseNumber.getText());
         currentCrime.setBlock(block.getText());
         currentCrime.setIucr(IUCR.getText());
