@@ -434,7 +434,7 @@ public class DataController extends MasterController implements Initializable {
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
     public void clickRankTime() throws IOException {
-        launchCrimeRankScreen("Hour", RankService.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
+        launchCrimeRankScreen("Hour of Day", RankService.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
     }
 
     /**
