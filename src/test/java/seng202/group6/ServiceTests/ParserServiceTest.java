@@ -6,7 +6,9 @@ import seng202.group6.Models.Crime;
 import seng202.group6.Services.ParserService;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserServiceTest {
@@ -95,6 +97,77 @@ class ParserServiceTest {
                 -87.602675062);
 
         assertEquals(correctCrime, builtCrime);
+
+    }
+
+    @Test
+    public void buildFieldsFromCrime() {
+        String[] expected = new String[17];
+        Arrays.fill(expected, "");
+
+        expected[0] = "JE266628";
+        expected[1] = "06/15/2021 09:30:00 AM";
+        expected[2] = "080XX S DREXEL AVE";
+        expected[3] = "0820";
+        expected[4] = "THEFT";
+        expected[5] = "$500 AND UNDER";
+        expected[6] = "STREET";
+        expected[7] = "N";
+        expected[8] = "N";
+        expected[9] = "631";
+        expected[10] = "8";
+        expected[11] = "06";
+        expected[14] = "41.748486365";
+        expected[15] = "-87.602675062";
+        expected[16] = "(41.748486365, -87.602675062)";
+
+        Crime crime = new Crime("JE266628",
+                ParserService.parseDateString("06/15/2021 09:30:00 AM"),
+                "080XX S DREXEL AVE",
+                "0820",
+                "THEFT",
+                "$500 AND UNDER",
+                false,
+                false,
+                631,
+                8,
+                "06",
+                "STREET",
+                41.748486365,
+                -87.602675062);
+
+        String[] actual = ParserService.buildFieldsFromCrime(crime);
+
+
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], actual[i]);
+        }
+
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void convertAndBackAgain() {
+        Crime crime = new Crime("JE266628",
+                ParserService.parseDateString("06/15/2021 09:30:00 AM"),
+                "080XX S DREXEL AVE",
+                "0820",
+                "THEFT",
+                "$500 AND UNDER",
+                false,
+                false,
+                631,
+                8,
+                "06",
+                "STREET",
+                41.748486365,
+                -87.602675062);
+
+        String[] fields = ParserService.buildFieldsFromCrime(crime);
+        Crime actual = ParserService.buildCrimeFromFields(fields);
+
+        assertEquals(crime, actual);
 
     }
 
