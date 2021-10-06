@@ -300,6 +300,7 @@
                   <Insets />
                </opaqueInsets>
             </VBox>
+            <Button mnemonicParsing="false" onAction="#clickExport" text="Export filtered data to CSV" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </center>

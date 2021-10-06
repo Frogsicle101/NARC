@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
+import seng202.group6.Models.Crime;
 import seng202.group6.Services.ParserService;
 import seng202.group6.Services.SQLiteDatabase;
 
@@ -325,7 +326,8 @@ public class ImportController extends MasterController implements Initializable 
 
 
             try {
-                ParserService.databaseToCSV(saveFile, tableName);
+                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
+                ParserService.arrayListToCSV(saveFile, crimes);
             } catch (IOException e) {
                 (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
             } catch (SQLException e) {

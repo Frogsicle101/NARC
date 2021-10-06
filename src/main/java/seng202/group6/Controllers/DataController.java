@@ -8,19 +8,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.TimeType;
 import seng202.group6.Services.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -476,6 +475,26 @@ public class DataController extends MasterController implements Initializable {
         WebView mapView = DynamicMapService.getMapView();
         mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
         mapPane.getChildren().add(mapView);
+    }
+
+    /**
+     * Method called when export button is clicked. Opens a file save dialog to save the data with current filters
+     * applied to a CSV file.
+     */
+    public void clickExport() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+        fileChooser.setInitialFileName(ImportController.currentTable + "-filtered.csv");
+        File saveFile = fileChooser.showSaveDialog(stage);
+
+        try {
+            ParserService.arrayListToCSV(saveFile, crimeData);
+        } catch (IOException e) {
+            (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
+        } catch (SQLException e) {
+            (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+        }
     }
 
 }

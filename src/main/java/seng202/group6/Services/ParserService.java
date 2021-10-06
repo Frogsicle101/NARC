@@ -48,21 +48,19 @@ public class ParserService {
     }
 
     /**
-     * Using methods in SQLDatabase, gets the data from a table and saves it as a CSV
+     * Saves crime objects to a CSV file
      * @param file A file object (either empty or to be overwritten)
-     * @param tableName The name of the table to read from
+     * @param crimes An arraylist of crime objects to be saved
      * @throws IOException When writing the file fails
      * @throws SQLException When reading the database fails
      */
-    public static void databaseToCSV(File file, String tableName) throws IOException, SQLException {
+    public static void arrayListToCSV(File file, ArrayList<Crime> crimes) throws IOException, SQLException {
         CSVWriter writer = new CSVWriter(new FileWriter(file));
         String[] header = {"CASE#", "DATE OF OCCURRENCE", "BLOCK", "IUCR", "PRIMARY DESCRIPTION", "SECONDARY DESCRIPTION",
                 "LOCATION DESCRIPTION", "ARREST", "DOMESTIC", "BEAT", "WARD", "FBI CD", "X COORDINATE", "Y COORDINATE",
                 "LATITUDE", "LONGITUDE", "LOCATION"};
 
         writer.writeNext(header);
-
-        ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
 
         ArrayList<String[]> strings = new ArrayList<>(crimes.size());
         for (Crime crime: crimes) {
