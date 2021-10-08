@@ -239,6 +239,11 @@ public class DataController extends MasterController implements Initializable {
      * Populates the table and map with this filtered data.
      */
     public void clickApply() {
+        String beatString = new String();
+        String wardString = new String();
+        boolean validBeatString = true;
+        boolean validWardString = true;
+
         Filter filter = new Filter();
         filter.setStart(startDate.getValue()); // need to fix this shit with a try exception
         filter.setEnd(endDate.getValue());
@@ -273,9 +278,36 @@ public class DataController extends MasterController implements Initializable {
             filter.setDomestic(false);
         }
         //If anyArrest or anyDomestic is selected that field is left as null
+        beatString = beatSearch.getText();
+        if (!beatString.isEmpty()) {
+            for (String beat : beatString.split(",\\s*")) {
+                if (!beat.matches("[0-9]+")){
+                    validBeatString = false;
+                }
+            }
+        }
+        if (validBeatString) {
+            filter.setBeats(beatString);
+        } else {
+            (new Alert(Alert.AlertType.ERROR, "Invalid Beat Input: Beats must be only numbers separated by commas or spaces. "
+            + "\nPlease reset the filter and rank and try again")).show();
+        }
 
-        filter.setBeats(beatSearch.getText());
-        filter.setWards(wardSearch.getText());
+        wardString = wardSearch.getText();
+        if (!wardString.isEmpty()) {
+            for (String ward : wardString.split(",\\s*")) {
+                if (!ward.matches("[0-9]+")){
+                    validWardString = false;
+                }
+            }
+        }
+        if (validWardString) {
+            filter.setBeats(wardString);
+        } else {
+            (new Alert(Alert.AlertType.ERROR, "Invalid Ward Input: Wards must be only numbers separated by commas or spaces. " +
+                    "\nPlease reset the filter and rank and try again")).show();
+        }
+
 
         dataFilter = filter; //added to allow map to use data filter
 
