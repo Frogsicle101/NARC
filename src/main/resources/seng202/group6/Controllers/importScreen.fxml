@@ -127,7 +127,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button fx:id="exportData" mnemonicParsing="false" onAction="#clickExport" text="Export database to CSV">
+                  <Button fx:id="exportData" mnemonicParsing="false" onAction="#clickExport" text="Export table to CSV">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
