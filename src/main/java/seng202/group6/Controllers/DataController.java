@@ -302,7 +302,7 @@ public class DataController extends MasterController implements Initializable {
             }
         }
         if (validWardString) {
-            filter.setBeats(wardString);
+            filter.setWards(wardString);
         } else {
             (new Alert(Alert.AlertType.ERROR, "Invalid Ward Input: Wards must be only numbers separated by commas or spaces. " +
                     "\nPlease reset the filter and rank and try again")).show();
