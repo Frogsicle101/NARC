@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -129,7 +130,7 @@ public class DataController extends MasterController implements Initializable {
     private Button deleteCrime;
 
     @FXML
-    private Pane mapPane;
+    private GridPane mapPane;
 
     @FXML
     private Button reloadMapButton;
@@ -153,8 +154,7 @@ public class DataController extends MasterController implements Initializable {
         tableView.setFocusTraversable(false);
 
         WebView mapView = DynamicMapService.getMapView();
-        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
-        mapPane.getChildren().add(mapView);
+        mapPane.add(mapView, 0, 0);
 
         buildFilterSets();
         buildDropdowns();
@@ -505,8 +505,7 @@ public class DataController extends MasterController implements Initializable {
     public void reloadMap() {
         DynamicMapService.initializeDynamicMap();
         WebView mapView = DynamicMapService.getMapView();
-        mapView.setMaxSize(mapPane.getPrefWidth(), mapPane.getPrefHeight());
-        mapPane.getChildren().add(mapView);
+        mapPane.add(mapView, 0, 0);
     }
 
     /**
