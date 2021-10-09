@@ -169,7 +169,7 @@ public class ImportController extends MasterController implements Initializable 
             recordsOmitted = ParserService.csvToDatabase(crimeFile, tableName); //TODO: deal with thrown exceptions
 
             // need to make method to check if file is csv format and if they actually selected a file
-            // also need to get checks for correct format in parser
+            // also need to get checks for correct format in parser //TODO: Solve this
         }
 
         MasterController.populateCrimeArray(tableName);
@@ -323,19 +323,20 @@ public class ImportController extends MasterController implements Initializable 
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
             fileChooser.setInitialFileName(tableName + ".csv");
             File saveFile = fileChooser.showSaveDialog(stage);
-
-
-            try {
-                ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
-                ParserService.arrayListToCSV(saveFile, crimes);
-            } catch (IOException e) {
-                (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
-            } catch (SQLException e) {
-                (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+            if (saveFile != null) {
+                try {
+                    ArrayList<Crime> crimes = SQLiteDatabase.convertResultSet(SQLiteDatabase.selectAllFromTable(tableName));
+                    ParserService.arrayListToCSV(saveFile, crimes);
+                } catch (IOException e) {
+                    (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
+                } catch (SQLException e) {
+                    (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+                }
             }
         } else {
             noDataSelected.setVisible(true);
         }
+
 
 
     }

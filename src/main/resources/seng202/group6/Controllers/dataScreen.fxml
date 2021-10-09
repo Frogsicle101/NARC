@@ -146,55 +146,55 @@
                         <Font size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="10.0" />
                      </VBox.margin>
                   </Text>
                   <Label prefHeight="17.0" prefWidth="174.0" text="Start Date:">
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </Label>
                   <DatePicker fx:id="startDate" editable="false">
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </DatePicker>
                   <Label prefHeight="17.0" prefWidth="174.0" text="End Date:">
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </Label>
                   <DatePicker fx:id="endDate" editable="false">
                      <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </DatePicker>
                   <MenuButton fx:id="crimeTypeDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Crime Type">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </MenuButton>
                   <MenuButton fx:id="locationDropdown" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Location Description">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </MenuButton>
                   <TextField fx:id="beatSearch" maxWidth="200.0" prefHeight="24.0" prefWidth="78.0" promptText="Beat (comma separated)" VBox.vgrow="NEVER">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </TextField>
                   <TextField fx:id="wardSearch" maxWidth="200.0" promptText="Ward (comma separated)">
                      <VBox.margin>
-                        <Insets bottom="5.0" top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </TextField>
                   <Label text="Arrest:">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="19.0" prefWidth="246.0">
                      <children>
                         <RadioButton fx:id="anyArrest" mnemonicParsing="false" selected="true" text="Any">
                            <HBox.margin>
@@ -215,13 +215,16 @@
                            </HBox.margin>
                         </RadioButton>
                      </children>
+                     <VBox.margin>
+                        <Insets top="7.0" />
+                     </VBox.margin>
                   </HBox>
                   <Label text="Domestic">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="7.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="32.0" prefWidth="246.0">
                      <children>
                         <RadioButton fx:id="anyDomestic" mnemonicParsing="false" selected="true" text="Any">
                            <HBox.margin>
@@ -242,10 +245,21 @@
                            </HBox.margin>
                         </RadioButton>
                      </children>
+                     <VBox.margin>
+                        <Insets top="7.0" />
+                     </VBox.margin>
                   </HBox>
                   <Button fx:id="applyButton" layoutX="30.0" layoutY="310.0" mnemonicParsing="false" onAction="#clickApply" prefHeight="25.0" prefWidth="105.0" text="Apply Filter">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="105.0" text="Reset Filter ">
+                     <VBox.margin>
+                        <Insets top="7.0" />
                      </VBox.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -253,8 +267,11 @@
                   </Button>
                   <Label prefHeight="17.0" prefWidth="174.0" text="Rank By:">
                      <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -284,14 +301,6 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <Button fx:id="resetButton" layoutX="60.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="25.0" prefWidth="175.0" text="Reset Filter and Rank">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
                </children>
                <padding>
                   <Insets left="20.0" top="20.0" />

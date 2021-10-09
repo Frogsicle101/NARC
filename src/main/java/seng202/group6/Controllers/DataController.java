@@ -520,12 +520,14 @@ public class DataController extends MasterController implements Initializable {
         fileChooser.setInitialFileName(ImportController.currentTable + "-filtered.csv");
         File saveFile = fileChooser.showSaveDialog(stage);
 
-        try {
-            ParserService.arrayListToCSV(saveFile, crimeData);
-        } catch (IOException e) {
-            (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
-        } catch (SQLException e) {
-            (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+        if (saveFile != null) {
+            try {
+                ParserService.arrayListToCSV(saveFile, crimeData);
+            } catch (IOException e) {
+                (new Alert(Alert.AlertType.ERROR, "Error saving file")).show();
+            } catch (SQLException e) {
+                (new Alert(Alert.AlertType.ERROR, "Error reading database")).show();
+            }
         }
     }
 
