@@ -89,10 +89,10 @@
                   <TableColumn fx:id="caseNumColumn" editable="false" prefWidth="107.0" text="Case Number" />
                   <TableColumn fx:id="dateColumn" editable="false" minWidth="0.0" prefWidth="145.0" text="Date" />
                   <TableColumn fx:id="primaryDescColumn" editable="false" minWidth="0.0" prefWidth="158.0" text="Primary Description" />
-                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="233.0" text="Location" />
-                  <TableColumn fx:id="beatColumn" prefWidth="55.0" text="Beat" />
-                  <TableColumn fx:id="wardColumn" prefWidth="55.0" text="Ward" />
-                  <TableColumn fx:id="arrestColumn" prefWidth="75.0" text="Arrest" />
+                  <TableColumn fx:id="locationColumn" editable="false" minWidth="0.0" prefWidth="188.0" text="Location" />
+                  <TableColumn fx:id="beatColumn" prefWidth="83.0" text="Beat" />
+                  <TableColumn fx:id="wardColumn" prefWidth="83.0" text="Ward" />
+                  <TableColumn fx:id="arrestColumn" prefWidth="65.0" text="Arrest" />
                   <TableColumn fx:id="domesticColumn" prefWidth="75.0" text="Domestic" />
                </columns>
             </TableView>

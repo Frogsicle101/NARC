@@ -148,7 +148,7 @@ public class MasterController {
         Stage viewStage = new Stage();
         viewStage.setTitle("Edit Crime Info");
         Parent newScreen = FXMLLoader.load(getClass().getResource("editCrimeScreen.fxml"));
-        Scene newScene = new Scene(newScreen, 500, 600);
+        Scene newScene = new Scene(newScreen, 500, 650);
         viewStage.setScene(newScene);
         viewStage.show();
 

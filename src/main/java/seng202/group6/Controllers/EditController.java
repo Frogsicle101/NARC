@@ -1,5 +1,6 @@
 package seng202.group6.Controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +13,12 @@ import seng202.group6.Services.SQLiteDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
+
+import static seng202.group6.Services.ParserService.parseDateString;
 
 /**
  * Controller class for editing the details of or adding a new crime, associated with
@@ -20,6 +26,7 @@ import java.util.ResourceBundle;
  */
 
 public class EditController extends MasterController implements Initializable {
+
 
     protected static boolean isNewCrime;
 
@@ -65,6 +72,12 @@ public class EditController extends MasterController implements Initializable {
     @FXML
     private TextField longitude;
 
+    @FXML
+    private TextField hourField;
+
+    @FXML
+    private TextField minuteField;
+
     /**
      * Method to override initialise method from Initializable interface. If the crime associated
      * with the window is a new crime, i.e the crime is being created and added, all fields of a
@@ -75,11 +88,14 @@ public class EditController extends MasterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         Crime viewedCrime = MasterController.currentCrime;
 
         if (!isNewCrime) {
             caseNumber.setText(viewedCrime.getCaseNumber());
             date.setValue(viewedCrime.getDate().toLocalDate());
+            hourField.setText(Integer.toString(viewedCrime.getDate().getHour()));
+            minuteField.setText(Integer.toString(viewedCrime.getDate().getMinute()));
             block.setText(viewedCrime.getBlock());
             IUCR.setText(viewedCrime.getIucr());
             primaryDescription.setText(viewedCrime.getPrimaryDescription());
@@ -116,15 +132,29 @@ public class EditController extends MasterController implements Initializable {
     public void clickApply(ActionEvent event) throws IOException {
 
         Crime editedCrime = new Crime();
+        boolean validCrime = true;
 
         if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
             (new Alert(Alert.AlertType.ERROR, "Case number formatted incorrectly. Needs to be not null")).show();
+            validCrime = false;
             return;
         }
 
         try {
-            editedCrime.setDate(date.getValue().atStartOfDay());
+            int hour = Integer.parseInt(hourField.getText());
+            int minute = Integer.parseInt(minuteField.getText());
+            if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
+                editedCrime.setDate(date.getValue().atTime(hour, minute));
+            } else {
+                (new Alert(Alert.AlertType.ERROR, "Invalid hour or minute field")).show();
+                validCrime = false;
+                return;
+            }
+        } catch (NumberFormatException e) {
+            validCrime = false;
+            (new Alert(Alert.AlertType.ERROR, "Time must be an integer")).show();
         } catch(Exception e) {
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Date formatted incorrectly. dd/mm/yyyy needed")).show();
             return;
         }
@@ -132,10 +162,12 @@ public class EditController extends MasterController implements Initializable {
         try {
             Integer.parseInt(block.getText().substring(0,3));
         } catch (NumberFormatException e) {
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. First three characters " +
                     "need to be integers.")).show();
             return;
         } catch (StringIndexOutOfBoundsException e) {
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. Needs to be longer than 3 characters " +
                     "and the first three characters " +
                     "need to be integers.")).show();
@@ -149,6 +181,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setBeat(Integer.parseInt(beat.getText()));
             }
         } catch (NumberFormatException e) {
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Beat formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
@@ -160,6 +193,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setWard(Integer.parseInt(ward.getText()));
             }
         } catch (NumberFormatException e) {
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Ward formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
@@ -171,6 +205,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLatitude(Double.parseDouble(latitude.getText()));
             }
         } catch (NumberFormatException e){
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly. Needs to be a double.")).show();
             return;
         }
@@ -182,42 +217,46 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLongitude(Double.parseDouble(longitude.getText()));
             }
         } catch (NumberFormatException e){
+            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly. Needs to be a double.")).show();
             return;
         }
+        if (validCrime) {
 
-        currentCrime.setDate(date.getValue().atStartOfDay());
-        currentCrime.setCaseNumber(caseNumber.getText());
-        currentCrime.setBlock(block.getText());
-        currentCrime.setIucr(IUCR.getText());
-        currentCrime.setPrimaryDescription(primaryDescription.getText());
-        currentCrime.setSecondaryDescription(secondaryDescription.getText());
-        currentCrime.setLocationDescription(location.getText());
-        currentCrime.setArrest(arrest.isSelected());
-        currentCrime.setDomestic(domestic.isSelected());
-        currentCrime.setFBI(fbiCD.getText());
-        currentCrime.setWard(editedCrime.getWard());
-        currentCrime.setBeat(editedCrime.getBeat());
-        currentCrime.setLatitude(editedCrime.getLatitude());
-        currentCrime.setLongitude(editedCrime.getLongitude());
+            currentCrime.setDate(editedCrime.getDate());
+            currentCrime.setCaseNumber(caseNumber.getText());
+            currentCrime.setBlock(block.getText());
+            currentCrime.setIucr(IUCR.getText());
+            currentCrime.setPrimaryDescription(primaryDescription.getText());
+            currentCrime.setSecondaryDescription(secondaryDescription.getText());
+            currentCrime.setLocationDescription(location.getText());
+            currentCrime.setArrest(arrest.isSelected());
+            currentCrime.setDomestic(domestic.isSelected());
+            currentCrime.setFBI(fbiCD.getText());
+            currentCrime.setWard(editedCrime.getWard());
+            currentCrime.setBeat(editedCrime.getBeat());
+            currentCrime.setLatitude(editedCrime.getLatitude());
+            currentCrime.setLongitude(editedCrime.getLongitude());
 
-        try {
-            if (isNewCrime) {
-                SQLiteDatabase.insertIntoTable(ImportController.currentTable, MasterController.currentCrime);
-                crimeData.add(MasterController.currentCrime);
-            } else {
-                SQLiteDatabase.updateInTable(ImportController.currentTable, currentCrime);
+            try {
+                if (isNewCrime) {
+                    SQLiteDatabase.insertIntoTable(ImportController.currentTable, MasterController.currentCrime);
+                    crimeData.add(MasterController.currentCrime);
+                } else {
+                    SQLiteDatabase.updateInTable(ImportController.currentTable, currentCrime);
+                }
+
+                SQLiteDatabase.endTransaction();
+
+                changeToDataScreen();
+
+                ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+            } catch (SQLException e) {
+                (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database. This is possibly due to" +
+                        "using a pre-existing case number")).show();
+                e.printStackTrace();
             }
 
-            SQLiteDatabase.endTransaction();
-
-            changeToDataScreen();
-
-            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
-        } catch (SQLException e) {
-            (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database. This is possibly due to" +
-                    "using a pre-existing case number")).show();
-            e.printStackTrace();
         }
 
     }
