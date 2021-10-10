@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
+<BorderPane prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group6.Controllers.ImportController">
    <left>
       <Pane prefHeight="560.0" prefWidth="247.0" style="-fx-background-color: #3d3d3d;" BorderPane.alignment="CENTER">
          <children>
@@ -59,15 +59,6 @@
          </children>
       </Pane>
    </left>
-   <top>
-      <Pane prefHeight="200.0" prefWidth="1500.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="200.0" fitWidth="1500.0">
-               <Image url="@../Images/banner.png" />
-            </ImageView>
-         </children>
-      </Pane>
-   </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -161,4 +152,21 @@
    <right>
       <Pane prefHeight="546.0" prefWidth="237.0" BorderPane.alignment="CENTER" />
    </right>
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ImageView GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@../Images/banner.png" />
+               </image>
+            </ImageView>
+         </children>
+      </GridPane>
+   </top>
 </BorderPane>
