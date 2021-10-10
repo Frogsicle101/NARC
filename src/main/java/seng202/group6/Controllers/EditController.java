@@ -141,8 +141,19 @@ public class EditController extends MasterController implements Initializable {
         }
 
         try {
-            int hour = Integer.parseInt(hourField.getText());
-            int minute = Integer.parseInt(minuteField.getText());
+            int hour;
+            int minute;
+            if (!hourField.getText().isEmpty()) {
+                hour = Integer.parseInt(hourField.getText());
+            } else {
+                hour = 0;
+            }
+            if (!minuteField.getText().isEmpty()) {
+                minute = Integer.parseInt(minuteField.getText());
+            } else {
+                minute = 0;
+            }
+
             if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
                 editedCrime.setDate(date.getValue().atTime(hour, minute));
             } else {
