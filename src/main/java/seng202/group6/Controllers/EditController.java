@@ -135,7 +135,7 @@ public class EditController extends MasterController implements Initializable {
         boolean validCrime = true;
 
         if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
-            (new Alert(Alert.AlertType.ERROR, "Case number formatted incorrectly. Needs to be not null")).show();
+            (new Alert(Alert.AlertType.ERROR, "Please enter a case number, field cannot be empty")).show();
             validCrime = false;
             return;
         }
