@@ -54,7 +54,7 @@ public class ViewRankingController extends MasterController {
             hourButton.setVisible(false);
             dayButton.setVisible(false);
             monthButton.setVisible(false);
-            valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+            valueColumn.setCellValueFactory(new PropertyValueFactory<>("field"));
         }
 
         frequencyColumn.setCellValueFactory(new PropertyValueFactory<>("count"));
