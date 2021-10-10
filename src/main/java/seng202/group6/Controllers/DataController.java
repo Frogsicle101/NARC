@@ -249,7 +249,11 @@ public class DataController extends MasterController implements Initializable {
         for (MenuItem item: crimeTypeDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             if (box.isSelected()) {
-                selectedTypes.add(box.getText());
+                if (box.getText().equals("NO TYPE GIVEN")){
+                    selectedTypes.add("NULL");
+                } else {
+                    selectedTypes.add(box.getText());
+                }
             }
         }
         filter.setTypes(selectedTypes);
@@ -258,7 +262,11 @@ public class DataController extends MasterController implements Initializable {
         for (MenuItem item: locationDropdown.getItems()) {
             CheckBox box = (CheckBox) ((CustomMenuItem)item).getContent();
             if (box.isSelected()) {
-                selectedLocations.add(box.getText());
+                if (box.getText().equals("NO LOCATION GIVEN")){
+                    selectedLocations.add("NULL");
+                } else {
+                    selectedLocations.add(box.getText());
+                }
             }
         }
         filter.setLocations(selectedLocations);
@@ -388,7 +396,7 @@ public class DataController extends MasterController implements Initializable {
      */
     private void buildDropdowns() {
         for (String type: types.stream().sorted().collect(Collectors.toList())) {
-            if (type.equals("")) {
+            if (type.equals("") || type.equals("NULL")) {
                 type = "NO TYPE GIVEN";
             }
             CheckBox newBox = new CheckBox(type);
@@ -399,7 +407,7 @@ public class DataController extends MasterController implements Initializable {
         }
 
         for (String location: locations.stream().sorted().collect(Collectors.toList())) {
-            if (location.equals("")) {
+            if (location.equals("") || location.equals("NULL")) {
                 location = "NO LOCATION GIVEN";
             }
             CheckBox newBox = new CheckBox(location);
