@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -43,7 +44,7 @@ public class ImportController extends MasterController implements Initializable 
     private Label noDataSelected;
 
     @FXML
-    private ListView tableList;
+    private ListView<String> tableList;
 
     @FXML
     private Label uploadSuccess;
@@ -51,7 +52,7 @@ public class ImportController extends MasterController implements Initializable 
     @FXML
     private Label currentTableText;
 
-    private ArrayList<String> tableNames = new ArrayList<>();
+    private final List<String> tableNames = new ArrayList<>();
     public static String currentTable; //current table that is being viewed
 
     /**
@@ -83,7 +84,6 @@ public class ImportController extends MasterController implements Initializable 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -141,7 +141,6 @@ public class ImportController extends MasterController implements Initializable 
         changeToGraphScreen();
     }
 
-
     /**
      * Method used to upload a file into the system. First creates a new FileChooser instance
      * which prompts the user to select a file from their local computer. If the user does select
@@ -164,12 +163,7 @@ public class ImportController extends MasterController implements Initializable 
         if (crimeFile == null) {
             validUpload = false;
         } else {
-            //Creating new tables and giving them a name should be done here
-
-            recordsOmitted = ParserService.csvToDatabase(crimeFile, tableName); //TODO: deal with thrown exceptions
-
-            // need to make method to check if file is csv format and if they actually selected a file
-            // also need to get checks for correct format in parser //TODO: Solve this
+            recordsOmitted = ParserService.csvToDatabase(crimeFile, tableName);
         }
 
         MasterController.populateCrimeArray(tableName);
@@ -237,7 +231,7 @@ public class ImportController extends MasterController implements Initializable 
      */
     public void clickAddData()  {
 
-        String tableName = (String) tableList.getSelectionModel().getSelectedItem();
+        String tableName = tableList.getSelectionModel().getSelectedItem();
         if (tableName != null) {
             try {
                 uploadFile(tableName);
@@ -261,16 +255,12 @@ public class ImportController extends MasterController implements Initializable 
      */
     public void clickDeleteTable() {
 
-        String tableName = (String) tableList.getSelectionModel().getSelectedItem();
-
+        String tableName = tableList.getSelectionModel().getSelectedItem();
         if (tableName != null) {
-
             try {
-
                 SQLiteDatabase.dropTable(tableName);
                 tableNames.remove(tableName);
                 tableList.setItems(FXCollections.observableArrayList(tableNames));
-
                 try {
                     currentTable = getFirstTable();
                     MasterController.populateCrimeArray(currentTable);
@@ -279,17 +269,13 @@ public class ImportController extends MasterController implements Initializable 
                     currentTableText.setText("You are currently viewing: No table selected");
                     crimeData = new ArrayList<>(); //if there is no more tables in database, sets data to empty list
                 }
-
             } catch (SQLException e){
                 (new Alert(Alert.AlertType.ERROR, "Unable to delete from database")).show();
                 e.printStackTrace();
             }
-
-
         } else {
             noDataSelected.setVisible(true);
         }
-
     }
 
     /**
@@ -299,7 +285,7 @@ public class ImportController extends MasterController implements Initializable 
      * user is prompted to select a table and nothing changes.
      */
     public void clickChangeData() {
-        String tableName = (String) tableList.getSelectionModel().getSelectedItem();
+        String tableName = tableList.getSelectionModel().getSelectedItem();
         if (tableName != null) {
             MasterController.populateCrimeArray(tableName);
             currentTable = tableName;
@@ -315,7 +301,7 @@ public class ImportController extends MasterController implements Initializable 
      */
     public void clickExport() {
 
-        String tableName = (String) tableList.getSelectionModel().getSelectedItem();
+        String tableName = tableList.getSelectionModel().getSelectedItem();
 
         if (tableName != null) {
             FileChooser fileChooser = new FileChooser();
@@ -336,13 +322,6 @@ public class ImportController extends MasterController implements Initializable 
         } else {
             noDataSelected.setVisible(true);
         }
-
-
-
     }
-
-
-
-
 
 }

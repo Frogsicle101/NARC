@@ -7,23 +7,23 @@ public class DynamicMapMarker {
     /**
      * Latitude for a marker.
      */
-    private String lat;
+    private final String lat;
     /**
      * Longitude for a marker.
      */
-    private String lng;
+    private final String lng;
     /**
      * Primary description of a crime
      */
-    private String crimeType;
+    private final String crimeType;
     /**
      * Data the crime occurred
      */
-    private String date;
+    private final String date;
     /**
      * Case number of the crime
      */
-    private String crimeID;
+    private final String crimeID;
 
     /**
      * Constructs a DynamicMapMarker.
@@ -45,6 +45,7 @@ public class DynamicMapMarker {
      * Formats the DynamicMapMarker into JSON format.
      * @return A String in JSON format.
      */
+    @Override
     public String toString() {
         if (crimeType == null) {
             return "{lat:" + lat + ",lng:" + lng + "}";

@@ -8,7 +8,7 @@ import seng202.group6.Controllers.MasterController;
 import seng202.group6.DynamicMapSRC.JavascriptMethods;
 import seng202.group6.Models.Crime;
 import seng202.group6.Models.DynamicMapMarker;
-import java.io.File;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class DynamicMapService {
     private static WebView mapView;
     /**
      * Holds the window object of the html of the dynamic map. Used for adding JavascriptMethods object to
-     * dynamic maps javascipt.
+     * dynamic maps javascript.
      */
     private static JSObject window;
     /**
@@ -61,14 +61,14 @@ public class DynamicMapService {
      * Takes an ArrayList of Crime objects and calls the javascript function addMarker in EmbedMapsScript.js
      * on each crime. Passes the latitude, longitude, primary description, date and case number of each crime through.
      * addMarker adds a marker on the dynamic map at the Crime object coordinates, with an on click set to show an
-     * infowindow with the Crime objects primary description, date and case number.
+     * infoWindow with the Crime objects primary description, date and case number.
      * @param crimes An ArrayList of Crime object which are to be added as markers to the dynamic map.
      */
     public static void loadMarkers(ArrayList<Crime> crimes) {
-        for (int i = 0; i < crimes.size(); i++) {
+        for (Crime crime : crimes) {
             String script = "addMarker([";
-            DynamicMapMarker marker = new DynamicMapMarker(crimes.get(i).getLatitude(), crimes.get(i).getLongitude(),
-                    crimes.get(i).getPrimaryDescription(), crimes.get(i).getReadableDate(), crimes.get(i).getCaseNumber());
+            DynamicMapMarker marker = new DynamicMapMarker(crime.getLatitude(), crime.getLongitude(),
+                    crime.getPrimaryDescription(), crime.getReadableDate(), crime.getCaseNumber());
             script += marker.toString();
             script += ",])";
             mapView.getEngine().executeScript(script);
@@ -133,7 +133,6 @@ public class DynamicMapService {
     /**
      * Gets an ArrayList of Crime objects from applying a filter. Calls loadMarkers on this ArrayList.
      * @param filter Filter object to retrieve the required data from the database.
-     * @throws SQLException
      */
     public static void loadFilteredMarkers(Filter filter) throws SQLException {
         filter.setCentre(getMapCentre());

@@ -24,14 +24,13 @@ public class Filter {
 
     private LocalDate start;
     private LocalDate end;
-    private HashSet<String> types = new HashSet<>();
-    private HashSet<String> locations = new HashSet<>();
+    private Set<String> types = new HashSet<>();
+    private Set<String> locations = new HashSet<>();
     private Boolean arrest;
     private Boolean domestic;
     private Set<Integer> beats = new HashSet<>();
     private Set<Integer> wards = new HashSet<>();
     private LatLng centre;
-
 
     /**
      * Builds an SQL query from the different filter settings
@@ -144,14 +143,13 @@ public class Filter {
         if (end != null) {
             this.end = end.plusDays(1);
         }
-
     }
 
     /**
      * Sets the filter to filter for crimes with their primary description (type) in types
      * @param types A set of Strings of primary descriptions.
      */
-    public void setTypes(HashSet<String> types) {
+    public void setTypes(Set<String> types) {
         this.types = types;
     }
 
@@ -159,7 +157,7 @@ public class Filter {
      * Sets the filter to filter for crimes with their location description in locations
      * @param locations A set of Strings of location descriptions
      */
-    public void setLocations(HashSet<String> locations) {
+    public void setLocations(Set<String> locations) {
         this.locations = locations;
     }
 
@@ -203,16 +201,9 @@ public class Filter {
         if (!wardString.isEmpty()) {
             for (String ward : wardString.split(",\\s*")) {
                     wards.add(Integer.parseInt(ward));
-                }
             }
         }
-
     }
-
-
-
-
-
-
+}
 
 

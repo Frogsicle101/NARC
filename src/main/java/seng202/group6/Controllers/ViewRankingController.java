@@ -10,8 +10,12 @@ import seng202.group6.Models.Frequency;
 import seng202.group6.Models.TimeType;
 import seng202.group6.Services.RankService;
 
-import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Controller class for viewing the frequencies of crimes in a field, associated with
+ * viewCrimeRankingScreen.fxml. Is a child class of MasterController
+ */
 
 public class ViewRankingController extends MasterController {
 
@@ -66,7 +70,6 @@ public class ViewRankingController extends MasterController {
         ArrayList<Frequency> data = new ArrayList<>(RankService.rankedTimeList(crimeData, TimeType.HOUR_OF_DAY));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         tableView.setItems(FXCollections.observableArrayList(data));
-
     }
 
     /**
@@ -88,6 +91,5 @@ public class ViewRankingController extends MasterController {
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("month"));
         tableView.setItems(FXCollections.observableArrayList(data));
     }
-
 
 }

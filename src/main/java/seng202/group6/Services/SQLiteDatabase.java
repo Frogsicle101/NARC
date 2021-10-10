@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
 import seng202.group6.Models.Crime;
 
 /**
@@ -32,7 +31,6 @@ public class SQLiteDatabase {
         connection = DriverManager.getConnection(jdbcUrl);
         connection.setAutoCommit(false);    //Allows SQL statements to be batched, rather than executing one at a time
     }
-
 
     /**
      * Checks whether a table exists in the database, and creates it if it doesn't exist
@@ -100,14 +98,13 @@ public class SQLiteDatabase {
     }
 
     /**
-     * Deletes a crime record from a particular table with the same case_id as the given crimeme
+     * Deletes a crime record from a particular table with the same case_id as the given crime
      * @param tableName The name of the table to delete from
      * @param crime The crime to delete
      */
     public static void deleteFromTable(String tableName, Crime crime) throws SQLException {
         String sql = "DELETE FROM " + tableName +
                 " WHERE case_id = '" + crime.getCaseNumber() + "';";
-
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(sql);
@@ -170,7 +167,7 @@ public class SQLiteDatabase {
                     data.getString("longitude") == null ? -1 : data.getDouble("longitude"));
             out.add(newCrime);
         }
-        data.close();   //Closes the ResultSet to locking the database
+        data.close();   //Closes the ResultSet to avoid locking the database
         return out;
     }
 

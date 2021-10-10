@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class JavascriptMethods {
 
     /**
-     * Called by the javascript function onPlaceChanged. Called when an address is searched in the dyunamic map.
+     * Called by the javascript function onPlaceChanged. Called when an address is searched in the dynamic map.
      * Removes all markers currently on the dynamic map then adds markers in the radius around the searched address.
      */
     public void addMarkersToMap(){
@@ -28,7 +28,7 @@ public class JavascriptMethods {
 
     /**
      * Called by the javascript function viewMoreInfo. Called when the view more info button within a markers
-     * infowindow is clicked. Takes a Crimes case number queries the database for this crime. Opens the
+     * infoWindow is clicked. Takes a Crimes case number queries the database for this crime. Opens the
      * view more info window populated with the returned Crime from the database.
      * @param crimeID The case number of the crime to view more information about.
      */
@@ -41,6 +41,5 @@ public class JavascriptMethods {
             System.out.println("SQL Exception in JavascriptMethods.viewInfo: " + e);
             e.printStackTrace();
         }
-
     }
 }

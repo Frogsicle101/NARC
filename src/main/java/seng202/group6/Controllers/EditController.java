@@ -1,6 +1,5 @@
 package seng202.group6.Controllers;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,12 +12,7 @@ import seng202.group6.Services.SQLiteDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
-
-import static seng202.group6.Services.ParserService.parseDateString;
 
 /**
  * Controller class for editing the details of or adding a new crime, associated with
@@ -26,7 +20,6 @@ import static seng202.group6.Services.ParserService.parseDateString;
  */
 
 public class EditController extends MasterController implements Initializable {
-
 
     protected static boolean isNewCrime;
 

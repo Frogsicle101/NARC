@@ -1,11 +1,11 @@
 package seng202.group6.Models;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Crime is a model class, used to model each class that is fed into the database.
  * It stores all attributes of the crime it represents
- *
  */
 
 public class Crime {
@@ -32,13 +32,13 @@ public class Crime {
     /**
      * A constructor for type crime that gets fed a series of strings representing the various variables within it,
      * all parameters are fed in as strings
-     * @param case_id A string representing the case number of the crime, two Letters followed by 6 digits of form AB123456
-     * @param occurrence_date A LocalDateTime representing the date of the crime
+     * @param caseNumber A string representing the case number of the crime, two Letters followed by 6 digits of form AB123456
+     * @param occurrenceDate A LocalDateTime representing the date of the crime
      * @param block A string representing the block the crime occurred at, presented as a zip code and streets with the last two digits anonymized, an
      *              example is 073XX S SOUTH SHORE DR
      * @param iucr A string representing the Illinois Uniform Crime Reporting code
-     * @param primary_description A string representing the textual description of the crime i.e. THEFT/ MURDER
-     * @param secondary_description A string representing further detail of the nature of the crime, i.e. if the primary is
+     * @param primaryDescription A string representing the textual description of the crime i.e. THEFT/ MURDER
+     * @param secondaryDescription A string representing further detail of the nature of the crime, i.e. if the primary is
      *                             THEFT the secondary might be OVER $500
      * @param arrest Whether the perpetrator of the crime was arrested
      * @param domestic Whether the crime was domestic or not
@@ -49,12 +49,12 @@ public class Crime {
      * @param latitude The latitudinal coordinates of the crime
      * @param longitude The longitudinal coordinates of the crime
      */
-     public Crime(String case_id,
-                  LocalDateTime occurrence_date,
+     public Crime(String caseNumber,
+                  LocalDateTime occurrenceDate,
                   String block,
                   String iucr,
-                  String primary_description,
-                  String secondary_description,
+                  String primaryDescription,
+                  String secondaryDescription,
                   boolean arrest,
                   boolean domestic,
                   int beat,
@@ -64,12 +64,12 @@ public class Crime {
                   double latitude,
                   double longitude) {
 
-         this.caseNumber = case_id;
-         this.date = occurrence_date;
+         this.caseNumber = caseNumber;
+         this.date = occurrenceDate;
          this.block = block;
          this.iucr = iucr;
-         this.primaryDescription = primary_description;
-         this.secondaryDescription = secondary_description;
+         this.primaryDescription = primaryDescription;
+         this.secondaryDescription = secondaryDescription;
          this.arrest = arrest;
          this.domestic = domestic;
          this.beat = beat;
@@ -80,10 +80,9 @@ public class Crime {
          this.longitude = longitude;
      }
 
-
     /**
      * An equality checker for a Crime and an object
-     * @param other an object to be compared to
+     * @param other An object to be compared to
      * @return A boolean value of if the objects have the same variables
      */
     @Override
@@ -118,7 +117,7 @@ public class Crime {
     @Override
     public String toString() {
         return "'" + (this.caseNumber.equals("") ? "NULL" : this.caseNumber) + "', " +
-        "'" + (this.date.equals("") ? "NULL" : this.date) + "', " +
+        "'" + (this.date == null ? "NULL" : this.date) + "', " +
         "'" + (this.block.equals("") ? "NULL" : this.block) + "', " +
         "'" + (this.iucr.equals("") ? "NULL" : this.iucr) + "', " +
         "'" + (this.primaryDescription.equals("") ? "NULL" : this.primaryDescription) + "', " +
@@ -136,12 +135,12 @@ public class Crime {
     public boolean getArrest() { return this.arrest;}
 
     public String getReadableArrest() {
-        return this.arrest == true ? "YES" : "NO";
+        return this.arrest ? "YES" : "NO";
     }
 
     public boolean getDomestic() {return this.domestic;}
 
-    public String getReadableDomestic() {return this.domestic == true ? "YES" : "NO";}
+    public String getReadableDomestic() {return this.domestic ? "YES" : "NO";}
 
     public String getCaseNumber() {return caseNumber;}
 
@@ -261,6 +260,4 @@ public class Crime {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
-
 }

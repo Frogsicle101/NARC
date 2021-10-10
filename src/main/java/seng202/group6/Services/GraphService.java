@@ -5,12 +5,14 @@ import seng202.group6.Models.Crime;
 import seng202.group6.Models.Frequency;
 import seng202.group6.Models.TimeType;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-
-
+import java.util.List;
 
 import static seng202.group6.Services.RankService.rankedTimeList;
+
+/**
+ * Service for creating and displaying different types of graphs
+ */
 
 public class GraphService {
 
@@ -18,10 +20,14 @@ public class GraphService {
     public static int minValue = 0;
     public static String[] times;
 
-
-
-    public static XYChart.Series<String, Number> getChartData(TimeType timeType, ArrayList<Crime> crimeData) {
-        ArrayList<Frequency> timeFrequencyData;
+    /**
+     * Creates a graph of crime data over a certain range of times
+     * @param timeType The time range to display crimes over
+     * @param crimeData The list of crimes to display on the graph
+     * @return A series of data that can be displayed as a graph
+     */
+    public static XYChart.Series<String, Number> getChartData(TimeType timeType, List<Crime> crimeData) {
+        List<Frequency> timeFrequencyData;
         switch (timeType) {
             case HOUR_OF_DAY -> {
                 minValue = 0;
@@ -44,12 +50,12 @@ public class GraphService {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         timeFrequencyData = rankedTimeList(crimeData, timeType);
 
-        timeFrequencyData.sort(Comparator.comparing(Frequency::getValue));
+        timeFrequencyData.sort(Comparator.comparing(Frequency::getField));
         for (int i = minValue; i < maxValue; i++) {
             boolean found = false;
             int index = 0;
             for (Frequency time : timeFrequencyData) {
-                if (Integer.parseInt(time.getValue()) == i) {
+                if (Integer.parseInt(time.getField()) == i) {
                     found = true;
                     index = timeFrequencyData.indexOf(time);
                 }
@@ -57,7 +63,7 @@ public class GraphService {
             if (found) {
                 if (timeType == TimeType.HOUR_OF_DAY) {
                     series.getData().add(new XYChart.Data<>(times[i], timeFrequencyData.get(index).getCount()));
-                } else { //cater for the days of week and month of year
+                } else { //Cater for the days of week and month of year
                     series.getData().add(new XYChart.Data<>(times[i-1], timeFrequencyData.get(index).getCount()));
                 }
             } else {
@@ -68,9 +74,7 @@ public class GraphService {
                 }
 
             }
-
-            }
-
+        }
         return series;
     }
 }
