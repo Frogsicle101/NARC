@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 public class HomeController extends MasterController implements Initializable {
 
-
     @FXML
     private Button mapButton;
 
@@ -27,7 +26,6 @@ public class HomeController extends MasterController implements Initializable {
 
     @FXML
     private Button graphButton;
-
 
     /**
      * Method to override initialise method from Initializable interface. Sets all buttons
@@ -49,7 +47,6 @@ public class HomeController extends MasterController implements Initializable {
      * is clicked
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
-
     public void clickMap() throws IOException {
         changeToMapScreen();
     }
@@ -59,7 +56,6 @@ public class HomeController extends MasterController implements Initializable {
      * is clicked
      * @throws IOException Throws an error if reading from fxml when changing screens fails
      */
-
     public void clickData() throws IOException {
         changeToDataScreen();
     }

@@ -19,15 +19,16 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.embed.swing.SwingFXUtils;
-import seng202.group6.Controllers.MasterController;
 import seng202.group6.DynamicMapSRC.ApiKey;
 import seng202.group6.Models.Crime;
 
 /**
  * Service for creating a static map image with markers.
  */
+
 public class StaticMapService {
 
     /**
@@ -39,7 +40,7 @@ public class StaticMapService {
      * @param height Height of the static map image.
      * @return returns a javafx.scene.image.Image object or null if an error occurs.
      */
-    public static Image getStaticMap(String centre, ArrayList<Crime> crimeData, int width, int height) {
+    public static Image getStaticMap(String centre, List<Crime> crimeData, int width, int height) {
         try {
             GeoApiContext context = new GeoApiContext.Builder().apiKey(ApiKey.getApiKey()).build();
             GeocodingResult[] geocodingResult = geoCodeAddress(context, centre);
@@ -48,7 +49,7 @@ public class StaticMapService {
             StaticMapsRequest request = StaticMapsApi.newRequest(context, size);
             int zoom = highestLevelZoom(geocodingResult);
             request.center(centreLatLng).zoom(zoom).maptype(StaticMapsRequest.StaticMapType.roadmap);
-            Markers markers = addStaticMapMarkers(crimeData, centreLatLng, zoom);
+            Markers markers = addStaticMapMarkers((ArrayList<Crime>) crimeData, centreLatLng, zoom);
             request.markers(markers);
             ImageResult result = request.await();
             Image image = arrayToImage(result.imageData);
@@ -70,9 +71,8 @@ public class StaticMapService {
      * @throws ApiException Caused by requesting from Google Maps api.
      */
     public static GeocodingResult[] geoCodeAddress(GeoApiContext context, String address) throws IOException, InterruptedException, ApiException {
-        GeocodingResult[] results =  GeocodingApi.geocode(context,
+        return GeocodingApi.geocode(context,
                 address).await();
-        return results;
     }
 
     /**
@@ -90,7 +90,6 @@ public class StaticMapService {
         while (!isFoundZoom && i < addressComponents.length) {
             switch (addressComponents[i].types[0].name()) {
                 case "STREET_NUMBER":
-                    ;
                 case "ROUTE":
                     zoomLevel = 15;
                     isFoundZoom = true;
@@ -100,9 +99,10 @@ public class StaticMapService {
                     isFoundZoom = true;
                 case "POLITICAL":
                     for (AddressComponentType type : addressComponentTypes) {
-                        if (type.name() == "SUBLOCALITY"){
+                        if (type.name().equals("SUBLOCALITY")) {
                             zoomLevel = 14;
                             isFoundZoom = true;
+                            break;
                         }
                     }
                     break;
@@ -121,7 +121,7 @@ public class StaticMapService {
             }
             i++;
         }
-        if (isFoundZoom != true) {
+        if (!isFoundZoom) {
             zoomLevel = 10;
         }
         return zoomLevel;
@@ -138,46 +138,38 @@ public class StaticMapService {
     public static Markers addStaticMapMarkers(ArrayList<Crime> crimeData, LatLng centreLocation, int zoom) {
         Markers markers = new Markers();
         int numMarkers = 0;
-        for (int i =0; i < crimeData.size(); i++) {
+        for (Crime crimeDatum : crimeData) {
             try {
-                Double crimeLat = crimeData.get(i).getLatitude();
-                Double crimeLng = crimeData.get(i).getLongitude();
+                double crimeLat = crimeDatum.getLatitude();
+                double crimeLng = crimeDatum.getLongitude();
                 LatLng crimeLocation = new LatLng(crimeLat, crimeLng);
-                Double distanceToCentre = getDistanceFromCentre(crimeData.get(i), centreLocation);
+                Double distanceToCentre = getDistanceFromCentre(crimeDatum, centreLocation);
                 if ((distanceToCentre < 6) && (numMarkers < 500)) {
                     markers.addLocation(crimeLocation);
                     numMarkers++;
                 }
-            } catch (java.lang.NumberFormatException e) {
+            } catch (NumberFormatException ignored) {
             }
         }
         switch (zoom) {
-            case 5:;
-            case 8:;
-            case 10:;
-            case 11:
-                markers.size(Markers.MarkersSize.tiny);
-                break;
-            case 15:
-                markers.size(Markers.MarkersSize.normal);
-                break;
-            default:
-                markers.size(Markers.MarkersSize.small);
+            case 5, 8, 10, 11 -> markers.size(Markers.MarkersSize.tiny);
+            case 15 -> markers.size(Markers.MarkersSize.normal);
+            default -> markers.size(Markers.MarkersSize.small);
         }
         return markers;
     }
 
     /**
      * Converts a bytearray into a javafx.scene.image.Image.
-     * @param byte_array bytearray with image data.
+     * @param byteArray bytearray with image data.
      * @return Javafx Image.
      */
-    public static Image arrayToImage(byte[] byte_array) {
+    public static Image arrayToImage(byte[] byteArray) {
         Image image = null;
         try {
-            ByteArrayInputStream input_stream = new ByteArrayInputStream(byte_array);
-            BufferedImage final_buffered_image = ImageIO.read(input_stream);
-            image = SwingFXUtils.toFXImage(final_buffered_image, null);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(byteArray);
+            BufferedImage finalBufferedImage = ImageIO.read(inputStream);
+            image = SwingFXUtils.toFXImage(finalBufferedImage, null);
 
         } catch (Exception e) {
             System.out.println("Error in producing map image: " + e);
@@ -193,8 +185,8 @@ public class StaticMapService {
      * @return Distance between a crime and location.
      */
     public static Double getDistanceFromCentre(Crime otherCrime, LatLng centre){
-        Double x = (centre.lng - otherCrime.getLongitude()) * 111;
-        Double y = (centre.lat - otherCrime.getLatitude()) * 111;
+        double x = (centre.lng - otherCrime.getLongitude()) * 111;
+        double y = (centre.lat - otherCrime.getLatitude()) * 111;
         return Math.hypot(x, y);
     }
 

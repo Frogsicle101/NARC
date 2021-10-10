@@ -3,10 +3,6 @@ package seng202.group6.Services;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.opencsv.exceptions.CsvValidationException;
 import seng202.group6.Models.Crime;
 
@@ -16,9 +12,13 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
-
+/**
+ * Service for parsing a CSV file into an ArrayList of Crime objects
+ */
 public class ParserService {
+
     /**
      * Gets the data from the given file and converts it into an arraylist.
      * @param file A file object in CSV form, containing a list of crimes
@@ -54,29 +54,18 @@ public class ParserService {
      * @throws IOException When writing the file fails
      * @throws SQLException When reading the database fails
      */
-    public static void arrayListToCSV(File file, ArrayList<Crime> crimes) throws IOException, SQLException {
+    public static void arrayListToCSV(File file, List<Crime> crimes) throws IOException, SQLException {
         CSVWriter writer = new CSVWriter(new FileWriter(file));
         String[] header = {"CASE#", "DATE OF OCCURRENCE", "BLOCK", "IUCR", "PRIMARY DESCRIPTION", "SECONDARY DESCRIPTION",
                 "LOCATION DESCRIPTION", "ARREST", "DOMESTIC", "BEAT", "WARD", "FBI CD", "X COORDINATE", "Y COORDINATE",
                 "LATITUDE", "LONGITUDE", "LOCATION"};
-
         writer.writeNext(header);
-
         ArrayList<String[]> strings = new ArrayList<>(crimes.size());
         for (Crime crime: crimes) {
             strings.add(buildFieldsFromCrime(crime));
         }
-
         writer.writeAll(strings);
-
         writer.close();
-
-
-
-
-
-
-
     }
 
     /**
@@ -109,7 +98,6 @@ public class ParserService {
      * @return A list of strings with fields in the same order as the supplied CSVs
      */
     public static String[] buildFieldsFromCrime(Crime crime) {
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
         String date = crime.getDate().format(format).toUpperCase(); //AM and PM should be uppercase as in original data
 
@@ -136,7 +124,6 @@ public class ParserService {
                 lon,
                 String.format("(%s, %s)", lat, lon)
         };
-
     }
 
     /**

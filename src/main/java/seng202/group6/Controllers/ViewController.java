@@ -74,7 +74,7 @@ public class ViewController extends MasterController implements Initializable {
 
         Crime viewedCrime = MasterController.currentCrime;
         String centre = viewedCrime.getLatitude() + "," + viewedCrime.getLongitude();
-        ArrayList<Crime> crimes = new ArrayList<Crime>();
+        ArrayList<Crime> crimes = new ArrayList<>();
         crimes.add(viewedCrime);
 
         caseNumber.setText(viewedCrime.getCaseNumber());
@@ -84,8 +84,8 @@ public class ViewController extends MasterController implements Initializable {
         primaryDescription.setText(viewedCrime.getPrimaryDescription());
         secondaryDescription.setText(viewedCrime.getSecondaryDescription());
         location.setText(viewedCrime.getLocationDescription());
-        arrest.setText(viewedCrime.isArrest() == true ? "YES" : "NO");
-        domestic.setText(viewedCrime.isArrest() == true ? "YES" : "NO");
+        arrest.setText(viewedCrime.isArrest() ? "YES" : "NO");
+        domestic.setText(viewedCrime.isArrest() ? "YES" : "NO");
         beat.setText(viewedCrime.getReadableBeat());
         ward.setText(viewedCrime.getReadableWard());
         fbiCD.setText(viewedCrime.getFBI());
@@ -96,7 +96,4 @@ public class ViewController extends MasterController implements Initializable {
             imageView.setImage(StaticMapService.getStaticMap(centre, crimes, 261, 182));
         }
     }
-
-
-
 }

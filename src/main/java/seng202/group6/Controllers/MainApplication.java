@@ -52,7 +52,6 @@ public class MainApplication extends Application {
      * Calls launch method from Application class
      * @param args String[] value of given arguments to main method
      */
-
     public static void main(String[] args) {
         launch();
     }

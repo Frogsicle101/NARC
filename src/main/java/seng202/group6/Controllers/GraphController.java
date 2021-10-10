@@ -152,7 +152,7 @@ public class GraphController extends MasterController implements Initializable {
         ArrayList<Frequency> data = rankedTypeList(crimeData);
         ObservableList<PieChart.Data> pcd = FXCollections.observableArrayList();
         for (Frequency crimeType : data) {
-            pcd.add(new PieChart.Data(crimeType.getValue(), crimeType.getCount()));
+            pcd.add(new PieChart.Data(crimeType.getField(), crimeType.getCount()));
         }
 
         if (!flag) {

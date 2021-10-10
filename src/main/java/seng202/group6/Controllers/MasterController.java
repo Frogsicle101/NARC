@@ -20,14 +20,12 @@ import java.util.ArrayList;
 
 public class MasterController {
 
-
     protected static ArrayList<Crime> crimeData = new ArrayList<>();
     protected static ArrayList<Crime> unfilteredData = new ArrayList<>();
     protected static Crime currentCrime;
     protected static Stage stage;
     protected static Filter dataFilter;
-    protected static boolean choseMap = false;
-
+    protected static boolean choseMap = false;      //Stores whether the app is in data view or map view
 
     /**
      * Method to read from database and populate the crimeData array in order
@@ -43,6 +41,7 @@ public class MasterController {
             System.out.println("Error in MasterController.populateCrimeArray" + e);
         }
     }
+
     /**
      * Method to change between scenes in the current window
      * @param screen A string telling the method with screen to switch to
@@ -60,7 +59,6 @@ public class MasterController {
      * change current scene to the home screen
      * @throws IOException Throws an error if reading from the fxml file fails
      */
-
     public void changeToHomeScreen() throws IOException {
         changeScreen("homeScreen.fxml");
     }
@@ -70,7 +68,6 @@ public class MasterController {
      * change current scene to the map screen
      * @throws IOException Throws an error if reading from the fxml file fails.
      */
-
     public void changeToMapScreen() throws IOException {
         choseMap = true;
         changeScreen("dataScreen.fxml");
@@ -81,7 +78,6 @@ public class MasterController {
      * change current scene to the data screen
      * @throws IOException Throws an error if reading from the fxml file fails.
      */
-
     public void changeToDataScreen() throws IOException {
         choseMap = false;
         changeScreen("dataScreen.fxml");
@@ -92,7 +88,6 @@ public class MasterController {
      * change current scene to the map screen
      * @throws IOException Throws an error if reading from the fxml file fails.
      */
-
     public void changeToImportScreen() throws IOException {
         changeScreen("importScreen.fxml");
     }
@@ -102,7 +97,6 @@ public class MasterController {
      * change current scene to the graph screen
      * @throws IOException Throws an error if reading from the fxml file fails.
      */
-
     public void changeToGraphScreen() throws IOException {
         changeScreen("graphScreen.fxml");
     }
@@ -112,7 +106,6 @@ public class MasterController {
      * attributes, takes a specific crime as a parameter
      * @param crime Specific crime selected by user to view detailed description
      */
-
     public static void launchViewScreen(Crime crime) throws IOException {
 
         currentCrime = crime;
@@ -122,7 +115,6 @@ public class MasterController {
         Scene newScene = new Scene(newScreen, 700, 550);
         viewStage.setScene(newScene);
         viewStage.show();
-
     }
 
     /**
@@ -144,8 +136,6 @@ public class MasterController {
         viewStage.setScene(newScene);
         viewStage.show();
     }
-
-
 
     /**
      * Method to launch edit screen.

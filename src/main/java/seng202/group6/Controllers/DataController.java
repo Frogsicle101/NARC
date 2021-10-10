@@ -27,10 +27,8 @@ import java.util.stream.Collectors;
 
 public class DataController extends MasterController implements Initializable {
 
-    private Set<String> types = new HashSet<>();
-    private Set<String> locations = new HashSet<>();
-
-
+    private final Set<String> types = new HashSet<>();
+    private final Set<String> locations = new HashSet<>();
 
     @FXML
     private Button homeButton;
@@ -109,7 +107,6 @@ public class DataController extends MasterController implements Initializable {
 
     @FXML
     private RadioButton noDomestic;
-
 
     @FXML
     private TextField wardSearch;
@@ -236,8 +233,8 @@ public class DataController extends MasterController implements Initializable {
      * Populates the table and map with this filtered data.
      */
     public void clickApply() {
-        String beatString = new String();
-        String wardString = new String();
+        String beatString;
+        String wardString;
         boolean validBeatString = true;
         boolean validWardString = true;
 
@@ -286,33 +283,34 @@ public class DataController extends MasterController implements Initializable {
         beatString = beatSearch.getText();
         if (!beatString.isEmpty()) {
             for (String beat : beatString.split(",\\s*")) {
-                if (!beat.matches("[0-9]+")){
+                if (!beat.matches("[0-9]+")) {
                     validBeatString = false;
+                    break;
                 }
             }
         }
         if (validBeatString) {
             filter.setBeats(beatString);
         } else {
-            (new Alert(Alert.AlertType.ERROR, "Invalid Beat Input: Beats must be only numbers separated by commas or spaces. "
+            (new Alert(Alert.AlertType.ERROR, "Invalid Beat Input: Beats must be only numbers separated by commas. "
             + "\nPlease reset the filter and rank and try again")).show();
         }
 
         wardString = wardSearch.getText();
         if (!wardString.isEmpty()) {
             for (String ward : wardString.split(",\\s*")) {
-                if (!ward.matches("[0-9]+")){
+                if (!ward.matches("[0-9]+")) {
                     validWardString = false;
+                    break;
                 }
             }
         }
         if (validWardString) {
             filter.setWards(wardString);
         } else {
-            (new Alert(Alert.AlertType.ERROR, "Invalid Ward Input: Wards must be only numbers separated by commas or spaces. " +
+            (new Alert(Alert.AlertType.ERROR, "Invalid Ward Input: Wards must be only numbers separated by commas. " +
                     "\nPlease reset the filter and rank and try again")).show();
         }
-
 
         dataFilter = filter; //added to allow map to use data filter
 
