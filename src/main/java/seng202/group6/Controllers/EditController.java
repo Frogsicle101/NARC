@@ -1,6 +1,5 @@
 package seng202.group6.Controllers;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,12 +12,7 @@ import seng202.group6.Services.SQLiteDatabase;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
-
-import static seng202.group6.Services.ParserService.parseDateString;
 
 /**
  * Controller class for editing the details of or adding a new crime, associated with
@@ -132,11 +126,9 @@ public class EditController extends MasterController implements Initializable {
     public void clickApply(ActionEvent event) throws IOException {
 
         Crime editedCrime = new Crime();
-        boolean validCrime = true;
 
         if (caseNumber.getText().equals("") || caseNumber.getText() == null) {
             (new Alert(Alert.AlertType.ERROR, "Please enter a case number, field cannot be empty")).show();
-            validCrime = false;
             return;
         }
 
@@ -158,27 +150,24 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setDate(date.getValue().atTime(hour, minute));
             } else {
                 (new Alert(Alert.AlertType.ERROR, "Invalid hour or minute field")).show();
-                validCrime = false;
                 return;
             }
         } catch (NumberFormatException e) {
-            validCrime = false;
-            (new Alert(Alert.AlertType.ERROR, "Time must be an integer")).show();
-        } catch(Exception e) {
-            validCrime = false;
-            (new Alert(Alert.AlertType.ERROR, "Date formatted incorrectly. dd/mm/yyyy needed")).show();
+            (new Alert(Alert.AlertType.ERROR, "Time must be an number")).show();
+            return;
+        } catch(NullPointerException e) {
+            (new Alert(Alert.AlertType.ERROR, "Date can't be empty")).show();
+            e.printStackTrace();
             return;
         }
 
         try {
             Integer.parseInt(block.getText().substring(0,3));
         } catch (NumberFormatException e) {
-            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. First three characters " +
                     "need to be integers.")).show();
             return;
         } catch (StringIndexOutOfBoundsException e) {
-            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Block formatted incorrectly. Needs to be longer than 3 characters " +
                     "and the first three characters " +
                     "need to be integers.")).show();
@@ -192,7 +181,6 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setBeat(Integer.parseInt(beat.getText()));
             }
         } catch (NumberFormatException e) {
-            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Beat formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
@@ -204,7 +192,6 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setWard(Integer.parseInt(ward.getText()));
             }
         } catch (NumberFormatException e) {
-            validCrime = false;
             (new Alert(Alert.AlertType.ERROR, "Ward formatted incorrectly. Needs to be an integer.")).show();
             return;
         }
@@ -216,8 +203,7 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLatitude(Double.parseDouble(latitude.getText()));
             }
         } catch (NumberFormatException e){
-            validCrime = false;
-            (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly. Needs to be a double.")).show();
+            (new Alert(Alert.AlertType.ERROR, "Latitude formatted incorrectly. Needs to be a number")).show();
             return;
         }
 
@@ -228,46 +214,42 @@ public class EditController extends MasterController implements Initializable {
                 editedCrime.setLongitude(Double.parseDouble(longitude.getText()));
             }
         } catch (NumberFormatException e){
-            validCrime = false;
-            (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly. Needs to be a double.")).show();
+            (new Alert(Alert.AlertType.ERROR, "Longitude formatted incorrectly. Needs to be a number")).show();
             return;
         }
-        if (validCrime) {
 
-            currentCrime.setDate(editedCrime.getDate());
-            currentCrime.setCaseNumber(caseNumber.getText());
-            currentCrime.setBlock(block.getText());
-            currentCrime.setIucr(IUCR.getText());
-            currentCrime.setPrimaryDescription(primaryDescription.getText());
-            currentCrime.setSecondaryDescription(secondaryDescription.getText());
-            currentCrime.setLocationDescription(location.getText());
-            currentCrime.setArrest(arrest.isSelected());
-            currentCrime.setDomestic(domestic.isSelected());
-            currentCrime.setFBI(fbiCD.getText());
-            currentCrime.setWard(editedCrime.getWard());
-            currentCrime.setBeat(editedCrime.getBeat());
-            currentCrime.setLatitude(editedCrime.getLatitude());
-            currentCrime.setLongitude(editedCrime.getLongitude());
+        currentCrime.setDate(editedCrime.getDate());
+        currentCrime.setCaseNumber(caseNumber.getText());
+        currentCrime.setBlock(block.getText());
+        currentCrime.setIucr(IUCR.getText());
+        currentCrime.setPrimaryDescription(primaryDescription.getText());
+        currentCrime.setSecondaryDescription(secondaryDescription.getText());
+        currentCrime.setLocationDescription(location.getText());
+        currentCrime.setArrest(arrest.isSelected());
+        currentCrime.setDomestic(domestic.isSelected());
+        currentCrime.setFBI(fbiCD.getText());
+        currentCrime.setWard(editedCrime.getWard());
+        currentCrime.setBeat(editedCrime.getBeat());
+        currentCrime.setLatitude(editedCrime.getLatitude());
+        currentCrime.setLongitude(editedCrime.getLongitude());
 
-            try {
-                if (isNewCrime) {
-                    SQLiteDatabase.insertIntoTable(ImportController.currentTable, MasterController.currentCrime);
-                    crimeData.add(MasterController.currentCrime);
-                } else {
-                    SQLiteDatabase.updateInTable(ImportController.currentTable, currentCrime);
-                }
-
-                SQLiteDatabase.endTransaction();
-
-                changeToDataScreen();
-
-                ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
-            } catch (SQLException e) {
-                (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database. This is possibly due to" +
-                        "using a pre-existing case number")).show();
-                e.printStackTrace();
+        try {
+            if (isNewCrime) {
+                SQLiteDatabase.insertIntoTable(ImportController.currentTable, MasterController.currentCrime);
+                crimeData.add(MasterController.currentCrime);
+            } else {
+                SQLiteDatabase.updateInTable(ImportController.currentTable, currentCrime);
             }
 
+            SQLiteDatabase.endTransaction();
+
+            changeToDataScreen();
+
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+        } catch (SQLException e) {
+            (new Alert(Alert.AlertType.ERROR, "Invalid Crime - could not add to database. This is possibly due to" +
+                    "using a pre-existing case number")).show();
+            e.printStackTrace();
         }
 
     }

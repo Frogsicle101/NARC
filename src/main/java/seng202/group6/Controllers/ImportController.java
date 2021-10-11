@@ -157,6 +157,7 @@ public class ImportController extends MasterController implements Initializable 
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open crime data file");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
         int[] recordsOmitted = {};
         boolean validUpload = true;
         File crimeFile = fileChooser.showOpenDialog(stage);
@@ -205,6 +206,9 @@ public class ImportController extends MasterController implements Initializable 
             } else if (!Character.isLetter(tableName.get().charAt(0))) {
                 (new Alert(Alert.AlertType.ERROR, "Invalid table name: Must start with an alphabetical letter")).show();
                 validName = false;
+            } else if (!tableName.get().matches("[a-zA-Z0-9_]")) {
+                (new Alert(Alert.AlertType.ERROR, "Invalid table name: Cannot contain special characters")).show();
+                validName = false;
             }
             if (validName) {
                 try {
@@ -214,7 +218,6 @@ public class ImportController extends MasterController implements Initializable 
                     tableList.setItems(FXCollections.observableArrayList(tableNames));
                 } catch (SQLException e) {
                     (new Alert(Alert.AlertType.ERROR, "Unable to add to database")).show();
-                    e.printStackTrace();
                 } catch (CsvValidationException | IOException e) {
                     (new Alert(Alert.AlertType.ERROR, "Unable to read file")).show();
                 }
