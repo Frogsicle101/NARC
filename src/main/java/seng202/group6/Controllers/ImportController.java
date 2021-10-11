@@ -206,7 +206,7 @@ public class ImportController extends MasterController implements Initializable 
             } else if (!Character.isLetter(tableName.get().charAt(0))) {
                 (new Alert(Alert.AlertType.ERROR, "Invalid table name: Must start with an alphabetical letter")).show();
                 validName = false;
-            } else if (!tableName.get().matches("[a-zA-Z0-9_]")) {
+            } else if (!tableName.get().matches("[a-zA-Z0-9_]*")) {
                 (new Alert(Alert.AlertType.ERROR, "Invalid table name: Cannot contain special characters")).show();
                 validName = false;
             }
